@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SDC Solutions Business Card</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 40px 20px;
+      gap: 12px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1.page-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+
+    .card-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #aaa;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 6px;
+    }
+
+    .card {
+      width: 3.5in;
+      height: 2in;
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+      border: 1px dashed #ccc;
+    }
+
+    /* ───────────────────────────────────
+       FRONT SIDE
+    ─────────────────────────────────── */
+    .card-front {
+      background: #111;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0.25in 0.3in;
+    }
+
+    .card-front .logo-mark {
+      width: 38px;
+      height: 38px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .card-front .logo-mark span {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 1.5px;
+    }
+
+    .card-front .company-name {
+      font-size: 11pt;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.5px;
+      margin-bottom: 3px;
+    }
+
+    .card-front .legal-name {
+      font-size: 7pt;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.6);
+      letter-spacing: 0.3px;
+    }
+
+    .card-front .tagline {
+      position: absolute;
+      bottom: 14px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 6pt;
+      font-style: italic;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 0.2px;
+    }
+
+    /* ───────────────────────────────────
+       BACK SIDE
+    ─────────────────────────────────── */
+    .card-back {
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0.28in 0.32in;
+    }
+
+    .card-back .person-name {
+      font-size: 12pt;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 2px;
+    }
+
+    .card-back .person-title {
+      font-size: 8pt;
+      font-weight: 400;
+      color: #666;
+      margin-bottom: 14px;
+    }
+
+    .card-back .contact-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .card-back .contact-list li {
+      font-size: 7pt;
+      font-weight: 400;
+      color: #444;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-back .contact-list li .icon {
+      width: 14px;
+      height: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .card-back .contact-list li .icon svg {
+      width: 11px;
+      height: 11px;
+      fill: none;
+      stroke: #999;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .card-back .mini-logo {
+      position: absolute;
+      bottom: 12px;
+      right: 14px;
+      width: 24px;
+      height: 24px;
+      background: #111;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-back .mini-logo span {
+      font-size: 7px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 1px;
+    }
+
+    /* ───────────────────────────────────
+       PRINT — Letter-size page
+    ─────────────────────────────────── */
+    @media print {
+      @page {
+        size: letter;
+        margin: 0.75in;
+      }
+
+      body {
+        background: #fff;
+        padding: 0;
+        justify-content: flex-start;
+        gap: 0.25in;
+      }
+
+      h1.page-title,
+      .card-label {
+        display: none;
+      }
+
+      .card {
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        color-adjust: exact;
+      }
+
+      .card-front {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        color-adjust: exact;
+      }
+
+      .card-front .logo-mark {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        color-adjust: exact;
+      }
+
+      .card-back .mini-logo {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1 class="page-title">SDC Solutions &mdash; Business Card</h1>
+
+  <!-- FRONT -->
+  <div class="card-label">Front</div>
+  <div class="card card-front">
+    <div class="logo-mark">
+      <span>SDC</span>
+    </div>
+    <div class="company-name">SDC Solutions</div>
+    <div class="legal-name">Sabores del Campo LLC</div>
+    <div class="tagline">Your One-Stop Supplier for Foodservice Packaging</div>
+  </div>
+
+  <!-- BACK -->
+  <div class="card-label">Back</div>
+  <div class="card card-back">
+    <div class="person-name">Jose Busto</div>
+    <div class="person-title">Owner</div>
+    <ul class="contact-list">
+      <li>
+        <span class="icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </span>
+        (904) 655-9190
+      </li>
+      <li>
+        <span class="icon">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </span>
+        1001 Mayport Rd, Atlantic Beach, FL 32233
+      </li>
+      <li>
+        <span class="icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>
+        </span>
+        vlabsdevia.github.io/sdc-catalog
+      </li>
+    </ul>
+    <div class="mini-logo">
+      <span>SDC</span>
+    </div>
+  </div>
+
+</body>
+</html>
