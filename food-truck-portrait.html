@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SDC Solutions — Food Truck Essentials (Portrait)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .post {
+      width: 1080px;
+      height: 1440px;
+      background: #fff;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── TOP BANNER ── */
+    .banner {
+      background: #111;
+      color: #fff;
+      padding: 24px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .banner-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .logo {
+      width: 40px; height: 40px;
+      border-radius: 9px;
+      background: rgba(255,255,255,0.15);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      flex-shrink: 0;
+    }
+    .brand-name { font-weight: 700; font-size: 1rem; }
+    .brand-sub { font-size: 0.65rem; opacity: 0.5; }
+    .banner-badge {
+      background: rgba(255,255,255,0.12);
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ── SPECIAL HEADER ── */
+    .special-header {
+      background: linear-gradient(135deg, #fa8c16, #d46b08);
+      color: #fff;
+      text-align: center;
+      padding: 36px 48px 30px;
+    }
+    .special-label {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 5px 18px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .special-title {
+      font-size: 3rem;
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+    .special-subtitle {
+      font-size: 1rem;
+      font-weight: 400;
+      opacity: 0.9;
+      margin-top: 6px;
+    }
+
+    /* ── PRODUCT GRID ── */
+    .products {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
+      gap: 0;
+      flex: 1;
+    }
+    .product {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 16px;
+      border-right: 1px solid #f0f0f0;
+      border-bottom: 1px solid #f0f0f0;
+      background: #fff;
+    }
+    .product:nth-child(3n) { border-right: none; }
+    .product:nth-child(n+7) { border-bottom: none; }
+    .product img {
+      width: 150px;
+      height: 140px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+    .product-name {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #111;
+      text-align: center;
+      line-height: 1.25;
+      max-width: 300px;
+    }
+    .product-desc {
+      font-size: 0.7rem;
+      color: #666;
+      text-align: center;
+      margin-top: 3px;
+    }
+    .product-sku {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 3px 9px;
+      background: #f0f0f0;
+      border-radius: 999px;
+      font-size: 0.6rem;
+      font-family: monospace;
+      color: #666;
+    }
+
+    /* ── BOTTOM CTA ── */
+    .cta {
+      background: #111;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 48px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+    .cta-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .cta-headline {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    .cta-details {
+      font-size: 0.7rem;
+      opacity: 0.5;
+    }
+    .cta-phone {
+      text-align: right;
+    }
+    .cta-phone-label {
+      font-size: 0.65rem;
+      opacity: 0.5;
+    }
+    .cta-phone-number {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .instructions {
+      margin-top: 1.5rem;
+      text-align: center;
+      font-size: 0.8125rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="post">
+
+    <!-- TOP BANNER -->
+    <div class="banner">
+      <div class="banner-left">
+        <div class="logo">SDC</div>
+        <div>
+          <div class="brand-name">SDC Solutions</div>
+          <div class="brand-sub">Sabores del Campo LLC</div>
+        </div>
+      </div>
+      <div class="banner-badge">Jacksonville, FL</div>
+    </div>
+
+    <!-- SPECIAL HEADER -->
+    <div class="special-header">
+      <div class="special-label">Food Truck Essentials</div>
+      <div class="special-title">Stock Your Truck</div>
+      <div class="special-subtitle">Everything you need to serve, pack &amp; go — no minimum order</div>
+    </div>
+
+    <!-- 9 PRODUCT GRID (3x3) -->
+    <div class="products">
+      <!-- 1: To-go container -->
+      <div class="product">
+        <img src="img/togo_001.jpg" alt="Take-Out Container 8x8 3 Comp">
+        <div class="product-name">Take-Out Container 8x8</div>
+        <div class="product-desc">Foam White 3 Comp | 100/Case</div>
+        <div class="product-sku">SDC-TG-001</div>
+      </div>
+      <!-- 2: Clear cup -->
+      <div class="product">
+        <img src="img/cups_022.jpg" alt="Victoria Bay Cold Cup 16oz">
+        <div class="product-name">Cold Cup 16 oz Clear</div>
+        <div class="product-desc">Victoria Bay 98mm PET | 1,000/Case</div>
+        <div class="product-sku">SDC-CL-022</div>
+      </div>
+      <!-- 3: Cutlery kit -->
+      <div class="product">
+        <img src="img/tableware_006.jpg" alt="6PC Cutlery Kit">
+        <div class="product-name">6PC Cutlery Kit</div>
+        <div class="product-desc">Fork, Knife, Spoon, Napkin, S&amp;P | 250/Case</div>
+        <div class="product-sku">SDC-TW-006</div>
+      </div>
+      <!-- 4: Foil wraps -->
+      <div class="product">
+        <img src="img/packaging_002.jpg" alt="Sandwich Wrap Foil Sheets">
+        <div class="product-name">Sandwich Wrap Foil</div>
+        <div class="product-desc">Insulated 14x16 In | 1,000/Case</div>
+        <div class="product-sku">SDC-PS-002</div>
+      </div>
+      <!-- 5: T-shirt bags -->
+      <div class="product">
+        <img src="img/bags_005.jpg" alt="Thank You T-Shirt Bags">
+        <div class="product-name">Thank You T-Shirt Bags</div>
+        <div class="product-desc">1/6 White 11.5x6.5x20 | 900/Case</div>
+        <div class="product-sku">SDC-BG-005</div>
+      </div>
+      <!-- 6: Gloves -->
+      <div class="product">
+        <img src="img/cleaning_007.jpg" alt="Nitrile Gloves M Black">
+        <div class="product-name">Nitrile Gloves M Black</div>
+        <div class="product-desc">3mil Powder-Free | 10/100 Case</div>
+        <div class="product-sku">SDC-PC-007</div>
+      </div>
+      <!-- 7: Foam cup for hot drinks -->
+      <div class="product">
+        <img src="img/cups_012.jpg" alt="Dart J Cup 12oz Foam">
+        <div class="product-name">Foam Cup 12 oz</div>
+        <div class="product-desc">Dart J Cup Insulated White | 1,000/Case</div>
+        <div class="product-sku">SDC-CL-012</div>
+      </div>
+      <!-- 8: Napkins -->
+      <div class="product">
+        <img src="img/tableware_010.jpg" alt="Dinner Napkins">
+        <div class="product-name">Dinner Napkins</div>
+        <div class="product-desc">15x17 2-Ply 1/8 Fold | 3,000/Case</div>
+        <div class="product-sku">SDC-TW-010</div>
+      </div>
+      <!-- 9: Aluminum foil roll -->
+      <div class="product">
+        <img src="img/packaging_005.jpg" alt="Aluminum Foil Roll 12in">
+        <div class="product-name">Aluminum Foil Roll 12"</div>
+        <div class="product-desc">Heavy Duty 1000ft | 1 Roll</div>
+        <div class="product-sku">SDC-PS-005</div>
+      </div>
+    </div>
+
+    <!-- BOTTOM CTA -->
+    <div class="cta">
+      <div class="cta-left">
+        <div class="cta-headline">No Minimum Order | 24-Hour Delivery</div>
+        <div class="cta-details">1001 Mayport Rd, Atlantic Beach, FL 32233 | vlabsdevia.github.io/sdc-catalog</div>
+      </div>
+      <div class="cta-phone">
+        <div class="cta-phone-label">Call Jose Busto</div>
+        <div class="cta-phone-number">(904) 655-9190</div>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="instructions">Right-click the post and "Save Image" or take a screenshot at 1080x1440 (3:4 portrait)</p>
+
+</body>
+</html>
