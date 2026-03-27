@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SDC Solutions - Jacksonville Independent Food Shops Directory & Sales Routes">
+  <title>Jacksonville Independent Food Shops | SDC Solutions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ── Custom Properties ── */
+    :root {
+      --primary: #111;
+      --text: #333;
+      --muted: #666;
+      --bg: #f8f8f8;
+      --surface: #fff;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+      --shadow-hover: 0 8px 24px rgba(0,0,0,0.10);
+      --radius: 12px;
+      --font: 'Inter', sans-serif;
+      --container: min(1280px, calc(100% - 2rem));
+    }
+
+    /* ── CSS Reset ── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    button { font-family: var(--font); cursor: pointer; border: none; background: none; }
+
+    .container {
+      width: var(--container);
+      margin: 0 auto;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: var(--primary);
+      color: #fff;
+      padding: 2.5rem 0 2rem;
+    }
+
+    .header-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .header-logo {
+      width: 40px;
+      height: 40px;
+      background: #fff;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .header-brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .header-brand-name {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .header-brand-sub {
+      font-size: 0.75rem;
+      opacity: 0.6;
+    }
+
+    .back-link {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: #fff; }
+
+    .header h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+    }
+
+    .header .subtitle {
+      font-size: 0.95rem;
+      opacity: 0.6;
+      font-weight: 400;
+    }
+
+    /* ── Toolbar ── */
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      padding: 0.75rem 0;
+    }
+
+    .toolbar-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .toolbar-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .toolbar-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .pills-scroll {
+      display: flex;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      background: #eee;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+      border: 1.5px solid transparent;
+    }
+
+    .pill:hover { background: #ddd; }
+
+    .pill.active {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .toolbar-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .search-input {
+      padding: 0.45rem 0.85rem;
+      border: 1.5px solid #ddd;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-family: var(--font);
+      outline: none;
+      width: 220px;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus { border-color: var(--primary); }
+
+    .view-toggle {
+      display: flex;
+      background: #eee;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .view-btn {
+      padding: 0.4rem 1rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      transition: all 0.15s;
+    }
+
+    .view-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-radius: 999px;
+    }
+
+    /* ── Stats Bar ── */
+    .stats-bar {
+      padding: 0.75rem 0;
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1rem;
+      padding-bottom: 2rem;
+    }
+
+    .shop-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .shop-card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    .shop-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .shop-number {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 0.15rem;
+    }
+
+    .shop-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.3;
+    }
+
+    .food-prep-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 999px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .food-prep-yes {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .food-prep-no {
+      background: #e9ecef;
+      color: #6c757d;
+    }
+
+    .category-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .cat-natural { background: #d1f5d3; color: #1b5e20; }
+    .cat-deli { background: #fff3cd; color: #856404; }
+    .cat-seafood { background: #cce5ff; color: #004085; }
+    .cat-asian { background: #f8d7da; color: #721c24; }
+    .cat-meat { background: #f5c6cb; color: #6c1e1e; }
+    .cat-european { background: #e2d9f3; color: #4a1a8a; }
+    .cat-indian { background: #ffe0b2; color: #e65100; }
+    .cat-middleeastern { background: #fff9c4; color: #827717; }
+    .cat-african { background: #c8e6c9; color: #2e7d32; }
+    .cat-neighborhood { background: #e0e0e0; color: #424242; }
+
+    .shop-detail {
+      font-size: 0.82rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .shop-detail a {
+      color: var(--primary);
+      font-weight: 500;
+      text-decoration: underline;
+      text-decoration-color: rgba(0,0,0,0.15);
+      text-underline-offset: 2px;
+    }
+
+    .shop-detail a:hover { text-decoration-color: var(--primary); }
+
+    .area-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 500;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      background: #f0f0f0;
+      color: var(--muted);
+    }
+
+    .shop-notes {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* ── Routes View ── */
+    .routes-view { display: none; padding-bottom: 2rem; }
+    .routes-view.active { display: block; }
+    .master-view.active { display: block; }
+    .master-view { display: none; }
+
+    .route-section {
+      margin-bottom: 2.5rem;
+    }
+
+    .route-header {
+      background: var(--primary);
+      color: #fff;
+      padding: 1.25rem 1.5rem;
+      border-radius: var(--radius) var(--radius) 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .route-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .route-meta {
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+
+    .route-path {
+      width: 100%;
+      font-size: 0.78rem;
+      opacity: 0.5;
+      margin-top: 0.25rem;
+    }
+
+    .route-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .route-stop {
+      background: var(--surface);
+      padding: 1rem 1.25rem;
+      border-left: 3px solid #eee;
+      border-right: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 0.75rem;
+      align-items: center;
+      transition: background 0.15s;
+    }
+
+    .route-stop:last-child {
+      border-radius: 0 0 var(--radius) var(--radius);
+    }
+
+    .route-stop:hover { background: #fafafa; }
+
+    .route-stop.priority {
+      border-left-color: #ffc107;
+      background: #fffdf0;
+    }
+
+    .stop-number {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .route-stop.priority .stop-number {
+      background: #ffc107;
+      color: #111;
+    }
+
+    .stop-info {
+      min-width: 0;
+    }
+
+    .stop-name {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--primary);
+    }
+
+    .stop-name .star { color: #ffc107; margin-left: 0.25rem; }
+
+    .stop-address {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .stop-phone {
+      font-size: 0.78rem;
+    }
+
+    .stop-phone a {
+      color: var(--primary);
+      text-decoration: underline;
+      text-decoration-color: rgba(0,0,0,0.15);
+    }
+
+    .stop-tip {
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-style: italic;
+      max-width: 260px;
+      text-align: right;
+    }
+
+    /* ── Route Summary ── */
+    .route-summary {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow-sm);
+      margin-top: 2rem;
+    }
+
+    .route-summary h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .summary-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .summary-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    .summary-value {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .summary-value.priority-list {
+      font-size: 0.82rem;
+      font-weight: 500;
+      line-height: 1.6;
+    }
+
+    .summary-value .star { color: #ffc107; }
+
+    /* ── Footer ── */
+    .footer {
+      background: var(--primary);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 2rem 0;
+      font-size: 0.78rem;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .header h1 { font-size: 1.5rem; }
+      .card-grid { grid-template-columns: 1fr; }
+      .search-input { width: 100%; }
+      .toolbar-controls { width: 100%; }
+      .route-stop {
+        grid-template-columns: auto 1fr;
+        gap: 0.5rem;
+      }
+      .stop-tip {
+        grid-column: 1 / -1;
+        text-align: left;
+        max-width: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header { padding: 1.5rem 0 1.25rem; }
+      .header h1 { font-size: 1.25rem; }
+      .pills-scroll { gap: 0.25rem; }
+      .pill { font-size: 0.68rem; padding: 0.25rem 0.55rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <header class="header">
+    <div class="container header-inner">
+      <div class="header-top">
+        <div class="header-brand">
+          <div class="header-logo">SDC</div>
+          <div class="header-brand-text">
+            <span class="header-brand-name">SDC Solutions</span>
+            <span class="header-brand-sub">Sabores del Campo LLC</span>
+          </div>
+        </div>
+        <a href="index.html" class="back-link">&larr; Back to Catalog</a>
+      </div>
+      <h1>Jacksonville Independent Food Shops</h1>
+      <p class="subtitle">52 Independent Grocery &amp; Food Shops &nbsp;|&nbsp; Sales Routes &nbsp;|&nbsp; March 2026</p>
+    </div>
+  </header>
+
+  <!-- ── Toolbar ── -->
+  <div class="toolbar">
+    <div class="container toolbar-inner">
+      <div class="toolbar-row">
+        <span class="toolbar-label">Area</span>
+        <div class="pills-scroll" id="areaPills">
+          <span class="pill active" data-area="all">All</span>
+          <span class="pill" data-area="Riverside / Avondale">Riverside/Avondale</span>
+          <span class="pill" data-area="San Marco / Southside">San Marco/Southside</span>
+          <span class="pill" data-area="Baymeadows / Southside">Baymeadows/Southside</span>
+          <span class="pill" data-area="Beach Blvd Corridor (East)">Beach Blvd Corridor</span>
+          <span class="pill" data-area="San Jose / Mandarin (South)">San Jose/Mandarin</span>
+          <span class="pill" data-area="Westside / Lake Shore / 103rd">Westside/Lake Shore/103rd</span>
+          <span class="pill" data-area="Northside / Edgewood">Northside/Edgewood</span>
+          <span class="pill" data-area="Arlington / Regency">Arlington/Regency</span>
+          <span class="pill" data-area="Mayport / Atlantic Beach">Mayport/Atlantic Beach</span>
+          <span class="pill" data-area="Far Northside / Duval West">Far Northside/Duval West</span>
+        </div>
+      </div>
+      <div class="toolbar-row">
+        <span class="toolbar-label">Category</span>
+        <div class="pills-scroll" id="catPills">
+          <span class="pill active" data-cat="all">All</span>
+          <span class="pill" data-cat="Natural / Health Food">Natural/Health Food</span>
+          <span class="pill" data-cat="Deli / Market">Deli/Market</span>
+          <span class="pill" data-cat="Seafood Market">Seafood Market</span>
+          <span class="pill" data-cat="Asian / International">Asian/International</span>
+          <span class="pill" data-cat="Meat Market / Butcher">Meat Market/Butcher</span>
+          <span class="pill" data-cat="European Grocery">European Grocery</span>
+          <span class="pill" data-cat="Indian Grocery">Indian Grocery</span>
+          <span class="pill" data-cat="Middle Eastern / Intl">Middle Eastern/Intl</span>
+          <span class="pill" data-cat="African / Caribbean">African/Caribbean</span>
+          <span class="pill" data-cat="Neighborhood Grocery">Neighborhood Grocery</span>
+        </div>
+      </div>
+      <div class="toolbar-row toolbar-controls">
+        <input type="text" class="search-input" id="searchInput" placeholder="Search shops...">
+        <div class="view-toggle">
+          <button class="view-btn active" data-view="master">Master List</button>
+          <button class="view-btn" data-view="routes">Sales Routes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Main Content ── -->
+  <main class="container" style="padding-top: 1rem;">
+    <div class="stats-bar" id="statsBar">Showing 52 of 52 shops</div>
+
+    <!-- Master List View -->
+    <div class="master-view active" id="masterView">
+      <div class="card-grid" id="cardGrid"></div>
+    </div>
+
+    <!-- Routes View -->
+    <div class="routes-view" id="routesView"></div>
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer class="footer">
+    <div class="container">
+      &copy; 2026 SDC Solutions &mdash; Sabores del Campo LLC. Jacksonville, FL. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // ── Shop Data ──
+    const shops = [
+      { id: 1, name: "Grassroots Natural Market", category: "Natural / Health Food", address: "2007 Park St, Jacksonville 32204", phone: "(904) 384-4474", website: "grassrootsmarket.com", foodPrep: true, area: "Riverside / Avondale", notes: "Organic market; local produce & prepared foods" },
+      { id: 2, name: "Pine Grove Market & Deli", category: "Deli / Market", address: "1511 Pine Grove Ave, Jacksonville 32205", phone: "(904) 389-8655", website: "pinegrovemarket.com", foodPrep: true, area: "Riverside / Avondale", notes: "40-yr Avondale icon; full deli, butcher & grocery" },
+      { id: 3, name: "JC's Seafoods", category: "Seafood Market", address: "1347 Cassat Ave, Jacksonville 32205", phone: "(904) 389-8771", website: "", foodPrep: true, area: "Riverside / Avondale", notes: "Fish market with cooked/prepared seafood" },
+      { id: 4, name: "Vietnam Oriental Food Store", category: "Asian / International", address: "622 Cassat Ave Ste 4, Jacksonville 32205", phone: "(904) 781-2992", website: "", foodPrep: false, area: "Riverside / Avondale", notes: "Vietnamese pantry staples & specialty goods" },
+      { id: 5, name: "Brentwood Food Mart", category: "Deli / Market", address: "602 W 21st St, Jacksonville 32206", phone: "(904) 354-3383", website: "", foodPrep: true, area: "Riverside / Avondale", notes: "Neighborhood food mart & deli; frozen seafood & meats" },
+      { id: 6, name: "The Corner at Debs Store", category: "Neighborhood Grocery", address: "1478 Florida Ave, Jacksonville 32206", phone: "", website: "thecorneratdebsstore.org", foodPrep: true, area: "Riverside / Avondale", notes: "Community grocery; fresh produce focus" },
+      { id: 7, name: "Lee's Carroll's Meat Shoppe", category: "Meat Market / Butcher", address: "2242 University Blvd N, Jacksonville 32211", phone: "(904) 783-7004", website: "leescarrollsmeatshoppe.com", foodPrep: false, area: "Riverside / Avondale", notes: "Meat shop & basic grocery" },
+      { id: 8, name: "Clines Custom Meats", category: "Meat Market / Butcher", address: "1225 Hendricks Ave, Jacksonville 32207", phone: "(904) 379-7383", website: "clinescustommeats.com", foodPrep: false, area: "San Marco / Southside", notes: "Family-owned San Marco butcher; custom cuts" },
+      { id: 9, name: "H-A Seafood Market", category: "Seafood Market", address: "3150 Spring Park Rd, Jacksonville 32207", phone: "(904) 398-9070", website: "", foodPrep: true, area: "San Marco / Southside", notes: "Fresh fish & prepared seafood" },
+      { id: 10, name: "New World Food Mart Asian Market", category: "Asian / International", address: "5161 Beach Blvd Ste 6, Jacksonville 32207", phone: "(904) 551-7115", website: "", foodPrep: true, area: "San Marco / Southside", notes: "Full Asian grocery & Korean restaurant on site" },
+      { id: 11, name: "RD International Market", category: "Asian / International", address: "7534 Beach Blvd, Jacksonville 32207", phone: "", website: "rdinternationalmarketfl.com", foodPrep: true, area: "San Marco / Southside", notes: "52K sq ft; live seafood; 12 food-court restaurants" },
+      { id: 12, name: "Jackie's Seafood Market", category: "Seafood Market", address: "5658 University Blvd W, Jacksonville 32216", phone: "(904) 737-5658", website: "jackiesseafood.com", foodPrep: true, area: "Baymeadows / Southside", notes: "Cook-to-order seafood market; wide variety" },
+      { id: 13, name: "Braco Deli Market", category: "Deli / Market", address: "5711 Bowden Rd, Jacksonville 32216", phone: "", website: "", foodPrep: true, area: "Baymeadows / Southside", notes: "Local deli market" },
+      { id: 14, name: "Freshfields Farm", category: "Natural / Health Food", address: "5555 University Blvd W, Jacksonville 32216", phone: "(904) 652-2810", website: "freshfieldsfarm.com", foodPrep: false, area: "Baymeadows / Southside", notes: "Farm-fresh produce & organic goods" },
+      { id: 15, name: "European Mix Grocery Market", category: "European Grocery", address: "4345 University Blvd S, Jacksonville 32216", phone: "(904) 469-5950", website: "", foodPrep: false, area: "Baymeadows / Southside", notes: "German, Polish, Bulgarian & multi-country European" },
+      { id: 16, name: "Beirut Grocery", category: "Middle Eastern / Intl", address: "3928 Baymeadows Rd Unit 6, Jacksonville 32217", phone: "(904) 660-2137", website: "", foodPrep: false, area: "Baymeadows / Southside", notes: "Mediterranean & Middle Eastern ingredients" },
+      { id: 17, name: "Amar European Grocery", category: "European Grocery", address: "5664 Santa Monica Blvd, Jacksonville 32217", phone: "(904) 739-9447", website: "", foodPrep: false, area: "Baymeadows / Southside", notes: "Polish sausage, German chocolate, Russian pickles" },
+      { id: 18, name: "Raja Indian Spices", category: "Indian Grocery", address: "5111 Baymeadows Rd Ste 16, Jacksonville 32217", phone: "(904) 448-8006", website: "rajaindianspicesjax.com", foodPrep: true, area: "Baymeadows / Southside", notes: "Spices, produce & Indian sweets" },
+      { id: 19, name: "Kourosh International Market", category: "Middle Eastern / Intl", address: "9551 Baymeadows Rd, Jacksonville 32256", phone: "(904) 636-5957", website: "", foodPrep: false, area: "Baymeadows / Southside", notes: "Persian/Turkish/Middle Eastern specialty market" },
+      { id: 20, name: "Native Sun Natural Foods (Baymeadows)", category: "Natural / Health Food", address: "11030 Baymeadows Rd, Jacksonville 32256", phone: "(904) 260-2791", website: "nativesunjax.com", foodPrep: true, area: "Baymeadows / Southside", notes: "All-natural; local farmers & artisans; prepared foods" },
+      { id: 21, name: "Apna Bazar", category: "Indian Grocery", address: "11173 Beach Blvd, Jacksonville 32246", phone: "(904) 996-8780", website: "", foodPrep: true, area: "Beach Blvd Corridor (East)", notes: "Indian grocery; Apna Restaurant & Istanbul Grill on site" },
+      { id: 22, name: "Circle Japan Grocery & Cafe", category: "Asian / International", address: "12192 Beach Blvd Ste 1, Jacksonville 32246", phone: "(904) 642-7799", website: "circlejapan.com", foodPrep: true, area: "Beach Blvd Corridor (East)", notes: "Japanese grocery; matcha cafe & prepared foods" },
+      { id: 23, name: "Romashka Euro Store / Deli", category: "European Grocery", address: "12226 Beach Blvd Ste 10, Jacksonville 32246", phone: "(904) 574-9464", website: "", foodPrep: true, area: "Beach Blvd Corridor (East)", notes: "Russian/Ukrainian/European groceries & full deli" },
+      { id: 24, name: "Native Sun Natural Foods (San Jose)", category: "Natural / Health Food", address: "10000 San Jose Blvd, Jacksonville 32257", phone: "(904) 260-6950", website: "nativesunjax.com", foodPrep: true, area: "San Jose / Mandarin (South)", notes: "Full natural grocery; prepared foods kitchen" },
+      { id: 25, name: "Delicja Polish Market", category: "European Grocery", address: "10503 San Jose Blvd Ste 5, Jacksonville 32257", phone: "(904) 551-6901", website: "", foodPrep: true, area: "San Jose / Mandarin (South)", notes: "Polish cold cuts, pastries, sweets & drinks" },
+      { id: 26, name: "Jax Oriental Market", category: "Asian / International", address: "10584 Old St Augustine Rd, Jacksonville 32257", phone: "(904) 288-8288", website: "", foodPrep: true, area: "San Jose / Mandarin (South)", notes: "Large Asian grocery; in-house bakery & cafe" },
+      { id: 27, name: "Tillmans Meats Produce & Bakery", category: "Meat Market / Butcher", address: "10177 Old St Augustine Rd, Jacksonville 32257", phone: "(904) 268-1535", website: "tillmansmeats.com", foodPrep: true, area: "San Jose / Mandarin (South)", notes: "Country store; USDA prime beef; bakery on site" },
+      { id: 28, name: "Fisherman's Dock Seafood Market", category: "Seafood Market", address: "11610 San Jose Blvd, Jacksonville 32223", phone: "(904) 268-8918", website: "thefishermansdock.com", foodPrep: true, area: "San Jose / Mandarin (South)", notes: "Top-rated fresh & cooked seafood; Mandarin" },
+      { id: 29, name: "Lake Shore Produce Market", category: "Natural / Health Food", address: "2326 Blanding Blvd, Jacksonville 32210", phone: "(904) 387-1455", website: "", foodPrep: true, area: "Westside / Lake Shore / 103rd", notes: "Fresh produce; smokes brisket on premises" },
+      { id: 30, name: "Southern Steer Butcher", category: "Meat Market / Butcher", address: "5421 Roosevelt Blvd, Jacksonville 32210", phone: "(904) 580-7345", website: "southernsteer.com", foodPrep: false, area: "Westside / Lake Shore / 103rd", notes: "Fresh quality meats; modern butcher concept" },
+      { id: 31, name: "Sim's African Market", category: "African / Caribbean", address: "5433 Roosevelt Blvd, Jacksonville 32210", phone: "", website: "sims-african-market.business.site", foodPrep: false, area: "Westside / Lake Shore / 103rd", notes: "African grocery staples" },
+      { id: 32, name: "Florida Fish Market & Seafood", category: "Seafood Market", address: "1523 Lane Ave S, Jacksonville 32210", phone: "", website: "", foodPrep: true, area: "Westside / Lake Shore / 103rd", notes: "Fresh fish & cooked seafood" },
+      { id: 33, name: "Caribbean Soul & Beyond", category: "Neighborhood Grocery", address: "1660 Lane Ave S, Jacksonville 32210", phone: "", website: "", foodPrep: true, area: "Westside / Lake Shore / 103rd", notes: "Caribbean-inspired market with soul food" },
+      { id: 34, name: "Ocean City Seafood Market", category: "Seafood Market", address: "5032 Blanding Blvd, Jacksonville 32210", phone: "(904) 400-6464", website: "oceancityseafood.wixsite.com/website", foodPrep: true, area: "Westside / Lake Shore / 103rd", notes: "Live seafood; wholesale pricing available" },
+      { id: 35, name: "Zidalfood Store", category: "Neighborhood Grocery", address: "8266 103rd St, Jacksonville 32210", phone: "(904) 777-6548", website: "", foodPrep: false, area: "Westside / Lake Shore / 103rd", notes: "Westside community food store" },
+      { id: 36, name: "Caribe Breeze Food Market", category: "African / Caribbean", address: "7244 Blanding Blvd, Jacksonville 32244", phone: "(904) 908-5554", website: "caribebreezefoodmarket.com", foodPrep: true, area: "Westside / Lake Shore / 103rd", notes: "Caribbean-focused market; prepared foods" },
+      { id: 37, name: "Star Meat House", category: "Meat Market / Butcher", address: "1624 Edgewood Ave W, Jacksonville 32208", phone: "(904) 619-1859", website: "starmeathouse.com", foodPrep: false, area: "Northside / Edgewood", notes: "Neighborhood meat market" },
+      { id: 38, name: "Carroll's Meat Shoppe", category: "Meat Market / Butcher", address: "6020 Harlow Blvd, Jacksonville 32208", phone: "", website: "carrollsmeatshoppe.com", foodPrep: false, area: "Northside / Edgewood", notes: "Small neighborhood meat shop" },
+      { id: 39, name: "Best Way Food Store", category: "Neighborhood Grocery", address: "2361 Kings Rd, Jacksonville 32209", phone: "", website: "", foodPrep: false, area: "Northside / Edgewood", notes: "Community grocery store" },
+      { id: 40, name: "Bluefront Super Market", category: "Neighborhood Grocery", address: "4402 Moncrief Rd, Jacksonville 32209", phone: "", website: "", foodPrep: false, area: "Northside / Edgewood", notes: "Northside neighborhood market" },
+      { id: 41, name: "Cleveland Food Mart", category: "Neighborhood Grocery", address: "6164 Cleveland Rd, Jacksonville 32209", phone: "", website: "", foodPrep: false, area: "Northside / Edgewood", notes: "Neighborhood food mart" },
+      { id: 42, name: "Banner's Super Market", category: "Neighborhood Grocery", address: "5428 Cleveland Rd, Jacksonville 32209", phone: "(904) 678-5676", website: "bannersupermarket.com", foodPrep: false, area: "Northside / Edgewood", notes: "Locally-owned; check cashing & hot food" },
+      { id: 43, name: "Roberta African & Caribbean Market", category: "African / Caribbean", address: "968 Arlington Rd N, Jacksonville 32211", phone: "(904) 924-4853", website: "", foodPrep: true, area: "Arlington / Regency", notes: "West African & Caribbean groceries; prepared food" },
+      { id: 44, name: "Comfort's African Market", category: "African / Caribbean", address: "6864 Arlington Expy, Jacksonville 32211", phone: "", website: "comforts-african-market.business.site", foodPrep: false, area: "Arlington / Regency", notes: "West African specialty grocery" },
+      { id: 45, name: "Best Price Food Store", category: "Neighborhood Grocery", address: "8078 Lone Star Rd, Jacksonville 32211", phone: "(904) 731-0602", website: "", foodPrep: false, area: "Arlington / Regency", notes: "No-frills neighborhood grocery" },
+      { id: 46, name: "Lotte Plaza Market", category: "Asian / International", address: "9355 Atlantic Blvd, Jacksonville 32225", phone: "", website: "", foodPrep: true, area: "Arlington / Regency", notes: "Korean/Asian chain; opened 2025; food court" },
+      { id: 47, name: "Atlantic Coast Seafood", category: "Seafood Market", address: "2485 Monument Rd, Jacksonville 32225", phone: "(904) 642-6340", website: "", foodPrep: true, area: "Arlington / Regency", notes: "Family-owned; fresh & frozen; 6 days/week" },
+      { id: 48, name: "Safe Harbor Seafood Market", category: "Seafood Market", address: "4378 Ocean St Ste 3, Jacksonville 32233", phone: "(904) 246-4911", website: "safeharbor-seafood.com", foodPrep: true, area: "Mayport / Atlantic Beach", notes: "Waterfront market & restaurant; locally caught daily" },
+      { id: 49, name: "Mayport C&C Fisheries", category: "Seafood Market", address: "36 W 6th St, Atlantic Beach 32233", phone: "(904) 246-1138", website: "candcfisheries.com", foodPrep: false, area: "Mayport / Atlantic Beach", notes: "Wholesale fresh fish house est. 1987" },
+      { id: 50, name: "Harold's Meat Market", category: "Meat Market / Butcher", address: "11219 Lem Turner Rd, Jacksonville 32218", phone: "(904) 765-1686", website: "haroldsmeatmkt.com", foodPrep: true, area: "Far Northside / Duval West", notes: "Est. 1965; full grocery, produce & butchering" },
+      { id: 51, name: "Dinsmore Meats", category: "Meat Market / Butcher", address: "11058 New Kings Rd, Jacksonville 32219", phone: "(904) 768-6708", website: "", foodPrep: false, area: "Far Northside / Duval West", notes: "Local butcher; Mon-Sat 8 AM-7 PM" },
+      { id: 52, name: "Geiger Meats", category: "Meat Market / Butcher", address: "1121 Cahoon Rd S, Jacksonville 32221", phone: "(904) 378-9040", website: "", foodPrep: false, area: "Far Northside / Duval West", notes: "Family-owned butcher shop" }
+    ];
+
+    const routes = [
+      {
+        name: "Route 1: South & Central Jacksonville",
+        stops: 18, hours: "~3 hrs", path: "Riverside > San Marco > Baymeadows > Beach Blvd East",
+        stops_data: [
+          { stop: 1, name: "Grassroots Natural Market", address: "2007 Park St, Jacksonville 32204", phone: "(904) 384-4474", website: "grassrootsmarket.com", tip: "Premium/organic supplier pitch; health-conscious clientele", priority: false },
+          { stop: 2, name: "Pine Grove Market & Deli", address: "1511 Pine Grove Ave, Jacksonville 32205", phone: "(904) 389-8655", website: "pinegrovemarket.com", tip: "40-yr institution; ask for owner/manager", priority: false },
+          { stop: 3, name: "JC's Seafoods", address: "1347 Cassat Ave, Jacksonville 32205", phone: "(904) 389-8771", website: "", tip: "Fish market + cooked food; high foot traffic", priority: false },
+          { stop: 4, name: "Vietnam Oriental Food Store", address: "622 Cassat Ave Ste 4, Jacksonville 32205", phone: "(904) 781-2992", website: "", tip: "Specialty Asian imports; niche buyer", priority: false },
+          { stop: 5, name: "Brentwood Food Mart", address: "602 W 21st St, Jacksonville 32206", phone: "(904) 354-3383", website: "", tip: "Neighborhood mart + deli; quick stop", priority: false },
+          { stop: 6, name: "The Corner at Debs Store", address: "1478 Florida Ave, Jacksonville 32206", phone: "", website: "thecorneratdebsstore.org", tip: "Community grocery; good CSR angle", priority: false },
+          { stop: 7, name: "Lee's Carroll's Meat Shoppe", address: "2242 University Blvd N, Jacksonville 32211", phone: "(904) 783-7004", website: "leescarrollsmeatshoppe.com", tip: "Family-owned; receptive to local suppliers", priority: false },
+          { stop: 8, name: "Clines Custom Meats", address: "1225 Hendricks Ave, Jacksonville 32207", phone: "(904) 379-7383", website: "clinescustommeats.com", tip: "Premium boutique butcher; pitch artisan products", priority: false },
+          { stop: 9, name: "H-A Seafood Market", address: "3150 Spring Park Rd, Jacksonville 32207", phone: "(904) 398-9070", website: "", tip: "Independent seafood; prepared food; price-sensitive", priority: false },
+          { stop: 10, name: "New World Food Mart", address: "5161 Beach Blvd Ste 6, Jacksonville 32207", phone: "(904) 551-7115", website: "", tip: "Asian grocery + Korean restaurant; high volume", priority: false },
+          { stop: 11, name: "RD International Market", address: "7534 Beach Blvd, Jacksonville 32207", phone: "", website: "rdinternationalmarketfl.com", tip: "MAJOR — 52K sq ft, 12 restaurants; schedule meeting", priority: true },
+          { stop: 12, name: "Jackie's Seafood Market", address: "5658 University Blvd W, Jacksonville 32216", phone: "(904) 737-5658", website: "jackiesseafood.com", tip: "Cook-to-order; high loyalty; growing location", priority: false },
+          { stop: 13, name: "Freshfields Farm", address: "5555 University Blvd W, Jacksonville 32216", phone: "(904) 652-2810", website: "freshfieldsfarm.com", tip: "Organic/produce; pitch farm-fresh or specialty lines", priority: false },
+          { stop: 14, name: "European Mix Grocery", address: "4345 University Blvd S, Jacksonville 32216", phone: "(904) 469-5950", website: "", tip: "Eastern European specialty; imported goods buyer", priority: false },
+          { stop: 15, name: "Braco Deli Market", address: "5711 Bowden Rd, Jacksonville 32216", phone: "", website: "", tip: "Local deli + prepared foods; quick stop", priority: false },
+          { stop: 16, name: "Apna Bazar", address: "11173 Beach Blvd, Jacksonville 32246", phone: "(904) 996-8780", website: "", tip: "Indian grocery + 2 restaurants; ethnic food hub", priority: false },
+          { stop: 17, name: "Circle Japan Grocery & Cafe", address: "12192 Beach Blvd Ste 1, Jacksonville 32246", phone: "(904) 642-7799", website: "circlejapan.com", tip: "Japanese grocery & cafe; premium imports", priority: false },
+          { stop: 18, name: "Romashka Euro Store / Deli", address: "12226 Beach Blvd Ste 10, Jacksonville 32246", phone: "(904) 574-9464", website: "", tip: "Russian/Ukrainian deli; loyal expat base", priority: false }
+        ]
+      },
+      {
+        name: "Route 2: Baymeadows South > Mandarin > Westside",
+        stops: 20, hours: "~3.5 hrs", path: "Baymeadows > San Jose > I-10 West",
+        stops_data: [
+          { stop: 1, name: "Beirut Grocery", address: "3928 Baymeadows Rd Unit 6, Jacksonville 32217", phone: "(904) 660-2137", website: "", tip: "Middle Eastern specialty; Mediterranean buyer", priority: false },
+          { stop: 2, name: "Amar European Grocery", address: "5664 Santa Monica Blvd, Jacksonville 32217", phone: "(904) 739-9447", website: "", tip: "Polish, Russian, German imports; loyal expat base", priority: false },
+          { stop: 3, name: "Raja Indian Spices", address: "5111 Baymeadows Rd Ste 16, Jacksonville 32217", phone: "(904) 448-8006", website: "rajaindianspicesjax.com", tip: "Indian grocery & sweets; strong community", priority: false },
+          { stop: 4, name: "Kourosh International Market", address: "9551 Baymeadows Rd, Jacksonville 32256", phone: "(904) 636-5957", website: "", tip: "Persian/Turkish market; specialty imports", priority: false },
+          { stop: 5, name: "Native Sun (Baymeadows)", address: "11030 Baymeadows Rd, Jacksonville 32256", phone: "(904) 260-2791", website: "nativesunjax.com", tip: "Flagship natural market; premium buyer", priority: true },
+          { stop: 6, name: "Native Sun (San Jose)", address: "10000 San Jose Blvd, Jacksonville 32257", phone: "(904) 260-6950", website: "nativesunjax.com", tip: "2nd location; prepared foods kitchen; premium", priority: true },
+          { stop: 7, name: "Delicja Polish Market", address: "10503 San Jose Blvd Ste 5, Jacksonville 32257", phone: "(904) 551-6901", website: "", tip: "Polish cold cuts & pastries; niche buyer", priority: false },
+          { stop: 8, name: "Jax Oriental Market", address: "10584 Old St Augustine Rd, Jacksonville 32257", phone: "(904) 288-8288", website: "", tip: "Large Asian grocery; bakery & cafe; high traffic", priority: false },
+          { stop: 9, name: "Tillmans Meats", address: "10177 Old St Augustine Rd, Jacksonville 32257", phone: "(904) 268-1535", website: "tillmansmeats.com", tip: "USDA prime + bakery + full grocery; key account", priority: true },
+          { stop: 10, name: "Fisherman's Dock Seafood", address: "11610 San Jose Blvd, Jacksonville 32223", phone: "(904) 268-8918", website: "thefishermansdock.com", tip: "Top-rated fresh & cooked seafood in Mandarin", priority: false },
+          { stop: 11, name: "Lake Shore Produce Market", address: "2326 Blanding Blvd, Jacksonville 32210", phone: "(904) 387-1455", website: "", tip: "Produce + smoked brisket; open to specialty lines", priority: false },
+          { stop: 12, name: "Southern Steer Butcher", address: "5421 Roosevelt Blvd, Jacksonville 32210", phone: "(904) 580-7345", website: "southernsteer.com", tip: "Modern butcher; growth-oriented buyer", priority: false },
+          { stop: 13, name: "Sim's African Market", address: "5433 Roosevelt Blvd, Jacksonville 32210", phone: "", website: "sims-african-market.business.site", tip: "African staples; small but loyal community", priority: false },
+          { stop: 14, name: "Florida Fish Market & Seafood", address: "1523 Lane Ave S, Jacksonville 32210", phone: "", website: "", tip: "Fresh fish + cooked food; neighborhood staple", priority: false },
+          { stop: 15, name: "Caribbean Soul & Beyond", address: "1660 Lane Ave S, Jacksonville 32210", phone: "", website: "", tip: "Caribbean market + soul food; prepared meals", priority: false },
+          { stop: 16, name: "Ocean City Seafood Market", address: "5032 Blanding Blvd, Jacksonville 32210", phone: "(904) 400-6464", website: "oceancityseafood.wixsite.com/website", tip: "Live seafood + wholesale; growth account", priority: false },
+          { stop: 17, name: "Zidalfood Store", address: "8266 103rd St, Jacksonville 32210", phone: "(904) 777-6548", website: "", tip: "Community food store; quick stop", priority: false },
+          { stop: 18, name: "Caribe Breeze Food Market", address: "7244 Blanding Blvd, Jacksonville 32244", phone: "(904) 908-5554", website: "caribebreezefoodmarket.com", tip: "Caribbean market + prepared foods", priority: false },
+          { stop: 19, name: "Dinsmore Meats", address: "11058 New Kings Rd, Jacksonville 32219", phone: "(904) 768-6708", website: "", tip: "Local butcher; Mon-Sat only; call ahead", priority: false },
+          { stop: 20, name: "Geiger Meats", address: "1121 Cahoon Rd S, Jacksonville 32221", phone: "(904) 378-9040", website: "", tip: "Family-owned; small but consistent buyer", priority: false }
+        ]
+      },
+      {
+        name: "Route 3: Northside > Arlington > Beaches",
+        stops: 14, hours: "~2.5 hrs", path: "Edgewood > Arlington > Mayport",
+        stops_data: [
+          { stop: 1, name: "Star Meat House", address: "1624 Edgewood Ave W, Jacksonville 32208", phone: "(904) 619-1859", website: "starmeathouse.com", tip: "Neighborhood meat market; community-focused", priority: false },
+          { stop: 2, name: "Carroll's Meat Shoppe", address: "6020 Harlow Blvd, Jacksonville 32208", phone: "", website: "carrollsmeatshoppe.com", tip: "Small meat shop; walk-in clientele; quick stop", priority: false },
+          { stop: 3, name: "Best Way Food Store", address: "2361 Kings Rd, Jacksonville 32209", phone: "", website: "", tip: "Community grocery; price-driven buyer", priority: false },
+          { stop: 4, name: "Bluefront Super Market", address: "4402 Moncrief Rd, Jacksonville 32209", phone: "", website: "", tip: "Northside neighborhood market", priority: false },
+          { stop: 5, name: "Cleveland Food Mart", address: "6164 Cleveland Rd, Jacksonville 32209", phone: "", website: "", tip: "Neighborhood food mart; quick stop", priority: false },
+          { stop: 6, name: "Banner's Super Market", address: "5428 Cleveland Rd, Jacksonville 32209", phone: "(904) 678-5676", website: "bannersupermarket.com", tip: "Key Northside account; hot food; loyal base", priority: true },
+          { stop: 7, name: "Harold's Meat Market", address: "11219 Lem Turner Rd, Jacksonville 32218", phone: "(904) 765-1686", website: "haroldsmeatmkt.com", tip: "Est. 1965; full grocery + butchering; key account", priority: true },
+          { stop: 8, name: "Roberta African & Caribbean", address: "968 Arlington Rd N, Jacksonville 32211", phone: "(904) 924-4853", website: "", tip: "African & Caribbean + prepared food", priority: false },
+          { stop: 9, name: "Comfort's African Market", address: "6864 Arlington Expy, Jacksonville 32211", phone: "", website: "comforts-african-market.business.site", tip: "W. African specialty; owner: Comfort Sackey-Clarke", priority: false },
+          { stop: 10, name: "Best Price Food Store", address: "8078 Lone Star Rd, Jacksonville 32211", phone: "(904) 731-0602", website: "", tip: "No-frills grocery; volume opportunity", priority: false },
+          { stop: 11, name: "Lotte Plaza Market", address: "9355 Atlantic Blvd, Jacksonville 32225", phone: "", website: "", tip: "NEW 2025 Korean/Asian anchor; major opportunity", priority: true },
+          { stop: 12, name: "Atlantic Coast Seafood", address: "2485 Monument Rd, Jacksonville 32225", phone: "(904) 642-6340", website: "", tip: "Family-owned; fresh & frozen seafood", priority: false },
+          { stop: 13, name: "Safe Harbor Seafood", address: "4378 Ocean St Ste 3, Jacksonville 32233", phone: "(904) 246-4911", website: "safeharbor-seafood.com", tip: "Top-rated waterfront market; locally caught daily", priority: true },
+          { stop: 14, name: "Mayport C&C Fisheries", address: "36 W 6th St, Atlantic Beach 32233", phone: "(904) 246-1138", website: "candcfisheries.com", tip: "Est. 1987 wholesale fishery; bulk opportunity", priority: false }
+        ]
+      }
+    ];
+
+    // ── Helpers ──
+    function getCategoryClass(cat) {
+      const map = {
+        'Natural / Health Food': 'cat-natural',
+        'Deli / Market': 'cat-deli',
+        'Seafood Market': 'cat-seafood',
+        'Asian / International': 'cat-asian',
+        'Meat Market / Butcher': 'cat-meat',
+        'European Grocery': 'cat-european',
+        'Indian Grocery': 'cat-indian',
+        'Middle Eastern / Intl': 'cat-middleeastern',
+        'African / Caribbean': 'cat-african',
+        'Neighborhood Grocery': 'cat-neighborhood'
+      };
+      return map[cat] || '';
+    }
+
+    function formatPhone(phone) {
+      if (!phone) return '';
+      return `<a href="tel:${phone.replace(/[^\d+]/g, '')}">${phone}</a>`;
+    }
+
+    function formatWebsite(url) {
+      if (!url) return '—';
+      const display = url.replace(/^https?:\/\//, '').replace(/\/$/, '');
+      const href = url.startsWith('http') ? url : `https://${url}`;
+      return `<a href="${href}" target="_blank" rel="noopener">${display}</a>`;
+    }
+
+    // ── Render Master List ──
+    function renderMasterList(filtered) {
+      const grid = document.getElementById('cardGrid');
+      if (filtered.length === 0) {
+        grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:3rem 0;">No shops match your filters.</p>';
+        return;
+      }
+      grid.innerHTML = filtered.map(s => `
+        <div class="shop-card">
+          <div class="shop-card-header">
+            <div>
+              <div class="shop-number">#${s.id}</div>
+              <div class="shop-name">${s.name}</div>
+            </div>
+            <span class="food-prep-badge ${s.foodPrep ? 'food-prep-yes' : 'food-prep-no'}">
+              Food Prep: ${s.foodPrep ? 'Yes' : 'No'}
+            </span>
+          </div>
+          <div>
+            <span class="category-badge ${getCategoryClass(s.category)}">${s.category}</span>
+          </div>
+          <div class="shop-detail">
+            ${s.address}<br>
+            ${s.phone ? formatPhone(s.phone) : '<span style="color:var(--muted)">No phone listed</span>'}<br>
+            Website: ${formatWebsite(s.website)}
+          </div>
+          <div><span class="area-tag">${s.area}</span></div>
+          ${s.notes ? `<div class="shop-notes">${s.notes}</div>` : ''}
+        </div>
+      `).join('');
+    }
+
+    // ── Render Routes View ──
+    function renderRoutes() {
+      const container = document.getElementById('routesView');
+      let html = '';
+
+      routes.forEach((route, ri) => {
+        html += `
+          <div class="route-section">
+            <div class="route-header">
+              <div>
+                <div class="route-title">${route.name}</div>
+                <div class="route-path">${route.path}</div>
+              </div>
+              <div class="route-meta">${route.stops} stops &nbsp;|&nbsp; ${route.hours}</div>
+            </div>
+            <div class="route-cards">
+        `;
+
+        route.stops_data.forEach(stop => {
+          html += `
+            <div class="route-stop ${stop.priority ? 'priority' : ''}">
+              <div class="stop-number">${stop.stop}</div>
+              <div class="stop-info">
+                <div class="stop-name">${stop.name}${stop.priority ? ' <span class="star">&#9733;</span>' : ''}</div>
+                <div class="stop-address">${stop.address}</div>
+                <div class="stop-phone">
+                  ${stop.phone ? formatPhone(stop.phone) : '<span style="color:var(--muted)">No phone</span>'}
+                  ${stop.website ? ' &nbsp;|&nbsp; ' + formatWebsite(stop.website) : ''}
+                </div>
+              </div>
+              <div class="stop-tip">${stop.tip}</div>
+            </div>
+          `;
+        });
+
+        html += '</div></div>';
+      });
+
+      // Route summary
+      html += `
+        <div class="route-summary">
+          <h3>Route Summary</h3>
+          <div class="summary-grid">
+            <div class="summary-item">
+              <span class="summary-label">Total Stores</span>
+              <span class="summary-value">52</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Best Days</span>
+              <span class="summary-value">Tue &ndash; Thu</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Priority Accounts</span>
+              <span class="summary-value priority-list">
+                <span class="star">&#9733;</span> RD International Market<br>
+                <span class="star">&#9733;</span> Native Sun (Baymeadows)<br>
+                <span class="star">&#9733;</span> Native Sun (San Jose)<br>
+                <span class="star">&#9733;</span> Tillmans Meats<br>
+                <span class="star">&#9733;</span> Banner's Super Market<br>
+                <span class="star">&#9733;</span> Lotte Plaza Market<br>
+                <span class="star">&#9733;</span> Harold's Meat Market<br>
+                <span class="star">&#9733;</span> Safe Harbor Seafood
+              </span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Pro Tip</span>
+              <span class="summary-value">Call ahead for beach-area stores (Mayport / Atlantic Beach)</span>
+            </div>
+          </div>
+        </div>
+      `;
+
+      container.innerHTML = html;
+    }
+
+    // ── Filtering ──
+    let activeArea = 'all';
+    let activeCat = 'all';
+    let searchQuery = '';
+
+    function applyFilters() {
+      let filtered = shops.filter(s => {
+        if (activeArea !== 'all' && s.area !== activeArea) return false;
+        if (activeCat !== 'all' && s.category !== activeCat) return false;
+        if (searchQuery) {
+          const q = searchQuery.toLowerCase();
+          const haystack = `${s.name} ${s.category} ${s.address} ${s.area} ${s.notes}`.toLowerCase();
+          if (!haystack.includes(q)) return false;
+        }
+        return true;
+      });
+
+      document.getElementById('statsBar').textContent = `Showing ${filtered.length} of ${shops.length} shops`;
+      renderMasterList(filtered);
+    }
+
+    // Area pills
+    document.getElementById('areaPills').addEventListener('click', e => {
+      const pill = e.target.closest('.pill');
+      if (!pill) return;
+      document.querySelectorAll('#areaPills .pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      activeArea = pill.dataset.area;
+      applyFilters();
+    });
+
+    // Category pills
+    document.getElementById('catPills').addEventListener('click', e => {
+      const pill = e.target.closest('.pill');
+      if (!pill) return;
+      document.querySelectorAll('#catPills .pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      activeCat = pill.dataset.cat;
+      applyFilters();
+    });
+
+    // Search
+    document.getElementById('searchInput').addEventListener('input', e => {
+      searchQuery = e.target.value;
+      applyFilters();
+    });
+
+    // View toggle
+    document.querySelectorAll('.view-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const view = btn.dataset.view;
+        document.getElementById('masterView').classList.toggle('active', view === 'master');
+        document.getElementById('routesView').classList.toggle('active', view === 'routes');
+        document.getElementById('statsBar').style.display = view === 'master' ? '' : 'none';
+      });
+    });
+
+    // ── Init ──
+    renderMasterList(shops);
+    renderRoutes();
+  </script>
+</body>
+</html>
