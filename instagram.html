@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SDC Solutions - Instagram Post</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .post-wrapper {
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .instagram-post {
+      width: 1080px;
+      height: 1080px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ---- TOP STRIP ---- */
+    .top-strip {
+      background: #111;
+      height: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 60px;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .logo-mark {
+      width: 48px;
+      height: 48px;
+      border: 3px solid #fff;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 20px;
+      color: #fff;
+      letter-spacing: -1px;
+    }
+
+    .brand-name {
+      font-size: 38px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -1px;
+    }
+
+    .tagline {
+      font-size: 16px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.7);
+      letter-spacing: 0.5px;
+      text-align: center;
+    }
+
+    /* ---- MIDDLE SECTION ---- */
+    .middle-section {
+      height: 700px;
+      background: #fafafa;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 2px;
+      padding: 24px;
+    }
+
+    .product-card {
+      background: #fff;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    }
+
+    .product-card img {
+      width: 200px;
+      height: 200px;
+      object-fit: contain;
+      margin-bottom: 16px;
+      border-radius: 8px;
+    }
+
+    .product-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: #111;
+      text-align: center;
+      line-height: 1.3;
+      margin-bottom: 6px;
+      max-width: 90%;
+    }
+
+    .product-category {
+      font-size: 13px;
+      font-weight: 600;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ---- BOTTOM STRIP ---- */
+    .bottom-strip {
+      background: #111;
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 60px;
+      gap: 10px;
+    }
+
+    .bottom-features {
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: 0.5px;
+      text-align: center;
+    }
+
+    .bottom-phone {
+      font-size: 32px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+
+    .bottom-cta {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 8px 32px;
+      border-radius: 50px;
+      letter-spacing: 0.5px;
+    }
+
+    .bottom-url {
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.45);
+      letter-spacing: 0.5px;
+    }
+
+    /* ---- INSTRUCTIONS ---- */
+    .instructions {
+      margin-top: 24px;
+      font-size: 13px;
+      color: #888;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="post-wrapper">
+    <div class="instagram-post">
+
+      <!-- TOP STRIP -->
+      <div class="top-strip">
+        <div class="brand-row">
+          <div class="logo-mark">SDC</div>
+          <div class="brand-name">SDC Solutions</div>
+        </div>
+        <div class="tagline">Your One-Stop Supplier for Foodservice Packaging</div>
+      </div>
+
+      <!-- MIDDLE SECTION: 2x2 Product Grid -->
+      <div class="middle-section">
+
+        <div class="product-card">
+          <img src="img/togo_008.jpg" alt="Victoria Bay Hinged 6 x 6">
+          <div class="product-name">Victoria Bay Hinged 6 x 6</div>
+          <div class="product-category">To-Go Containers</div>
+        </div>
+
+        <div class="product-card">
+          <img src="img/cups_022.jpg" alt="Victoria Bay 98mm Cold Cup 16oz">
+          <div class="product-name">Victoria Bay 98mm Cold Cup 16 oz</div>
+          <div class="product-category">Cups, Lids &amp; Straws</div>
+        </div>
+
+        <div class="product-card">
+          <img src="img/tableware_005.jpg" alt="Victoria Bay 5PC Cutlery Kit">
+          <div class="product-name">Victoria Bay 5PC Cutlery Kit</div>
+          <div class="product-category">Tableware &amp; Cutlery</div>
+        </div>
+
+        <div class="product-card">
+          <img src="img/cleaning_003.jpg" alt="Disposable Gloves M Blue 4mil">
+          <div class="product-name">Disposable Gloves M Blue 4mil</div>
+          <div class="product-category">Protection &amp; Cleaning</div>
+        </div>
+
+      </div>
+
+      <!-- BOTTOM STRIP -->
+      <div class="bottom-strip">
+        <div class="bottom-features">No Minimum Order &nbsp;|&nbsp; 24-Hour Delivery &nbsp;|&nbsp; Jacksonville, FL</div>
+        <div class="bottom-phone">(904) 655-9190</div>
+        <div class="bottom-cta">Call Jose Busto</div>
+        <div class="bottom-url">vlabsdevia.github.io/sdc-catalog</div>
+      </div>
+
+    </div>
+  </div>
+
+  <p class="instructions">Right-click the post and "Save Image" or take a screenshot at 1080x1080</p>
+
+</body>
+</html>
