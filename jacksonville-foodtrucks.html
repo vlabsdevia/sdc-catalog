@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SDC Solutions - Jacksonville Food Trucks Directory & Contact List">
+  <title>Jacksonville Food Trucks | SDC Solutions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ── Custom Properties ── */
+    :root {
+      --primary: #111;
+      --text: #333;
+      --muted: #666;
+      --bg: #f8f8f8;
+      --surface: #fff;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+      --shadow-hover: 0 8px 24px rgba(0,0,0,0.10);
+      --radius: 12px;
+      --font: 'Inter', sans-serif;
+      --container: min(1280px, calc(100% - 2rem));
+    }
+
+    /* ── CSS Reset ── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    button { font-family: var(--font); cursor: pointer; border: none; background: none; }
+
+    .container {
+      width: var(--container);
+      margin: 0 auto;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: var(--primary);
+      color: #fff;
+      padding: 2.5rem 0 2rem;
+    }
+
+    .header-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .header-logo {
+      width: 40px;
+      height: 40px;
+      background: #fff;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .header-brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .header-brand-name {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .header-brand-sub {
+      font-size: 0.75rem;
+      opacity: 0.6;
+    }
+
+    .back-link {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: #fff; }
+
+    .header h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+    }
+
+    .header .subtitle {
+      font-size: 0.95rem;
+      opacity: 0.6;
+      font-weight: 400;
+    }
+
+    .header-stats {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .header-stat {
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+
+    .header-stat strong {
+      font-weight: 700;
+      opacity: 1;
+    }
+
+    /* ── Toolbar ── */
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      padding: 0.75rem 0;
+    }
+
+    .toolbar-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .toolbar-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .toolbar-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .pills-scroll {
+      display: flex;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      background: #eee;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+      border: 1.5px solid transparent;
+    }
+
+    .pill:hover { background: #ddd; }
+
+    .pill.active {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .toolbar-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .search-input {
+      padding: 0.45rem 0.85rem;
+      border: 1.5px solid #ddd;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-family: var(--font);
+      outline: none;
+      width: 280px;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus { border-color: var(--primary); }
+
+    /* ── Stats Bar ── */
+    .stats-bar {
+      padding: 0.75rem 0;
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      padding-bottom: 2rem;
+    }
+
+    .truck-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .truck-card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    .truck-card.closed {
+      opacity: 0.5;
+    }
+
+    .truck-card.closed .truck-name {
+      text-decoration: line-through;
+      color: var(--muted);
+    }
+
+    .truck-number {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 0.1rem;
+    }
+
+    .truck-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.3;
+    }
+
+    .truck-detail {
+      font-size: 0.82rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .truck-detail a {
+      color: var(--primary);
+      font-weight: 500;
+      text-decoration: underline;
+      text-decoration-color: rgba(0,0,0,0.15);
+      text-underline-offset: 2px;
+    }
+
+    .truck-detail a:hover { text-decoration-color: var(--primary); }
+
+    .truck-detail .label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .truck-detail .empty {
+      color: #ccc;
+    }
+
+    .truck-notes {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .closed-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 999px;
+      background: #f5c6cb;
+      color: #721c24;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      background: var(--primary);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 2rem 0;
+      font-size: 0.78rem;
+    }
+
+    .footer p + p {
+      margin-top: 0.35rem;
+    }
+
+    /* ── No Results ── */
+    .no-results {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .card-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .header h1 { font-size: 1.5rem; }
+      .card-grid { grid-template-columns: 1fr; }
+      .search-input { width: 100%; }
+      .toolbar-controls { width: 100%; }
+    }
+
+    @media (max-width: 480px) {
+      .header { padding: 1.5rem 0 1.25rem; }
+      .header h1 { font-size: 1.25rem; }
+      .pills-scroll { gap: 0.25rem; }
+      .pill { font-size: 0.68rem; padding: 0.25rem 0.55rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <header class="header">
+    <div class="container header-inner">
+      <div class="header-top">
+        <div class="header-brand">
+          <div class="header-logo">SDC</div>
+          <div class="header-brand-text">
+            <span class="header-brand-name">SDC Solutions</span>
+            <span class="header-brand-sub">Sabores del Campo LLC</span>
+          </div>
+        </div>
+        <a href="index.html" class="back-link">&larr; Back to Catalog</a>
+      </div>
+      <h1>Jacksonville Food Trucks</h1>
+      <p class="subtitle">50 Food Trucks &nbsp;|&nbsp; Contact List &nbsp;|&nbsp; March 2026</p>
+      <div class="header-stats" id="headerStats"></div>
+    </div>
+  </header>
+
+  <!-- ── Toolbar ── -->
+  <div class="toolbar">
+    <div class="container toolbar-inner">
+      <div class="toolbar-row toolbar-controls">
+        <input type="text" class="search-input" id="searchInput" placeholder="Search name, notes, Instagram...">
+      </div>
+      <div class="toolbar-row">
+        <span class="toolbar-label">Filter</span>
+        <div class="pills-scroll" id="filterPills">
+          <span class="pill active" data-filter="all">All</span>
+          <span class="pill" data-filter="phone">Has Phone</span>
+          <span class="pill" data-filter="email">Has Email</span>
+          <span class="pill" data-filter="instagram">Has Instagram</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Main Content ── -->
+  <main class="container" style="padding-top: 1rem;">
+    <div class="stats-bar" id="statsBar">Showing 50 of 50 food trucks</div>
+    <div class="card-grid" id="cardGrid"></div>
+    <div class="no-results" id="noResults" style="display:none;">No food trucks match your search.</div>
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer class="footer">
+    <div class="container">
+      <p>Total: 50 food trucks &nbsp;|&nbsp; Source: jaxfoodtrucks.org, visitjacksonville.com &nbsp;|&nbsp; March 2026</p>
+      <p>&copy; 2026 SDC Solutions &mdash; Sabores del Campo LLC. Jacksonville, FL. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // ── Food Truck Data ──
+    const trucks = [
+      { id: 1, name: "904 Burgers", phone: "(904) 723-3766", email: "info@904burgers.com", instagram: "@904burgers", notes: "Gourmet burgers food truck" },
+      { id: 2, name: "904 Gyros", phone: "", email: "", instagram: "@904gyros", notes: "Greek/Mediterranean gyros" },
+      { id: 3, name: "A Real Taste Of Georgia", phone: "", email: "", instagram: "", notes: "Southern cuisine" },
+      { id: 4, name: "About Time Creamery", phone: "", email: "", instagram: "@abouttimecreamery", notes: "Ice cream truck" },
+      { id: 5, name: "About Time Food Truck", phone: "", email: "", instagram: "", notes: "" },
+      { id: 6, name: "Abstrakt Filipino Essence", phone: "", email: "", instagram: "@abstraktfilipino", notes: "Filipino food truck" },
+      { id: 7, name: "Alma Food Truck", phone: "(404) 422-8624", email: "", instagram: "@almafusion", notes: "Latin fusion cuisine" },
+      { id: 8, name: "Angelo's Sandwich Stop", phone: "(904) 503-4576", email: "angelossandwichstop@gmail.com", instagram: "", notes: "Gourmet sandwiches" },
+      { id: 9, name: "Bawk Bawk Chicken Truck", phone: "(904) 651-8950", email: "", instagram: "@bawkbawkchickentruck", notes: "Fried chicken specialty" },
+      { id: 10, name: "Beach Life Bo LLC", phone: "", email: "", instagram: "@beachlifebo", notes: "" },
+      { id: 11, name: "Best Burgers", phone: "", email: "", instagram: "@bestburgersjax", notes: "" },
+      { id: 12, name: "Bf'nd Food Truck", phone: "", email: "", instagram: "@bfndfoodtruck", notes: "" },
+      { id: 13, name: "Big Blue's Bistro", phone: "", email: "", instagram: "", notes: "" },
+      { id: 14, name: "Big City Dogs", phone: "", email: "", instagram: "", notes: "Hot dogs specialty" },
+      { id: 15, name: "Big Island Bowls", phone: "(904) 377-4763", email: "", instagram: "@islandbowls", notes: "Hawaiian poke & acai bowls" },
+      { id: 16, name: "Bites by Ema", phone: "", email: "", instagram: "@bitesbyema", notes: "" },
+      { id: 17, name: "Black Pearl Street Fusion", phone: "", email: "", instagram: "@blackpearlstreetfusion", notes: "" },
+      { id: 18, name: "Bradford Hotdog Cart", phone: "", email: "", instagram: "", notes: "Hot dog cart" },
+      { id: 19, name: "Brazilicious", phone: "(904) 377-6503", email: "braziliciousjax@gmail.com", instagram: "@braziliciousjax", notes: "Brazilian cuisine" },
+      { id: 20, name: "Brochachos Fusion Eats", phone: "", email: "", instagram: "@brochachos_fusion_eats", notes: "Tacos & fusion; voted best JAX food truck" },
+      { id: 21, name: "Cafe Ybor Food Bus", phone: "(904) 720-5403", email: "cafeybor@gmail.com", instagram: "@yborfoodbus", notes: "Cuban sandwiches & comfort food" },
+      { id: 22, name: "Cajun Cravins' 2 Go", phone: "(504) 818-8577", email: "cajuncravins2go@gmail.com", instagram: "@cajuncravins2go", notes: "NOLA-style Cajun cuisine" },
+      { id: 23, name: "Callahan Fresh", phone: "", email: "", instagram: "", notes: "" },
+      { id: 24, name: "Chew Chew Food Truck", phone: "", email: "", instagram: "", notes: "" },
+      { id: 25, name: "Chinchilla's Eats", phone: "", email: "", instagram: "", notes: "" },
+      { id: 26, name: "Chubby Burrito", phone: "", email: "", instagram: "@chubbyburrito", notes: "Mexican burritos & tacos" },
+      { id: 27, name: "Chug Waggin", phone: "", email: "", instagram: "@chugwaggin", notes: "Hot dogs & fun treats" },
+      { id: 28, name: "Chunky Tomato", phone: "", email: "", instagram: "", notes: "" },
+      { id: 29, name: "Cluckin Crab", phone: "(904) 947-5854", email: "", instagram: "@cluckincrab", notes: "Southern seafood comfort food" },
+      { id: 30, name: "Compass Eatery LLC", phone: "", email: "", instagram: "@compasseatery", notes: "American fusion" },
+      { id: 31, name: "Cone and Cream", phone: "", email: "", instagram: "@coneandcream", notes: "Ice cream" },
+      { id: 32, name: "Cook's Creation", phone: "", email: "", instagram: "", notes: "" },
+      { id: 33, name: "Copper Spoon Foodtruck", phone: "(904) 708-3245", email: "", instagram: "@copperspoonfoodtruck", notes: "" },
+      { id: 34, name: "Corner Taco", phone: "(904) 389-3622", email: "", instagram: "", notes: "Mexclectic tacos; est. 2012" },
+      { id: 35, name: "Costal Coffee Mobile Cafe", phone: "", email: "", instagram: "", notes: "Mobile coffee" },
+      { id: 36, name: "County Road Provisions", phone: "(904) 806-7349", email: "", instagram: "", notes: "Texas-style BBQ" },
+      { id: 37, name: "Crepe Crazy", phone: "(240) 439-8212", email: "sta@crepecrazy.com", instagram: "", notes: "Sweet & savory crepes" },
+      { id: 38, name: "Cuban Fire Grill", phone: "", email: "", instagram: "", notes: "CLOSED as of 2025" },
+      { id: 39, name: "Da Crab Trap", phone: "(352) 679-4263", email: "dacrabtrapflallc@gmail.com", instagram: "@dacrabtrap", notes: "Seafood — coastal Florida" },
+      { id: 40, name: "Daddy-O's Portable Patio", phone: "(210) 365-1049", email: "", instagram: "@daddyosportablepatio", notes: "Tex-Mex comfort food" },
+      { id: 41, name: "Dagwood's Food Truck", phone: "(904) 414-5979", email: "dagwoodsfoodtruck@gmail.com", instagram: "", notes: "Burgers, tacos, gyros; est. 1976" },
+      { id: 42, name: "Delish Kebabs", phone: "", email: "delishkebabs@gmail.com", instagram: "@delishkebabs", notes: "Mediterranean kebabs" },
+      { id: 43, name: "DnP Cupcakery", phone: "(904) 800-9730", email: "dnpcupcakery@gmail.com", instagram: "@dnpcupcakery", notes: "Custom cupcakes & cakes" },
+      { id: 44, name: "Dobber's Dawgs", phone: "", email: "", instagram: "", notes: "Hot dogs" },
+      { id: 45, name: "Dominick's Food Truck", phone: "", email: "", instagram: "", notes: "" },
+      { id: 46, name: "Dorami", phone: "", email: "", instagram: "", notes: "" },
+      { id: 47, name: "Dots Ice Cream", phone: "", email: "", instagram: "@dotsicecreamtruck", notes: "104-flavor ice cream truck" },
+      { id: 48, name: "Double D's", phone: "", email: "", instagram: "@doubledsfoodtruck", notes: "Wings, hot dogs & more" },
+      { id: 49, name: "Down South Eatz", phone: "", email: "", instagram: "@downsoutheatz", notes: "Southern comfort food" },
+      { id: 50, name: "Dream Dogs", phone: "", email: "", instagram: "", notes: "Gourmet hot dogs" }
+    ];
+
+    // ── Compute Stats ──
+    const totalTrucks = trucks.length;
+    const withPhone = trucks.filter(t => t.phone).length;
+    const withEmail = trucks.filter(t => t.email).length;
+    const withInstagram = trucks.filter(t => t.instagram).length;
+
+    // Render header stats
+    document.getElementById('headerStats').innerHTML =
+      `<span class="header-stat"><strong>${withPhone}</strong> with Phone</span>` +
+      `<span class="header-stat"><strong>${withEmail}</strong> with Email</span>` +
+      `<span class="header-stat"><strong>${withInstagram}</strong> with Instagram</span>`;
+
+    // ── State ──
+    let activeFilter = 'all';
+    let searchQuery = '';
+
+    // ── Render Cards ──
+    function renderCards() {
+      const grid = document.getElementById('cardGrid');
+      const noResults = document.getElementById('noResults');
+      const statsBar = document.getElementById('statsBar');
+
+      const filtered = trucks.filter(t => {
+        // Filter
+        if (activeFilter === 'phone' && !t.phone) return false;
+        if (activeFilter === 'email' && !t.email) return false;
+        if (activeFilter === 'instagram' && !t.instagram) return false;
+
+        // Search
+        if (searchQuery) {
+          const q = searchQuery.toLowerCase();
+          const haystack = (t.name + ' ' + t.notes + ' ' + t.instagram).toLowerCase();
+          if (!haystack.includes(q)) return false;
+        }
+
+        return true;
+      });
+
+      statsBar.textContent = `Showing ${filtered.length} of ${totalTrucks} food trucks`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        noResults.style.display = 'block';
+        return;
+      }
+
+      noResults.style.display = 'none';
+
+      grid.innerHTML = filtered.map(t => {
+        const isClosed = t.notes.toLowerCase().includes('closed');
+        const closedClass = isClosed ? ' closed' : '';
+        const closedBadge = isClosed ? ' <span class="closed-badge">CLOSED</span>' : '';
+
+        const phoneHtml = t.phone
+          ? `<a href="tel:${t.phone.replace(/[^\d+]/g, '')}">${t.phone}</a>`
+          : '<span class="empty">&mdash;</span>';
+
+        const emailHtml = t.email
+          ? `<a href="mailto:${t.email}">${t.email}</a>`
+          : '<span class="empty">&mdash;</span>';
+
+        const igHtml = t.instagram
+          ? t.instagram
+          : '<span class="empty">&mdash;</span>';
+
+        const notesHtml = t.notes && !isClosed
+          ? `<div class="truck-notes">${t.notes}</div>`
+          : isClosed
+            ? `<div class="truck-notes">${t.notes}</div>`
+            : '';
+
+        return `
+          <div class="truck-card${closedClass}">
+            <div>
+              <div class="truck-number">#${t.id}${closedBadge}</div>
+              <div class="truck-name">${t.name}</div>
+            </div>
+            <div class="truck-detail"><span class="label">Phone</span> ${phoneHtml}</div>
+            <div class="truck-detail"><span class="label">Email</span> ${emailHtml}</div>
+            <div class="truck-detail"><span class="label">Instagram</span> ${igHtml}</div>
+            ${notesHtml}
+          </div>
+        `;
+      }).join('');
+    }
+
+    // ── Filter Pills ──
+    document.getElementById('filterPills').addEventListener('click', e => {
+      const pill = e.target.closest('.pill');
+      if (!pill) return;
+      document.querySelectorAll('#filterPills .pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      activeFilter = pill.dataset.filter;
+      renderCards();
+    });
+
+    // ── Search ──
+    document.getElementById('searchInput').addEventListener('input', e => {
+      searchQuery = e.target.value.trim();
+      renderCards();
+    });
+
+    // ── Initial Render ──
+    renderCards();
+  </script>
+</body>
+</html>
