@@ -280,6 +280,28 @@
       line-height: 1.3;
     }
 
+    /* ── Category Badge ── */
+    .category-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      white-space: nowrap;
+      margin-top: 0.15rem;
+    }
+
+    .cat-bbq { background: #f5c6cb; color: #6c1e1e; }
+    .cat-seafood { background: #cce5ff; color: #004085; }
+    .cat-mexican { background: #fff3cd; color: #856404; }
+    .cat-burgers { background: #ffe0b2; color: #e65100; }
+    .cat-sandwiches { background: #e2d9f3; color: #4a1a8a; }
+    .cat-icecream { background: #d1f5d3; color: #1b5e20; }
+    .cat-asian { background: #f8d7da; color: #721c24; }
+    .cat-latin { background: #fff9c4; color: #827717; }
+    .cat-hotdogs { background: #ffe0cc; color: #bf360c; }
+    .cat-other { background: #e0e0e0; color: #424242; }
+
     .truck-detail {
       font-size: 0.82rem;
       color: var(--text);
@@ -314,6 +336,20 @@
       font-style: italic;
     }
 
+    .truck-website {
+      font-size: 0.78rem;
+      font-weight: 500;
+    }
+
+    .truck-website a {
+      color: var(--primary);
+      text-decoration: underline;
+      text-decoration-color: rgba(0,0,0,0.15);
+      text-underline-offset: 2px;
+    }
+
+    .truck-website a:hover { text-decoration-color: var(--primary); }
+
     .closed-badge {
       display: inline-block;
       font-size: 0.65rem;
@@ -322,6 +358,16 @@
       border-radius: 999px;
       background: #f5c6cb;
       color: #721c24;
+    }
+
+    .verify-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 999px;
+      background: #fff3cd;
+      color: #856404;
     }
 
     /* ── Footer ── */
@@ -381,7 +427,7 @@
         <a href="index.html" class="back-link">&larr; Back to Catalog</a>
       </div>
       <h1>Jacksonville Food Trucks</h1>
-      <p class="subtitle">50 Food Trucks &nbsp;|&nbsp; Contact List &nbsp;|&nbsp; March 2026</p>
+      <p class="subtitle">100 Food Trucks &nbsp;|&nbsp; Contact List &nbsp;|&nbsp; March 2026</p>
       <div class="header-stats" id="headerStats"></div>
     </div>
   </header>
@@ -390,10 +436,10 @@
   <div class="toolbar">
     <div class="container toolbar-inner">
       <div class="toolbar-row toolbar-controls">
-        <input type="text" class="search-input" id="searchInput" placeholder="Search name, notes, Instagram...">
+        <input type="text" class="search-input" id="searchInput" placeholder="Search name, category, notes, Instagram...">
       </div>
       <div class="toolbar-row">
-        <span class="toolbar-label">Filter</span>
+        <span class="toolbar-label">Contact</span>
         <div class="pills-scroll" id="filterPills">
           <span class="pill active" data-filter="all">All</span>
           <span class="pill" data-filter="phone">Has Phone</span>
@@ -401,12 +447,16 @@
           <span class="pill" data-filter="instagram">Has Instagram</span>
         </div>
       </div>
+      <div class="toolbar-row">
+        <span class="toolbar-label">Category</span>
+        <div class="pills-scroll" id="categoryPills"></div>
+      </div>
     </div>
   </div>
 
   <!-- ── Main Content ── -->
   <main class="container" style="padding-top: 1rem;">
-    <div class="stats-bar" id="statsBar">Showing 50 of 50 food trucks</div>
+    <div class="stats-bar" id="statsBar">Showing 100 of 100 food trucks</div>
     <div class="card-grid" id="cardGrid"></div>
     <div class="no-results" id="noResults" style="display:none;">No food trucks match your search.</div>
   </main>
@@ -414,7 +464,7 @@
   <!-- ── Footer ── -->
   <footer class="footer">
     <div class="container">
-      <p>Total: 50 food trucks &nbsp;|&nbsp; Source: jaxfoodtrucks.org, visitjacksonville.com &nbsp;|&nbsp; March 2026</p>
+      <p>Total: 100 food trucks &nbsp;|&nbsp; Source: jaxfoodtrucks.org, visitjacksonville.com &nbsp;|&nbsp; March 2026</p>
       <p>&copy; 2026 SDC Solutions &mdash; Sabores del Campo LLC. Jacksonville, FL. All rights reserved.</p>
     </div>
   </footer>
@@ -422,57 +472,136 @@
   <script>
     // ── Food Truck Data ──
     const trucks = [
-      { id: 1, name: "904 Burgers", phone: "(904) 723-3766", email: "info@904burgers.com", instagram: "@904burgers", notes: "Gourmet burgers food truck" },
-      { id: 2, name: "904 Gyros", phone: "", email: "", instagram: "@904gyros", notes: "Greek/Mediterranean gyros" },
-      { id: 3, name: "A Real Taste Of Georgia", phone: "", email: "", instagram: "", notes: "Southern cuisine" },
-      { id: 4, name: "About Time Creamery", phone: "", email: "", instagram: "@abouttimecreamery", notes: "Ice cream truck" },
-      { id: 5, name: "About Time Food Truck", phone: "", email: "", instagram: "", notes: "" },
-      { id: 6, name: "Abstrakt Filipino Essence", phone: "", email: "", instagram: "@abstraktfilipino", notes: "Filipino food truck" },
-      { id: 7, name: "Alma Food Truck", phone: "(404) 422-8624", email: "", instagram: "@almafusion", notes: "Latin fusion cuisine" },
-      { id: 8, name: "Angelo's Sandwich Stop", phone: "(904) 503-4576", email: "angelossandwichstop@gmail.com", instagram: "", notes: "Gourmet sandwiches" },
-      { id: 9, name: "Bawk Bawk Chicken Truck", phone: "(904) 651-8950", email: "", instagram: "@bawkbawkchickentruck", notes: "Fried chicken specialty" },
-      { id: 10, name: "Beach Life Bo LLC", phone: "", email: "", instagram: "@beachlifebo", notes: "" },
-      { id: 11, name: "Best Burgers", phone: "", email: "", instagram: "@bestburgersjax", notes: "" },
-      { id: 12, name: "Bf'nd Food Truck", phone: "", email: "", instagram: "@bfndfoodtruck", notes: "" },
-      { id: 13, name: "Big Blue's Bistro", phone: "", email: "", instagram: "", notes: "" },
-      { id: 14, name: "Big City Dogs", phone: "", email: "", instagram: "", notes: "Hot dogs specialty" },
-      { id: 15, name: "Big Island Bowls", phone: "(904) 377-4763", email: "", instagram: "@islandbowls", notes: "Hawaiian poke & acai bowls" },
-      { id: 16, name: "Bites by Ema", phone: "", email: "", instagram: "@bitesbyema", notes: "" },
-      { id: 17, name: "Black Pearl Street Fusion", phone: "", email: "", instagram: "@blackpearlstreetfusion", notes: "" },
-      { id: 18, name: "Bradford Hotdog Cart", phone: "", email: "", instagram: "", notes: "Hot dog cart" },
-      { id: 19, name: "Brazilicious", phone: "(904) 377-6503", email: "braziliciousjax@gmail.com", instagram: "@braziliciousjax", notes: "Brazilian cuisine" },
-      { id: 20, name: "Brochachos Fusion Eats", phone: "", email: "", instagram: "@brochachos_fusion_eats", notes: "Tacos & fusion; voted best JAX food truck" },
-      { id: 21, name: "Cafe Ybor Food Bus", phone: "(904) 720-5403", email: "cafeybor@gmail.com", instagram: "@yborfoodbus", notes: "Cuban sandwiches & comfort food" },
-      { id: 22, name: "Cajun Cravins' 2 Go", phone: "(504) 818-8577", email: "cajuncravins2go@gmail.com", instagram: "@cajuncravins2go", notes: "NOLA-style Cajun cuisine" },
-      { id: 23, name: "Callahan Fresh", phone: "", email: "", instagram: "", notes: "" },
-      { id: 24, name: "Chew Chew Food Truck", phone: "", email: "", instagram: "", notes: "" },
-      { id: 25, name: "Chinchilla's Eats", phone: "", email: "", instagram: "", notes: "" },
-      { id: 26, name: "Chubby Burrito", phone: "", email: "", instagram: "@chubbyburrito", notes: "Mexican burritos & tacos" },
-      { id: 27, name: "Chug Waggin", phone: "", email: "", instagram: "@chugwaggin", notes: "Hot dogs & fun treats" },
-      { id: 28, name: "Chunky Tomato", phone: "", email: "", instagram: "", notes: "" },
-      { id: 29, name: "Cluckin Crab", phone: "(904) 947-5854", email: "", instagram: "@cluckincrab", notes: "Southern seafood comfort food" },
-      { id: 30, name: "Compass Eatery LLC", phone: "", email: "", instagram: "@compasseatery", notes: "American fusion" },
-      { id: 31, name: "Cone and Cream", phone: "", email: "", instagram: "@coneandcream", notes: "Ice cream" },
-      { id: 32, name: "Cook's Creation", phone: "", email: "", instagram: "", notes: "" },
-      { id: 33, name: "Copper Spoon Foodtruck", phone: "(904) 708-3245", email: "", instagram: "@copperspoonfoodtruck", notes: "" },
-      { id: 34, name: "Corner Taco", phone: "(904) 389-3622", email: "", instagram: "", notes: "Mexclectic tacos; est. 2012" },
-      { id: 35, name: "Costal Coffee Mobile Cafe", phone: "", email: "", instagram: "", notes: "Mobile coffee" },
-      { id: 36, name: "County Road Provisions", phone: "(904) 806-7349", email: "", instagram: "", notes: "Texas-style BBQ" },
-      { id: 37, name: "Crepe Crazy", phone: "(240) 439-8212", email: "sta@crepecrazy.com", instagram: "", notes: "Sweet & savory crepes" },
-      { id: 38, name: "Cuban Fire Grill", phone: "", email: "", instagram: "", notes: "CLOSED as of 2025" },
-      { id: 39, name: "Da Crab Trap", phone: "(352) 679-4263", email: "dacrabtrapflallc@gmail.com", instagram: "@dacrabtrap", notes: "Seafood — coastal Florida" },
-      { id: 40, name: "Daddy-O's Portable Patio", phone: "(210) 365-1049", email: "", instagram: "@daddyosportablepatio", notes: "Tex-Mex comfort food" },
-      { id: 41, name: "Dagwood's Food Truck", phone: "(904) 414-5979", email: "dagwoodsfoodtruck@gmail.com", instagram: "", notes: "Burgers, tacos, gyros; est. 1976" },
-      { id: 42, name: "Delish Kebabs", phone: "", email: "delishkebabs@gmail.com", instagram: "@delishkebabs", notes: "Mediterranean kebabs" },
-      { id: 43, name: "DnP Cupcakery", phone: "(904) 800-9730", email: "dnpcupcakery@gmail.com", instagram: "@dnpcupcakery", notes: "Custom cupcakes & cakes" },
-      { id: 44, name: "Dobber's Dawgs", phone: "", email: "", instagram: "", notes: "Hot dogs" },
-      { id: 45, name: "Dominick's Food Truck", phone: "", email: "", instagram: "", notes: "" },
-      { id: 46, name: "Dorami", phone: "", email: "", instagram: "", notes: "" },
-      { id: 47, name: "Dots Ice Cream", phone: "", email: "", instagram: "@dotsicecreamtruck", notes: "104-flavor ice cream truck" },
-      { id: 48, name: "Double D's", phone: "", email: "", instagram: "@doubledsfoodtruck", notes: "Wings, hot dogs & more" },
-      { id: 49, name: "Down South Eatz", phone: "", email: "", instagram: "@downsoutheatz", notes: "Southern comfort food" },
-      { id: 50, name: "Dream Dogs", phone: "", email: "", instagram: "", notes: "Gourmet hot dogs" }
+      { id: 1, name: "904 Burgers", category: "Burgers", phone: "(904) 723-3766", email: "info@904burgers.com", instagram: "@904burgers", notes: "Gourmet burgers food truck" },
+      { id: 2, name: "904 Gyros", category: "Greek / Mediterranean", phone: "", email: "", instagram: "@904gyros", notes: "" },
+      { id: 3, name: "A Real Taste Of Georgia", category: "Southern", phone: "", email: "", instagram: "", notes: "" },
+      { id: 4, name: "About Time Creamery", category: "Ice Cream", phone: "", email: "", instagram: "@abouttimecreamery", notes: "" },
+      { id: 5, name: "About Time Food Truck", category: "", phone: "", email: "", instagram: "", notes: "" },
+      { id: 6, name: "Abstrakt Filipino Essence", category: "Filipino", phone: "", email: "", instagram: "@abstraktfilipino", notes: "" },
+      { id: 7, name: "Alma Food Truck", category: "Latin Fusion", phone: "(404) 422-8624", email: "", instagram: "@almafusion", notes: "" },
+      { id: 8, name: "Angelo's Sandwich Stop", category: "Sandwiches", phone: "(904) 503-4576", email: "angelossandwichstop@gmail.com", instagram: "", notes: "" },
+      { id: 9, name: "Bawk Bawk Chicken Truck", category: "Fried Chicken", phone: "(904) 651-8950", email: "", instagram: "@bawkbawkchickentruck", notes: "" },
+      { id: 10, name: "Beach Life Bo LLC", category: "", phone: "", email: "", instagram: "@beachlifebo", notes: "" },
+      { id: 11, name: "Best Burgers", category: "Burgers", phone: "", email: "", instagram: "@bestburgersjax", notes: "" },
+      { id: 12, name: "Bf'nd Food Truck", category: "", phone: "", email: "", instagram: "@bfndfoodtruck", notes: "" },
+      { id: 13, name: "Big Blue's Bistro", category: "", phone: "", email: "", instagram: "", notes: "" },
+      { id: 14, name: "Big City Dogs", category: "Hot Dogs", phone: "", email: "", instagram: "", notes: "" },
+      { id: 15, name: "Big Island Bowls", category: "Hawaiian / Poke", phone: "(904) 377-4763", email: "", instagram: "@islandbowls", notes: "" },
+      { id: 16, name: "Bites by Ema", category: "", phone: "", email: "", instagram: "@bitesbyema", notes: "" },
+      { id: 17, name: "Black Pearl Street Fusion", category: "", phone: "", email: "", instagram: "@blackpearlstreetfusion", notes: "" },
+      { id: 18, name: "Bradford Hotdog Cart", category: "Hot Dogs", phone: "", email: "", instagram: "", notes: "" },
+      { id: 19, name: "Brazilicious", category: "Brazilian", phone: "(904) 377-6503", email: "braziliciousjax@gmail.com", instagram: "@braziliciousjax", notes: "" },
+      { id: 20, name: "Brochachos Fusion Eats", category: "Tacos / Fusion", phone: "", email: "", instagram: "@brochachos_fusion_eats", notes: "Voted best JAX food truck" },
+      { id: 21, name: "Cafe Ybor Food Bus", category: "Cuban", phone: "(904) 720-5403", email: "cafeybor@gmail.com", instagram: "@yborfoodbus", notes: "" },
+      { id: 22, name: "Cajun Cravins' 2 Go", category: "Cajun", phone: "(504) 818-8577", email: "cajuncravins2go@gmail.com", instagram: "@cajuncravins2go", notes: "NOLA-style" },
+      { id: 23, name: "Callahan Fresh", category: "", phone: "", email: "", instagram: "", notes: "" },
+      { id: 24, name: "Chew Chew Food Truck", category: "", phone: "", email: "", instagram: "", notes: "" },
+      { id: 25, name: "Chinchilla's Eats", category: "", phone: "", email: "", instagram: "", notes: "" },
+      { id: 26, name: "Chubby Burrito", category: "Mexican", phone: "", email: "", instagram: "@chubbyburrito", notes: "" },
+      { id: 27, name: "Chug Waggin", category: "Hot Dogs", phone: "", email: "", instagram: "@chugwaggin", notes: "" },
+      { id: 28, name: "Chunky Tomato", category: "", phone: "", email: "", instagram: "", notes: "" },
+      { id: 29, name: "Cluckin Crab", category: "Seafood / Southern", phone: "(904) 947-5854", email: "", instagram: "@cluckincrab", notes: "" },
+      { id: 30, name: "Compass Eatery LLC", category: "American Fusion", phone: "", email: "", instagram: "@compasseatery", notes: "" },
+      { id: 31, name: "Cone and Cream", category: "Ice Cream", phone: "", email: "", instagram: "@coneandcream", notes: "" },
+      { id: 32, name: "Cook's Creation", category: "", phone: "", email: "", instagram: "", notes: "" },
+      { id: 33, name: "Copper Spoon Foodtruck", category: "", phone: "(904) 708-3245", email: "", instagram: "@copperspoonfoodtruck", notes: "" },
+      { id: 34, name: "Corner Taco", category: "Mexican / Tacos", phone: "(904) 389-3622", email: "", instagram: "", notes: "Est. 2012" },
+      { id: 35, name: "Costal Coffee Mobile Cafe", category: "Coffee", phone: "", email: "", instagram: "", notes: "" },
+      { id: 36, name: "County Road Provisions", category: "BBQ", phone: "(904) 806-7349", email: "", instagram: "", notes: "Texas-style" },
+      { id: 37, name: "Crepe Crazy", category: "Crepes", phone: "(240) 439-8212", email: "sta@crepecrazy.com", instagram: "", notes: "" },
+      { id: 38, name: "Cuban Fire Grill", category: "Cuban", phone: "", email: "", instagram: "", notes: "CLOSED as of 2025" },
+      { id: 39, name: "Da Crab Trap", category: "Seafood", phone: "(352) 679-4263", email: "dacrabtrapflallc@gmail.com", instagram: "@dacrabtrap", notes: "" },
+      { id: 40, name: "Daddy-O's Portable Patio", category: "Tex-Mex", phone: "(210) 365-1049", email: "", instagram: "@daddyosportablepatio", notes: "" },
+      { id: 41, name: "Dagwood's Food Truck", category: "Burgers / Tacos", phone: "(904) 414-5979", email: "dagwoodsfoodtruck@gmail.com", instagram: "", notes: "Est. 1976" },
+      { id: 42, name: "Delish Kebabs", category: "Mediterranean", phone: "", email: "delishkebabs@gmail.com", instagram: "@delishkebabs", notes: "" },
+      { id: 43, name: "DnP Cupcakery", category: "Dessert", phone: "(904) 800-9730", email: "dnpcupcakery@gmail.com", instagram: "@dnpcupcakery", notes: "" },
+      { id: 44, name: "Dobber's Dawgs", category: "Hot Dogs", phone: "", email: "", instagram: "", notes: "" },
+      { id: 45, name: "Dominick's Food Truck", category: "", phone: "", email: "", instagram: "", notes: "" },
+      { id: 46, name: "Dorami", category: "", phone: "", email: "", instagram: "", notes: "" },
+      { id: 47, name: "Dots Ice Cream", category: "Ice Cream", phone: "", email: "", instagram: "@dotsicecreamtruck", notes: "104 flavors" },
+      { id: 48, name: "Double D's", category: "Wings / Hot Dogs", phone: "", email: "", instagram: "@doubledsfoodtruck", notes: "" },
+      { id: 49, name: "Down South Eatz", category: "Southern", phone: "", email: "", instagram: "@downsoutheatz", notes: "" },
+      { id: 50, name: "Dream Dogs", category: "Hot Dogs", phone: "", email: "", instagram: "", notes: "Gourmet hot dogs" },
+      { id: 51, name: "El Agave Azul Jax", category: "Mexican / Birria", phone: "(904) 651-3274", email: "info@elagaveazuljax.com", instagram: "@elagaveazuljax", notes: "Est. 2015" },
+      { id: 52, name: "Jazzy Krab", category: "Seafood", phone: "(904) 705-6766", email: "jazzykrab904@gmail.com", instagram: "@jazzy_krab904", notes: "" },
+      { id: 53, name: "Fresh From Yianni's Kitchen", category: "Mediterranean / Mexican", phone: "", email: "", instagram: "", notes: "" },
+      { id: 54, name: "LAGASH FOOD", category: "American / Mediterranean", phone: "", email: "", instagram: "", notes: "" },
+      { id: 55, name: "Sweet & Salty Sisters", category: "Carnival / Funnel Cake", phone: "", email: "", instagram: "", notes: "" },
+      { id: 56, name: "Rolling Fatty's", category: "Burgers / Cheesesteaks", phone: "", email: "", instagram: "@rolling_fattys", notes: "" },
+      { id: 57, name: "GoodFood247", category: "Seafood / Soul Food", phone: "", email: "", instagram: "", notes: "" },
+      { id: 58, name: "LIQ-N-WINGS", category: "Wings / Fried Chicken", phone: "", email: "", instagram: "", notes: "" },
+      { id: 59, name: "Lolo Hawaiian Shave Ice", category: "Hawaiian Shave Ice", phone: "", email: "", instagram: "", notes: "" },
+      { id: 60, name: "Tangos R Us Fl.", category: "Argentinian / BBQ", phone: "", email: "", instagram: "", notes: "" },
+      { id: 61, name: "Hapa Li", category: "Hawaiian / BBQ", phone: "", email: "", instagram: "", notes: "" },
+      { id: 62, name: "Frios Duval", category: "Ice Pops / Dessert", phone: "", email: "", instagram: "", notes: "" },
+      { id: 63, name: "Mooval Frozen Treats", category: "Ice Cream / Frozen", phone: "", email: "", instagram: "", notes: "" },
+      { id: 64, name: "Tough Guys Cookies & Sweets", category: "Cookies / Dessert", phone: "", email: "", instagram: "", notes: "" },
+      { id: 65, name: "Eddis & Sons", category: "Sandwiches / Cheesesteaks", phone: "", email: "", instagram: "", notes: "" },
+      { id: 66, name: "Roaming Ronin Food Truck", category: "Asian / Asian Fusion", phone: "(904) 544-2111", email: "roamingroninfoodtruck@gmail.com", instagram: "", notes: "" },
+      { id: 67, name: "Great American Food Truck", category: "Burgers / Hot Dogs", phone: "", email: "", instagram: "", notes: "" },
+      { id: 68, name: "Dem Boyz BBQN", category: "BBQ", phone: "", email: "", instagram: "", notes: "" },
+      { id: 69, name: "Skillet", category: "Burgers / Southern", phone: "", email: "", instagram: "", notes: "" },
+      { id: 70, name: "WaugaWauga", category: "Sandwiches / Sliders", phone: "", email: "", instagram: "", notes: "" },
+      { id: 71, name: "JoyShtick Food Truck", category: "Burgers / Eclectic", phone: "", email: "", instagram: "", notes: "" },
+      { id: 72, name: "Latin Soul Grille", category: "Latin Fusion / BBQ", phone: "(904) 258-9512", email: "latinsoulgrille@gmail.com", instagram: "@latinsoulgrille", notes: "Puerto Rican & Latin cuisine" },
+      { id: 73, name: "Nitrogen Creamery", category: "Ice Cream", phone: "(904) 536-2988", email: "", instagram: "", notes: "" },
+      { id: 74, name: "Twisting Roots", category: "Sandwiches / Puerto Rican", phone: "(904) 860-8218", email: "", instagram: "@904twistingroots", notes: "" },
+      { id: 75, name: "Triple 3 Kings", category: "BBQ / Seafood", phone: "", email: "", instagram: "", notes: "" },
+      { id: 76, name: "Son of a Butcher", category: "Sandwiches / Cheesesteaks", phone: "", email: "", instagram: "", notes: "" },
+      { id: 77, name: "Mother Truckin' Pizza", category: "Pizza", phone: "(904) 515-2055", email: "mothertruckinpizza@gmail.com", instagram: "@mothertruckinpizza", notes: "Est. 2014" },
+      { id: 78, name: "Fusion Food Truck", category: "Indian / Thai / Asian", phone: "(904) 874-5478", email: "fusioneats@gmail.com", instagram: "@fusioneats", notes: "1st Indian food truck in JAX" },
+      { id: 79, name: "Up In Smoke BBQ", category: "BBQ", phone: "", email: "", instagram: "", notes: "" },
+      { id: 80, name: "The Bangin' Shrimp Bus", category: "Seafood / Tacos", phone: "", email: "", instagram: "", notes: "" },
+      { id: 81, name: "Treemendous BBQ", category: "BBQ", phone: "", email: "", instagram: "", notes: "" },
+      { id: 82, name: "On the Fly", category: "Sandwiches / Wraps", phone: "", email: "", instagram: "", notes: "" },
+      { id: 83, name: "Funkadelic Food Truck", category: "Sandwiches / Eclectic", phone: "", email: "", instagram: "", notes: "" },
+      { id: 84, name: "Burger88", category: "Burgers", phone: "(904) 595-7889", email: "", instagram: "", notes: "" },
+      { id: 85, name: "Blazin Azn", category: "Asian Fusion", phone: "", email: "", instagram: "", notes: "" },
+      { id: 86, name: "Professor Panini", category: "Paninis / Sandwiches", phone: "", email: "", instagram: "", notes: "" },
+      { id: 87, name: "Sweeto Burrito Jax", category: "Tex Mex / Burritos", phone: "", email: "", instagram: "@sweetojax", notes: "Possibly closed — verify" },
+      { id: 88, name: "The Fried Egg", category: "Breakfast / American", phone: "", email: "", instagram: "", notes: "" },
+      { id: 89, name: "Saffron Mediterranean", category: "Mediterranean / Wraps", phone: "", email: "info@saffrontruck.com", instagram: "@904saffron", notes: "Website: 904saffron.com" },
+      { id: 90, name: "El Mariachi Loko", category: "Mexican / Tacos", phone: "", email: "", instagram: "", notes: "" },
+      { id: 91, name: "Lolly's Food Trolley", category: "Sushi / Poke / Asian", phone: "", email: "", instagram: "@lollysjax", notes: "" },
+      { id: 92, name: "The Happy Grilled Cheese", category: "Grilled Cheese / Soup", phone: "(904) 423-0318", email: "", instagram: "@the_happy_grilled_cheese", notes: "" },
+      { id: 93, name: "Wurstbusters", category: "German / Sausages", phone: "(904) 999-9033", email: "foodtruckbiz@hotmail.com", instagram: "", notes: "Website: wurstbusters.com" },
+      { id: 94, name: "To Be Frank Jax", category: "Hot Dogs / Burgers", phone: "", email: "", instagram: "", notes: "" },
+      { id: 95, name: "What's the Catch", category: "Seafood / Tacos", phone: "(904) 524-3787", email: "whatsthecatch3@gmail.com", instagram: "@whatsthecatchfoodtruck", notes: "Est. 2014; 1971 Airstream" },
+      { id: 96, name: "Viva Mi Familia", category: "Mexican / Tacos", phone: "(904) 888-0202", email: "vivamifamiliajax@gmail.com", instagram: "@vivamifamiliajax", notes: "#1 Mexican fusion truck in JAX" },
+      { id: 97, name: "Kaboom Kababs", category: "Middle Eastern / Kebabs", phone: "(269) 861-1348", email: "", instagram: "", notes: "Website: kaboomkababs.com" },
+      { id: 98, name: "Hibachi Party Jax", category: "Japanese Hibachi", phone: "(904) 524-6034", email: "hibachipartyjax@gmail.com", instagram: "@hibashipartyjax", notes: "Private hibachi events" },
+      { id: 99, name: "Son of a Brisket", category: "BBQ / Brisket", phone: "(904) 699-8154", email: "", instagram: "@sonsofabrisket", notes: "" },
+      { id: 100, name: "Josie's Latin Fusion", category: "Latin / Colombian", phone: "", email: "", instagram: "", notes: "" }
     ];
+
+    // ── Category grouping for filter pills ──
+    const categoryGroups = {
+      'BBQ': t => /bbq|brisket/i.test(t.category),
+      'Seafood': t => /seafood/i.test(t.category),
+      'Mexican / Tacos': t => /mexican|tacos|tex.?mex|birria|burrito/i.test(t.category),
+      'Burgers': t => /burger/i.test(t.category) && !/hot dog/i.test(t.category),
+      'Sandwiches': t => /sandwich|panini|cheesesteak|grilled cheese/i.test(t.category),
+      'Ice Cream / Dessert': t => /ice cream|dessert|frozen|cookie|cupcak|funnel|ice pop|creamery/i.test(t.category),
+      'Asian': t => /asian|filipino|japanese|sushi|poke|hibachi|indian|thai/i.test(t.category),
+      'Latin': t => /latin|cuban|brazilian|colombian|argentinian|puerto rican/i.test(t.category),
+      'Hot Dogs': t => /hot dog|dawg/i.test(t.category),
+    };
+
+    // ── Category badge CSS class mapping ──
+    function getCategoryClass(category) {
+      if (!category) return 'cat-other';
+      const c = category.toLowerCase();
+      if (/bbq|brisket/i.test(c)) return 'cat-bbq';
+      if (/seafood/i.test(c)) return 'cat-seafood';
+      if (/mexican|tacos|tex.?mex|birria|burrito/i.test(c)) return 'cat-mexican';
+      if (/burger/i.test(c)) return 'cat-burgers';
+      if (/sandwich|panini|cheesesteak|grilled cheese|wrap/i.test(c)) return 'cat-sandwiches';
+      if (/ice cream|dessert|frozen|cookie|cupcak|funnel|ice pop|creamery|crepe/i.test(c)) return 'cat-icecream';
+      if (/asian|filipino|japanese|sushi|poke|hibachi|indian|thai/i.test(c)) return 'cat-asian';
+      if (/latin|cuban|brazilian|colombian|argentinian|puerto rican/i.test(c)) return 'cat-latin';
+      if (/hot dog|dawg|wing/i.test(c)) return 'cat-hotdogs';
+      return 'cat-other';
+    }
 
     // ── Compute Stats ──
     const totalTrucks = trucks.length;
@@ -482,12 +611,35 @@
 
     // Render header stats
     document.getElementById('headerStats').innerHTML =
+      `<span class="header-stat"><strong>${totalTrucks}</strong> Total</span>` +
       `<span class="header-stat"><strong>${withPhone}</strong> with Phone</span>` +
       `<span class="header-stat"><strong>${withEmail}</strong> with Email</span>` +
       `<span class="header-stat"><strong>${withInstagram}</strong> with Instagram</span>`;
 
+    // ── Build Category Filter Pills ──
+    (function buildCategoryPills() {
+      const container = document.getElementById('categoryPills');
+      let html = '<span class="pill active" data-category="all">All</span>';
+      for (const groupName of Object.keys(categoryGroups)) {
+        const count = trucks.filter(categoryGroups[groupName]).length;
+        if (count > 0) {
+          html += `<span class="pill" data-category="${groupName}">${groupName} (${count})</span>`;
+        }
+      }
+      // "Other" for anything not matched
+      const otherCount = trucks.filter(t => {
+        if (!t.category) return true;
+        return !Object.values(categoryGroups).some(fn => fn(t));
+      }).length;
+      if (otherCount > 0) {
+        html += `<span class="pill" data-category="Other">Other (${otherCount})</span>`;
+      }
+      container.innerHTML = html;
+    })();
+
     // ── State ──
     let activeFilter = 'all';
+    let activeCategory = 'all';
     let searchQuery = '';
 
     // ── Render Cards ──
@@ -497,15 +649,25 @@
       const statsBar = document.getElementById('statsBar');
 
       const filtered = trucks.filter(t => {
-        // Filter
+        // Contact filter
         if (activeFilter === 'phone' && !t.phone) return false;
         if (activeFilter === 'email' && !t.email) return false;
         if (activeFilter === 'instagram' && !t.instagram) return false;
 
+        // Category filter
+        if (activeCategory !== 'all') {
+          if (activeCategory === 'Other') {
+            if (t.category && Object.values(categoryGroups).some(fn => fn(t))) return false;
+          } else {
+            const fn = categoryGroups[activeCategory];
+            if (fn && !fn(t)) return false;
+          }
+        }
+
         // Search
         if (searchQuery) {
           const q = searchQuery.toLowerCase();
-          const haystack = (t.name + ' ' + t.notes + ' ' + t.instagram).toLowerCase();
+          const haystack = (t.name + ' ' + t.category + ' ' + t.notes + ' ' + t.instagram).toLowerCase();
           if (!haystack.includes(q)) return false;
         }
 
@@ -523,9 +685,19 @@
       noResults.style.display = 'none';
 
       grid.innerHTML = filtered.map(t => {
-        const isClosed = t.notes.toLowerCase().includes('closed');
-        const closedClass = isClosed ? ' closed' : '';
-        const closedBadge = isClosed ? ' <span class="closed-badge">CLOSED</span>' : '';
+        const notesLower = t.notes.toLowerCase();
+        const isClosed = notesLower.includes('closed');
+        const isVerify = notesLower.includes('verify');
+        const isMuted = isClosed || isVerify;
+        const mutedClass = isMuted ? ' closed' : '';
+
+        let statusBadge = '';
+        if (isClosed) statusBadge = ' <span class="closed-badge">CLOSED</span>';
+        else if (isVerify) statusBadge = ' <span class="verify-badge">VERIFY</span>';
+
+        const categoryBadge = t.category
+          ? `<span class="category-badge ${getCategoryClass(t.category)}">${t.category}</span>`
+          : '';
 
         const phoneHtml = t.phone
           ? `<a href="tel:${t.phone.replace(/[^\d+]/g, '')}">${t.phone}</a>`
@@ -539,34 +711,55 @@
           ? t.instagram
           : '<span class="empty">&mdash;</span>';
 
-        const notesHtml = t.notes && !isClosed
-          ? `<div class="truck-notes">${t.notes}</div>`
-          : isClosed
-            ? `<div class="truck-notes">${t.notes}</div>`
-            : '';
+        // Extract website from notes if present
+        let websiteHtml = '';
+        let displayNotes = t.notes;
+        const websiteMatch = t.notes.match(/Website:\s*(\S+)/i);
+        if (websiteMatch) {
+          const url = websiteMatch[1];
+          const fullUrl = url.startsWith('http') ? url : 'https://' + url;
+          websiteHtml = `<div class="truck-website"><span class="label">Web</span> <a href="${fullUrl}" target="_blank" rel="noopener">${url}</a></div>`;
+          displayNotes = t.notes.replace(/Website:\s*\S+/i, '').trim().replace(/^[;,\s]+|[;,\s]+$/g, '');
+        }
+
+        const notesHtml = displayNotes
+          ? `<div class="truck-notes">${displayNotes}</div>`
+          : '';
 
         return `
-          <div class="truck-card${closedClass}">
+          <div class="truck-card${mutedClass}">
             <div>
-              <div class="truck-number">#${t.id}${closedBadge}</div>
+              <div class="truck-number">#${t.id}${statusBadge}</div>
               <div class="truck-name">${t.name}</div>
+              ${categoryBadge}
             </div>
             <div class="truck-detail"><span class="label">Phone</span> ${phoneHtml}</div>
             <div class="truck-detail"><span class="label">Email</span> ${emailHtml}</div>
             <div class="truck-detail"><span class="label">Instagram</span> ${igHtml}</div>
+            ${websiteHtml}
             ${notesHtml}
           </div>
         `;
       }).join('');
     }
 
-    // ── Filter Pills ──
+    // ── Contact Filter Pills ──
     document.getElementById('filterPills').addEventListener('click', e => {
       const pill = e.target.closest('.pill');
       if (!pill) return;
       document.querySelectorAll('#filterPills .pill').forEach(p => p.classList.remove('active'));
       pill.classList.add('active');
       activeFilter = pill.dataset.filter;
+      renderCards();
+    });
+
+    // ── Category Filter Pills ──
+    document.getElementById('categoryPills').addEventListener('click', e => {
+      const pill = e.target.closest('.pill');
+      if (!pill) return;
+      document.querySelectorAll('#categoryPills .pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      activeCategory = pill.dataset.category;
       renderCards();
     });
 
