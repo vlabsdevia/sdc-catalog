@@ -415,6 +415,10 @@
           style="background:var(--primary);color:#fff;border-color:var(--primary)">+ New Product</button>
   <button class="filter-btn" onclick="resetToDefaults()"
           style="border-color:var(--red);color:var(--red)" title="Discard local changes">&#8634; Reset</button>
+  <button onclick="openLabelGenerator()"
+        style="background:var(--primary);color:#fff;border:none;border-radius:999px;padding:0.35rem 1rem;font-size:0.8rem;font-weight:600;cursor:pointer;white-space:nowrap;font-family:var(--font)">
+  &#9113; Print Labels
+</button>
   <button id="btn-generate" onclick="generateCatalog()"
           style="background:var(--primary);color:#fff;border:none;border-radius:999px;padding:0.35rem 1rem;font-size:0.8rem;font-weight:600;cursor:pointer;white-space:nowrap;font-family:var(--font)">
     &#11015; Generate index.html
@@ -1166,6 +1170,19 @@ function deleteRow(idx) {
       .forEach((row, i) => row.order = i + 1);
   persist();
   render();
+}
+
+function openLabelGenerator() {
+  const visibleSkus = [];
+  rows.forEach(r => {
+    const catOk = activeCat === 'all' || r.cat === activeCat;
+    const priOk = activePri === 'all' || r.priority === activePri;
+    const q = searchVal;
+    const srchOk = !q || r.name.toLowerCase().includes(q) || r.desc.toLowerCase().includes(q) || r.canonical.toLowerCase().includes(q) || (r.sdc_sku||'').toLowerCase().includes(q) || (r.dist_sku||'').toLowerCase().includes(q);
+    if (catOk && priOk && srchOk) visibleSkus.push(r.sdc_sku);
+  });
+  const url = 'label-generator.html?skus=' + encodeURIComponent(visibleSkus.join(','));
+  window.open(url, '_blank');
 }
 
 loadRows();

@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR Label Generator - SDC Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#111;--text:#333;--muted:#666;--bg:#f8f8f8;--surface:#fff;--border:#e5e5e5;--accent:#111;--radius:8px}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--text);background:var(--bg);line-height:1.5;-webkit-font-smoothing:antialiased}
+
+/* Header */
+.header{background:var(--primary);color:#fff;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.header-left{display:flex;align-items:center;gap:16px}
+.logo-mark{width:36px;height:36px;background:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:var(--primary);flex-shrink:0}
+.header-brand h1{font-size:18px;font-weight:700;letter-spacing:-0.02em}
+.header-brand p{font-size:12px;color:rgba(255,255,255,.6);font-weight:400}
+.header-title{font-size:15px;font-weight:600;color:rgba(255,255,255,.85);border-left:1px solid rgba(255,255,255,.2);padding-left:16px}
+.header-right{display:flex;align-items:center;gap:20px}
+.header-stat{text-align:center}
+.header-stat .num{font-size:20px;font-weight:700;line-height:1}
+.header-stat .lbl{font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.05em}
+.back-link{color:rgba(255,255,255,.7);text-decoration:none;font-size:13px;font-weight:500;transition:color .15s}
+.back-link:hover{color:#fff}
+
+/* Toolbar */
+.toolbar{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;flex-direction:column;gap:10px}
+.toolbar-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.pills{display:flex;gap:6px;flex-wrap:wrap;flex:1}
+.pill{padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:500;color:var(--text);cursor:pointer;transition:all .15s;white-space:nowrap}
+.pill:hover{border-color:#999}
+.pill.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.pill .count{color:var(--muted);font-weight:400;margin-left:2px}
+.pill.active .count{color:rgba(255,255,255,.6)}
+.toolbar-bottom{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.search-input{flex:1;min-width:200px;padding:8px 12px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;font-family:inherit;outline:none;transition:border-color .15s}
+.search-input:focus{border-color:#999}
+.btn{padding:8px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface);font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .15s;white-space:nowrap}
+.btn:hover{background:var(--bg)}
+.btn-primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+.btn-primary:hover{background:#333}
+.qty-group{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
+.qty-input{width:56px;padding:7px 8px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;font-family:inherit;text-align:center;outline:none}
+.qty-input:focus{border-color:#999}
+
+/* Two-panel layout */
+.main{display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:calc(100vh - 200px)}
+.panel{padding:20px 24px;overflow-y:auto}
+.panel-left{border-right:1px solid var(--border);max-height:calc(100vh - 200px);overflow-y:auto}
+.panel-right{background:var(--bg);max-height:calc(100vh - 200px);overflow-y:auto}
+.panel-header{font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px}
+
+/* Product List */
+.product-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--radius);cursor:pointer;transition:background .1s;border:1px solid transparent}
+.product-row:hover{background:rgba(0,0,0,.03)}
+.product-row.selected{background:rgba(17,17,17,.06);border-color:var(--border)}
+.product-row input[type="checkbox"]{width:16px;height:16px;accent-color:var(--primary);cursor:pointer;flex-shrink:0}
+.product-sku{font-family:'SF Mono',SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace;font-size:12px;font-weight:700;color:var(--primary);min-width:90px;flex-shrink:0}
+.product-name{font-size:13px;font-weight:500;color:var(--text);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.product-desc{font-size:11px;color:var(--muted);max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex-shrink:0}
+
+/* Preview */
+.preview-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.preview-label{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:6px 8px;display:flex;align-items:center;gap:8px;height:72px;overflow:hidden}
+.preview-qr{width:56px;height:56px;flex-shrink:0}
+.preview-qr canvas,.preview-qr img{width:56px!important;height:56px!important}
+.preview-info{flex:1;min-width:0;overflow:hidden}
+.preview-sku{font-family:'SF Mono',SFMono-Regular,Consolas,monospace;font-size:9px;font-weight:700;color:var(--primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.preview-name{font-size:8px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.3}
+.preview-desc{font-size:7px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.3}
+.page-indicator{text-align:center;font-size:12px;color:var(--muted);margin:16px 0 8px;font-weight:500}
+.no-selection{text-align:center;color:var(--muted);font-size:14px;padding:60px 20px}
+
+/* Print styles */
+@media print {
+  @page{size:letter;margin:0}
+  body *{visibility:hidden}
+  .print-area,.print-area *{visibility:visible}
+  .print-area{position:absolute;top:0;left:0;width:8.5in;z-index:9999}
+  .label-page{width:8.5in;height:11in;padding:0.5in 0.15625in;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(10,1fr);column-gap:0.1875in;page-break-after:always;box-sizing:border-box}
+  .label-page:last-child{page-break-after:auto}
+  .print-label{width:4in;height:1in;display:flex;align-items:center;padding:0.0625in 0.1in;overflow:hidden;box-sizing:border-box}
+  .print-label-qr{width:0.75in;height:0.75in;flex-shrink:0;margin-right:0.1in}
+  .print-label-qr canvas,.print-label-qr img{width:0.75in!important;height:0.75in!important}
+  .print-label-info{flex:1;min-width:0;overflow:hidden}
+  .print-label-sku{font-family:'SF Mono',SFMono-Regular,Consolas,monospace;font-size:8pt;font-weight:700;color:#000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .print-label-name{font-size:7pt;font-weight:500;color:#000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.4}
+  .print-label-desc{font-size:6pt;color:#666;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.4}
+  .print-label.empty{visibility:hidden}
+}
+
+/* Screen-only print area hide */
+@media screen {
+  .print-area{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-left">
+    <div class="logo-mark">SDC</div>
+    <div class="header-brand">
+      <h1>SDC Solutions</h1>
+      <p>Sabores del Campo LLC</p>
+    </div>
+    <div class="header-title">QR Label Generator</div>
+  </div>
+  <div class="header-right">
+    <div class="header-stat">
+      <div class="num" id="statTotal">183</div>
+      <div class="lbl">Products</div>
+    </div>
+    <div class="header-stat">
+      <div class="num" id="statSelected">0</div>
+      <div class="lbl">Selected</div>
+    </div>
+    <div class="header-stat">
+      <div class="num" id="statLabels">0</div>
+      <div class="lbl">Labels</div>
+    </div>
+    <a href="index.html" class="back-link">&larr; Back to Catalog</a>
+  </div>
+</header>
+
+<!-- Toolbar -->
+<div class="toolbar">
+  <div class="toolbar-top">
+    <div class="pills" id="pills"></div>
+  </div>
+  <div class="toolbar-bottom">
+    <input type="text" class="search-input" id="searchInput" placeholder="Search by SKU, name, or description...">
+    <button class="btn" onclick="selectAll()">Select All</button>
+    <button class="btn" onclick="deselectAll()">Deselect All</button>
+    <div class="qty-group">
+      <label for="qtyInput">Qty per label:</label>
+      <input type="number" class="qty-input" id="qtyInput" value="1" min="1" max="100">
+    </div>
+    <button class="btn btn-primary" onclick="printLabels()">Print Labels</button>
+  </div>
+</div>
+
+<!-- Two-panel layout -->
+<div class="main">
+  <div class="panel panel-left">
+    <div class="panel-header">Product Selection</div>
+    <div id="productList"></div>
+  </div>
+  <div class="panel panel-right">
+    <div class="panel-header">Label Preview</div>
+    <div id="previewArea">
+      <div class="no-selection">Select products to preview labels</div>
+    </div>
+  </div>
+</div>
+
+<!-- Print-only section -->
+<div class="print-area" id="printArea"></div>
+
+<script>
+// ── Product Data ──
+let rows = [
+  { order: 1, cat: "togo", name: "Take-Out Container Hinged 8 x 8 IN 3 Compartment", desc: "Foam White | Package Form: 100/Case", canonical: "img/togo_001.jpg", status: "hd", priority: "hd", dist_sku: "520002", sdc_sku: "SDC-TG-001" , name_es: "Take-Out Container Hinged 8 x 8 IN 3 Compartment", desc_es: "Foam White | Package Form: 100/Case"},
+  { order: 2, cat: "togo", name: "Take-Out Container Hinged 8 x 8 IN 1 Compartment", desc: "Foam White | Package Form: 100/Case", canonical: "img/togo_002.jpg", status: "hd", priority: "hd", dist_sku: "520005", sdc_sku: "SDC-TG-002" , name_es: "Take-Out Container Hinged 8 x 8 IN 1 Compartment", desc_es: "Foam White | Package Form: 100/Case"},
+  { order: 3, cat: "togo", name: "Take-Out Container Hinged 9.5 x 9 IN 3 Compartment", desc: "Foam White | Package Form: 200/Case", canonical: "img/togo_003.jpg", status: "hd", priority: "hd", dist_sku: "520021", sdc_sku: "SDC-TG-003" , name_es: "Take-Out Container Hinged 9.5 x 9 IN 3 Compartment", desc_es: "Foam White | Package Form: 200/Case"},
+  { order: 4, cat: "togo", name: "Take-Out Container Hinged 9.5 x 9 IN 1 Compartment", desc: "Foam White | Package Form: 200/Case", canonical: "img/togo_004.jpg", status: "hd", priority: "hd", dist_sku: "520022", sdc_sku: "SDC-TG-004" , name_es: "Take-Out Container Hinged 9.5 x 9 IN 1 Compartment", desc_es: "Foam White | Package Form: 200/Case"},
+  { order: 5, cat: "togo", name: "Take-Out Container Hinged 8 x 8 IN 3 Compartment", desc: "Foam Black | Package Form: 200/Case", canonical: "img/togo_005.jpg", status: "extracted", priority: "low", dist_sku: "520101", sdc_sku: "SDC-TG-005" , name_es: "Take-Out Container Hinged 8 x 8 IN 3 Compartment", desc_es: "Foam Black | Package Form: 200/Case"},
+  { order: 6, cat: "togo", name: "Take-Out Container Hinged 8 x 8 IN 1 Compartment", desc: "Foam Black | Package Form: 200/Case", canonical: "img/togo_006.png", status: "extracted", priority: "low", dist_sku: "520100", sdc_sku: "SDC-TG-006" , name_es: "Take-Out Container Hinged 8 x 8 IN 1 Compartment", desc_es: "Foam Black | Package Form: 200/Case"},
+  { order: 7, cat: "togo", name: "Take-Out Container Hinged 9.5 x 9 IN 1 Compartment", desc: "Foam Black | Package Form: 150/Case", canonical: "img/togo_007.jpg", status: "extracted", priority: "low", dist_sku: "VBFMH9VB", sdc_sku: "SDC-TG-007" , name_es: "Take-Out Container Hinged 9.5 x 9 IN 1 Compartment", desc_es: "Foam Black | Package Form: 150/Case"},
+  { order: 8, cat: "togo", name: "Victoria Bay Hinged 6 x 6", desc: "Black Square Freezer & Micro | Package Form: 250/case", canonical: "img/togo_008.jpg", status: "extracted", priority: "low", dist_sku: "VBTGMFH66B", sdc_sku: "SDC-TG-008" , name_es: "Victoria Bay Hinged 6 x 6", desc_es: "Black Square Freezer & Micro | Package Form: 250/case"},
+  { order: 9, cat: "togo", name: "Victoria Bay Hinged 9x9x3", desc: "Black Square Freezer & Micro | Package Form: 200/case", canonical: "img/togo_009.jpg", status: "extracted", priority: "low", dist_sku: "TGMFH99VB", sdc_sku: "SDC-TG-009" , name_es: "Victoria Bay Hinged 9x9x3", desc_es: "Black Square Freezer & Micro | Package Form: 200/case"},
+  { order: 10, cat: "togo", name: "Take-Out Container Hinged 6 X 6 IN", desc: "Foam White Hamburgers | Package Form: 500/case", canonical: "img/togo_010.jpg", status: "hd", priority: "hd", dist_sku: "520049", sdc_sku: "SDC-TG-010" , name_es: "Take-Out Container Hinged 6 X 6 IN", desc_es: "Foam White Hamburgers | Package Form: 500/case"},
+  { order: 11, cat: "togo", name: "Victoria Bay Take-Out Container Hinged  6X6X3 IN", desc: "Foam White  Hamburgers | Package Form: 500/case", canonical: "img/togo_011.jpg", status: "hd", priority: "hd", dist_sku: "VBFMH6W", sdc_sku: "SDC-TG-011" , name_es: "Victoria Bay Take-Out Container Hinged  6X6X3 IN", desc_es: "Foam White  Hamburgers | Package Form: 500/case"},
+  { order: 12, cat: "togo", name: "Take-Out Container Hinged  11.61 x 7.24 x 0.51 IN", desc: "Foam White Hot Dog | Package Form: 200/Case", canonical: "img/togo_012.jpg", status: "hd", priority: "hd", dist_sku: "520061", sdc_sku: "SDC-TG-012" , name_es: "Take-Out Container Hinged  11.61 x 7.24 x 0.51 IN", desc_es: "Foam White Hot Dog | Package Form: 200/Case"},
+  { order: 13, cat: "togo", name: "Take-Out Container Hinged  8.75 x 6 x 3.5 IN", desc: "Foam White Double Hot Dog | Package Form: 200/Case", canonical: "img/togo_013.jpg", status: "hd", priority: "hd", dist_sku: "520009", sdc_sku: "SDC-TG-013" , name_es: "Take-Out Container Hinged  8.75 x 6 x 3.5 IN", desc_es: "Foam White Double Hot Dog | Package Form: 200/Case"},
+  { order: 14, cat: "togo", name: "Take-Out Container Hinged 9.19X6.5X2.75 IN", desc: "Foam White M205 Rectangular | Package Form: 150/Case", canonical: "img/togo_014.jpg", status: "extracted", priority: "low", dist_sku: "VBFMH96W", sdc_sku: "SDC-TG-014" , name_es: "Take-Out Container Hinged 9.19X6.5X2.75 IN", desc_es: "Foam White M205 Rectangular | Package Form: 150/Case"},
+  { order: 15, cat: "togo", name: "Burrito Bowl 27oz Pulp Fiber Natural Oval", desc: "Package Form: 300/Case", canonical: "img/togo_015.jpg", status: "hd", priority: "hd", dist_sku: "4409270D", sdc_sku: "SDC-TG-015" , name_es: "Burrito Bowl 27oz Pulp Fiber Natural Oval", desc_es: "Package Form: 300/Case"},
+  { order: 16, cat: "togo", name: "Lid Dome Small  9.29X6.79X1.5 IN 1 Comp PP Clear Oval For Burrito Bowl Unhinged", desc: "Package Form: 300/Case", canonical: "img/togo_016.jpg", status: "extracted", priority: "low", dist_sku: "5497SV", sdc_sku: "SDC-TG-016" , name_es: "Lid Dome Small  9.29X6.79X1.5 IN 1 Comp PP Clear Oval For Burrito Bowl Unhinged", desc_es: "Package Form: 300/Case"},
+  { order: 17, cat: "togo", name: "VB Bowl 32oz Pulp Fiber Natural Round", desc: "Package Form: 300/Case", canonical: "img/togo_017.jpg", status: "hd", priority: "hd", dist_sku: "VB32PB", sdc_sku: "SDC-TG-017" , name_es: "VB Bowl 32oz Pulp Fiber Natural Round", desc_es: "Package Form: 300/Case"},
+  { order: 18, cat: "togo", name: "VB Bowl 48oz Pulp Fiber Natural Round", desc: "Package Form: 300/Case", canonical: "img/togo_018.jpg", status: "extracted", priority: "low", dist_sku: "VB48PB", sdc_sku: "SDC-TG-018" , name_es: "VB Bowl 48oz Pulp Fiber Natural Round", desc_es: "Package Form: 300/Case"},
+  { order: 19, cat: "togo", name: "VB Lid High Dome Plastic Clear Round For 24-48oz", desc: "Package Form: 300/Case", canonical: "img/togo_019.jpg", status: "extracted", priority: "low", dist_sku: "VBDOMEPET", sdc_sku: "SDC-TG-019" , name_es: "VB Lid High Dome Plastic Clear Round For 24-48oz", desc_es: "Package Form: 300/Case"},
+  { order: 20, cat: "togo", name: "Container Hinged 9x9 In", desc: "Pp Clear Square | Package Form: 1/180", canonical: "img/togo_020.jpg", status: "extracted", priority: "low", dist_sku: "370F180", sdc_sku: "SDC-TG-020" , name_es: "Container Hinged 9x9 In", desc_es: "Pp Clear Square | Package Form: 1/180"},
+  { order: 21, cat: "togo", name: "Dart Clear seal Container", desc: "Hinged 5.25x5.308x2.64 Square | Package Form: 1/500", canonical: "img/togo_021.jpg", status: "extracted", priority: "low", dist_sku: "C53PST1", sdc_sku: "SDC-TG-021" , name_es: "Dart Clear seal Container", desc_es: "Hinged 5.25x5.308x2.64 Square | Package Form: 1/500"},
+  { order: 22, cat: "togo", name: "Dart Clear seal Container", desc: "Hinged 5.96x5.86x3.11 Square | Package Form: 1/500", canonical: "img/togo_022.jpg", status: "extracted", priority: "low", dist_sku: "C57PST1", sdc_sku: "SDC-TG-022" , name_es: "Dart Clear seal Container", desc_es: "Hinged 5.96x5.86x3.11 Square | Package Form: 1/500"},
+  { order: 23, cat: "togo", name: "Atrium Hoagie & Sub", desc: "Hinged With Dome Lid 8 in OPS Clear Rectangle | Package Form: 1/250", canonical: "img/togo_023.jpg", status: "missing", priority: "missing", dist_sku: "ID29250", sdc_sku: "SDC-TG-023" , name_es: "Atrium Hoagie & Sub", desc_es: "Hinged With Dome Lid 8 in OPS Clear Rectangle | Package Form: 1/250"},
+  { order: 24, cat: "togo", name: "Black Chicken Roaster", desc: "Take-Out Container W/Dome Lid  9\" | Package Form: 1/200", canonical: "img/togo_024.jpg", status: "extracted", priority: "low", dist_sku: "445050", sdc_sku: "SDC-TG-024" , name_es: "Black Chicken Roaster", desc_es: "Take-Out Container W/Dome Lid 9in | Package Form: 1/200"},
+  { order: 25, cat: "togo", name: "White Foam Bowl 12 oz Round", desc: "Retail Package | Package Form: 20/25", canonical: "img/togo_025.jpg", status: "missing", priority: "missing", dist_sku: "550030", sdc_sku: "SDC-TG-025" , name_es: "White Foam Bowl 12 oz Round", desc_es: "Retail Package | Package Form: 20/25"},
+  { order: 26, cat: "togo", name: "White Foam Bowl 28 oz Round", desc: "Retail Package | Package Form: 20/25", canonical: "img/togo_026.jpg", status: "missing", priority: "missing", dist_sku: "550029", sdc_sku: "SDC-TG-026" , name_es: "White Foam Bowl 28 oz Round", desc_es: "Retail Package | Package Form: 20/25"},
+  { order: 27, cat: "togo", name: "Take-Out Container 8 x 8 In 3 Compartment", desc: "Retail Package | Package Form: 20/10", canonical: "img/togo_027.jpg", status: "hd", priority: "hd", dist_sku: "520004", sdc_sku: "SDC-TG-027" , name_es: "Take-Out Container 8 x 8 In 3 Compartment", desc_es: "Retail Package | Package Form: 20/10"},
+  { order: 28, cat: "togo", name: "Take-Out Container 8 x 8 In 1 Compartment", desc: "Retail Package | Package Form: 20/10", canonical: "img/togo_028.jpg", status: "hd", priority: "hd", dist_sku: "520007", sdc_sku: "SDC-TG-028" , name_es: "Take-Out Container 8 x 8 In 1 Compartment", desc_es: "Retail Package | Package Form: 20/10"},
+  { order: 1, cat: "steak", name: "Meat Trays 1D", desc: "Package Form: 500/Case", canonical: "img/steak_001.jpg", status: "hd", priority: "hd", dist_sku: "3510002", sdc_sku: "SDC-SB-001" , name_es: "Meat Trays 1D", desc_es: "Package Form: 500/Case"},
+  { order: 2, cat: "steak", name: "Meat Trays 1S", desc: "Package Form: 1,000 Case", canonical: "img/steak_001.jpg", status: "hd", priority: "hd", dist_sku: "1SFM", sdc_sku: "SDC-SB-002" , name_es: "Meat Trays 1S", desc_es: "Package Form: 1,000 Case"},
+  { order: 3, cat: "steak", name: "Meat Trays 2D Deep white", desc: "Package Form: 500/Case", canonical: "img/steak_003.jpg", status: "hd", priority: "hd", dist_sku: "3510011", sdc_sku: "SDC-SB-003" , name_es: "Meat Trays 2D Deep white", desc_es: "Package Form: 500/Case"},
+  { order: 4, cat: "steak", name: "Meat Trays 2S  white", desc: "Package Form: 500/Case", canonical: "img/steak_004.jpg", status: "hd", priority: "hd", dist_sku: "2510031", sdc_sku: "SDC-SB-004" , name_es: "Meat Trays 2S  white", desc_es: "Package Form: 500/Case"},
+  { order: 5, cat: "steak", name: "Meat Trays 4D White", desc: "Package Form: 500/Case", canonical: "img/steak_005.jpg", status: "hd", priority: "hd", dist_sku: "3510201", sdc_sku: "SDC-SB-005" , name_es: "Meat Trays 4D White", desc_es: "Package Form: 500/Case"},
+  { order: 6, cat: "steak", name: "Meat Trays 4P Yellow", desc: "Package Form: 500/Case", canonical: "img/steak_006.jpg", status: "hd", priority: "hd", dist_sku: "3510066", sdc_sku: "SDC-SB-006" , name_es: "Meat Trays 4P Yellow", desc_es: "Package Form: 500/Case"},
+  { order: 7, cat: "steak", name: "Meat Trays  4P White", desc: "Package Form:  = 1/500", canonical: "img/steak_006.jpg", status: "hd", priority: "hd", dist_sku: "3510128", sdc_sku: "SDC-SB-007" , name_es: "Meat Trays  4P White", desc_es: "Package Form:  = 1/500"},
+  { order: 8, cat: "steak", name: "Meat Trays  4S White", desc: "Package Form:  = 1/500", canonical: "img/steak_008.jpg", status: "hd", priority: "hd", dist_sku: "510071", sdc_sku: "SDC-SB-008" , name_es: "Meat Trays  4S White", desc_es: "Package Form:  = 1/500"},
+  { order: 9, cat: "steak", name: "Meat Trays 8P Yellow", desc: "Package Form: 200/Case", canonical: "img/steak_009.jpg", status: "hd", priority: "hd", dist_sku: "3510080", sdc_sku: "SDC-SB-009" , name_es: "Meat Trays 8P Yellow", desc_es: "Package Form: 200/Case"},
+  { order: 10, cat: "steak", name: "Meat Trays 8P White", desc: "Package Form: 200/Case", canonical: "img/steak_009.jpg", status: "hd", priority: "hd", dist_sku: "3510081", sdc_sku: "SDC-SB-010" , name_es: "Meat Trays 8P White", desc_es: "Package Form: 200/Case"},
+  { order: 11, cat: "steak", name: "Meat Trays 8S White", desc: "Package Form: 500/Case", canonical: "img/steak_008.jpg", status: "hd", priority: "hd", dist_sku: "8SFM", sdc_sku: "SDC-SB-011" , name_es: "Meat Trays 8S White", desc_es: "Package Form: 500/Case"},
+  { order: 12, cat: "steak", name: "Meat Tray 10K White", desc: "Package Form: 500/Case", canonical: "img/steak_012.jpg", status: "hd", priority: "hd", dist_sku: "3510KFM", sdc_sku: "SDC-SB-012" , name_es: "Meat Tray 10K White", desc_es: "Package Form: 500/Case"},
+  { order: 13, cat: "steak", name: "Meat Tray 10S White", desc: "Package Form: 500/Case", canonical: "img/steak_012.jpg", status: "hd", priority: "hd", dist_sku: "3510091", sdc_sku: "SDC-SB-013" , name_es: "Meat Tray 10S White", desc_es: "Package Form: 500/Case"},
+  { order: 14, cat: "steak", name: "Meat Trays 12S White", desc: "Package Form: 250/Case", canonical: "img/steak_014.jpg", status: "hd", priority: "hd", dist_sku: "12SFM", sdc_sku: "SDC-SB-014" , name_es: "Meat Trays 12S White", desc_es: "Package Form: 250/Case"},
+  { order: 15, cat: "steak", name: "Meat Trays 16S White", desc: "Package Form: 250/Case", canonical: "img/steak_015.jpg", status: "hd", priority: "hd", dist_sku: "3510101", sdc_sku: "SDC-SB-015" , name_es: "Meat Trays 16S White", desc_es: "Package Form: 250/Case"},
+  { order: 16, cat: "steak", name: "Meat Trays 20K White", desc: "Package Form: 100/Case", canonical: "img/steak_015.jpg", status: "hd", priority: "hd", dist_sku: "20KFMCRY", sdc_sku: "SDC-SB-016" , name_es: "Meat Trays 20K White", desc_es: "Package Form: 100/Case"},
+  { order: 17, cat: "steak", name: "Meat Trays 20S White", desc: "Package Form: 500/Case", canonical: "img/steak_015.jpg", status: "hd", priority: "hd", dist_sku: "20SFM", sdc_sku: "SDC-SB-017" , name_es: "Meat Trays 20S White", desc_es: "Package Form: 500/Case"},
+  { order: 18, cat: "steak", name: "Meat Tray 25S 8x14.75x0.9", desc: "White | Package Form: 250/Case", canonical: "img/steak_015.jpg", status: "hd", priority: "hd", dist_sku: "031525S", sdc_sku: "SDC-SB-018" , name_es: "Meat Tray 25S 8x14.75x0.9", desc_es: "White | Package Form: 250/Case"},
+  { order: 19, cat: "steak", name: "Pad Meat Rec Absorbent 4.5X6.25", desc: "PAD-LOC White | Package Form: 1500/Case", canonical: "img/steak_019.jpg", status: "missing", priority: "missing", dist_sku: "10053688", sdc_sku: "SDC-SB-019" , name_es: "Pad Meat Rec Absorbent 4.5X6.25", desc_es: "PAD-LOC White | Package Form: 1500/Case"},
+  { order: 20, cat: "steak", name: "Steak & Butcher Paper Sheets 8X30", desc: "In Peach | Package Form:  1000/Case", canonical: "img/steak_020.jpg", status: "extracted", priority: "low", dist_sku: "106830", sdc_sku: "SDC-SB-020" , name_es: "Steak & Butcher Paper Sheets 8X30", desc_es: "In Peach | Package Form:  1000/Case"},
+  { order: 21, cat: "steak", name: "Steak & Butcher Paper Sheets 10X30", desc: "In Peach | Package Form: 1000/Case", canonical: "img/steak_021.jpg", status: "extracted", priority: "low", dist_sku: "106831", sdc_sku: "SDC-SB-021" , name_es: "Steak & Butcher Paper Sheets 10X30", desc_es: "In Peach | Package Form: 1000/Case"},
+  { order: 22, cat: "steak", name: "Meat Cling Film Roll 18inx4000ft", desc: "Plastic 70 Gauge Clear | Package Form: 1/Roll", canonical: "img/steak_022.jpg", status: "missing", priority: "missing", dist_sku: "7790418", sdc_sku: "SDC-SB-022" , name_es: "Meat Cling Film Roll 18inx4000ft", desc_es: "Plastic 70 Gauge Clear | Package Form: 1/Roll"},
+  { order: 23, cat: "steak", name: "Victoria Bay Cling Meat Film Roll 16in x 4500ft", desc: "Pvc Clear | Package Form:  = 1", canonical: "img/steak_023.jpg", status: "missing", priority: "missing", dist_sku: "DIGI16C", sdc_sku: "SDC-SB-023" , name_es: "Victoria Bay Cling Meat Film Roll 16in x 4500ft", desc_es: "Pvc Clear | Package Form:  = 1"},
+  { order: 24, cat: "steak", name: "Victoria Bay Cling Meat Film Roll 18in x 2000ft", desc: "Pvc Clear | Package Form: 1/Roll", canonical: "img/steak_024.jpg", status: "extracted", priority: "low", dist_sku: "18X2M", sdc_sku: "SDC-SB-024" , name_es: "Victoria Bay Cling Meat Film Roll 18in x 2000ft", desc_es: "Pvc Clear | Package Form: 1/Roll"},
+  { order: 25, cat: "steak", name: "Victoria Bay Cling Meat Film Roll 24in x 2000ft", desc: "Pvc Clear | Package Form: 1/Roll", canonical: "img/steak_025.jpg", status: "extracted", priority: "low", dist_sku: "24X2M", sdc_sku: "SDC-SB-025" , name_es: "Victoria Bay Cling Meat Film Roll 24in x 2000ft", desc_es: "Pvc Clear | Package Form: 1/Roll"},
+  { order: 26, cat: "steak", name: "Clear Plastic Food Bin One Comp", desc: "27\"x6.5\"x7", canonical: "img/steak_026.png", status: "extracted", priority: "low", dist_sku: "MPFB630", sdc_sku: "SDC-SB-026" , name_es: "Clear Plastic Food Bin One Comp", desc_es: "27in x 6.5in x 7"},
+  { order: 27, cat: "steak", name: "Clear Plastic Food Bin One Comp", desc: "27\"x8.5\"x7", canonical: "img/steak_027.png", status: "extracted", priority: "low", dist_sku: "MPFB830", sdc_sku: "SDC-SB-027" , name_es: "Clear Plastic Food Bin One Comp", desc_es: "27in x 8.5in x 7"},
+  { order: 28, cat: "steak", name: "Victorino Boning Curved Stiff Granton", desc: "6\"", canonical: "img/steak_028.png", status: "extracted", priority: "low", dist_sku: "MPKNFV6", sdc_sku: "SDC-SB-028" , name_es: "Victorino Boning Curved Stiff Granton", desc_es: "6in"},
+  { order: 29, cat: "steak", name: "Victorino Cimeter Granton Edge Knife", desc: "12\"", canonical: "img/steak_029.png", status: "extracted", priority: "low", dist_sku: "MPKNFV12", sdc_sku: "SDC-SB-029" , name_es: "Victorino Cimeter Granton Edge Knife", desc_es: "12in"},
+  { order: 30, cat: "steak", name: "Giesser Ham Slicer", desc: "14\" Long Scallop Knife", canonical: "img/steak_030.png", status: "extracted", priority: "low", dist_sku: "MPKNFG14", sdc_sku: "SDC-SB-030" , name_es: "Giesser Ham Slicer", desc_es: "14in Long Scallop Knife"},
+  { order: 31, cat: "steak", name: "Giesser Ham Knife", desc: "18\"", canonical: "img/steak_031.png", status: "extracted", priority: "low", dist_sku: "MPKNFG18", sdc_sku: "SDC-SB-031" , name_es: "Giesser Ham Knife", desc_es: "18in"},
+  { order: 1, cat: "packaging", name: "Victoria Bay Sheet 10.75 x 12", desc: "Dry Wax Paper White Interfold | Package Form: 12/500", canonical: "img/packaging_001.jpg", status: "extracted", priority: "low", dist_sku: "VB1210", sdc_sku: "SDC-PS-001" , name_es: "Victoria Bay Sheet 10.75 x 12", desc_es: "Dry Wax Paper White Interfold | Package Form: 12/500"},
+  { order: 2, cat: "packaging", name: "Victoria Bay Sandwich Wrap Foil Sheets", desc: "14 x 16 In Insulated | Package Form: 1,000/Case", canonical: "img/packaging_002.jpg", status: "extracted", priority: "low", dist_sku: "VBFWAS1416", sdc_sku: "SDC-PS-002" , name_es: "Victoria Bay Sandwich Wrap Foil Sheets", desc_es: "14 x 16 In Insulated | Package Form: 1,000/Case"},
+  { order: 3, cat: "packaging", name: "Victoria Bay  Aluminum Foil Sheets", desc: "9 x 10.75 | Package Form: 6 of 500/Case", canonical: "img/packaging_003.jpg", status: "extracted", priority: "low", dist_sku: "59100VB", sdc_sku: "SDC-PS-003" , name_es: "Victoria Bay  Aluminum Foil Sheets", desc_es: "9 x 10.75 | Package Form: 6 of 500/Case"},
+  { order: 4, cat: "packaging", name: "Victoria Bay  Aluminum Foil Sheets", desc: "12 x 10.75 | Package Form: 6 of 500/Case", canonical: "img/packaging_004.jpg", status: "extracted", priority: "low", dist_sku: "51210VB", sdc_sku: "SDC-PS-004" , name_es: "Victoria Bay  Aluminum Foil Sheets", desc_es: "12 x 10.75 | Package Form: 6 of 500/Case"},
+  { order: 5, cat: "packaging", name: "Victoria Bay Food Foil Roll 12in x 1000ft", desc: "Aluminum Heavy Duty | Package Form: 1", canonical: "img/packaging_005.jpg", status: "extracted", priority: "low", dist_sku: "11203", sdc_sku: "SDC-PS-005" , name_es: "Victoria Bay Food Foil Roll 12in x 1000ft", desc_es: "Aluminum Heavy Duty | Package Form: 1"},
+  { order: 6, cat: "packaging", name: "Victoria Bay Food Foil Roll 18in x 1000ft", desc: "Aluminum Heavy Duty | Package Form: 1", canonical: "img/packaging_006.jpg", status: "extracted", priority: "low", dist_sku: "411805", sdc_sku: "SDC-PS-006" , name_es: "Victoria Bay Food Foil Roll 18in x 1000ft", desc_es: "Aluminum Heavy Duty | Package Form: 1"},
+  { order: 7, cat: "packaging", name: "Food Foil Roll 18in x 500ft", desc: "Aluminum Heavy Duty | Package Form: 1", canonical: "img/packaging_007.jpg", status: "extracted", priority: "low", dist_sku: "SJFS89042", sdc_sku: "SDC-PS-007" , name_es: "Food Foil Roll 18in x 500ft", desc_es: "Aluminum Heavy Duty | Package Form: 1"},
+  { order: 8, cat: "packaging", name: "Bagcraft  Sheet IN Dry Wax Paper Red Check", desc: "12 x 12 | Package Form: 1/2000", canonical: "img/packaging_008.jpg", status: "extracted", priority: "low", dist_sku: "300317", sdc_sku: "SDC-PS-008" , name_es: "Bagcraft  Sheet IN Dry Wax Paper Red Check", desc_es: "12 x 12 | Package Form: 1/2000"},
+  { order: 9, cat: "packaging", name: "Pick 5 for 19.99 Value Pack Label", desc: "1.5 x 2 Orange Rectangular | Package Form: 1/500", canonical: "img/packaging_009.jpg", status: "extracted", priority: "low", dist_sku: "ID10305", sdc_sku: "SDC-PS-009" , name_es: "Pick 5 for 19.99 Value Pack Label", desc_es: "1.5 x 2 Orange Rectangular | Package Form: 1/500"},
+  { order: 10, cat: "packaging", name: "Pick 5 for 19.99 Value Pack Label", desc: "1.5 x 2 Green Rectangular | Package Form: 1/500", canonical: "img/packaging_010.jpg", status: "extracted", priority: "low", dist_sku: "10305F00802", sdc_sku: "SDC-PS-010" , name_es: "Pick 5 for 19.99 Value Pack Label", desc_es: "1.5 x 2 Green Rectangular | Package Form: 1/500"},
+  { order: 11, cat: "packaging", name: "Square Labels", desc: "Monday to Sunday 1 x 1 Permanent | Package Form: 1/1,000", canonical: "img/packaging_011.jpg", status: "extracted", priority: "low", dist_sku: "P101R", sdc_sku: "SDC-PS-011" , name_es: "Square Labels", desc_es: "Monday to Sunday 1 x 1 Permanent | Package Form: 1/1,000"},
+  { order: 12, cat: "packaging", name: "Printing Scale Labels", desc: "50 x 60 mm, UPC Safe | Package Form: 12 Rolls", canonical: "img/packaging_012.jpg", status: "extracted", priority: "low", dist_sku: "TELS8040", sdc_sku: "SDC-PS-012" , name_es: "Printing Scale Labels", desc_es: "50 x 60 mm, UPC Safe | Package Form: 12 Rolls"},
+  { order: 13, cat: "packaging", name: "Rectangular Labels", desc: "with Custom Logo 2.875 x 5.71 | Package Form: 15,000", canonical: "img/packaging_013.jpg", status: "missing", priority: "missing", dist_sku: "9202302", sdc_sku: "SDC-PS-013" , name_es: "Rectangular Labels", desc_es: "with Custom Logo 2.875 x 5.71 | Package Form: 15,000"},
+  { order: 14, cat: "packaging", name: "Round  Labels", desc: "with Custom Logo 3.75 x 3.75 | Package Form: 15,000", canonical: "img/packaging_014.jpg", status: "missing", priority: "missing", dist_sku: "9202302", sdc_sku: "SDC-PS-014" , name_es: "Round  Labels", desc_es: "with Custom Logo 3.75 x 3.75 | Package Form: 15,000"},
+  { order: 15, cat: "packaging", name: "Oval Labels", desc: "with Custom Logo 5.5 x 3.25 | Package Form: 15,000", canonical: "img/packaging_015.jpg", status: "missing", priority: "missing", dist_sku: "9202303", sdc_sku: "SDC-PS-015" , name_es: "Oval Labels", desc_es: "with Custom Logo 5.5 x 3.25 | Package Form: 15,000"},
+  { order: 16, cat: "packaging", name: "Labels for scales (generic)", desc: "2.28W x 2.36L | Package Form: 5,000", canonical: "img/packaging_016.jpg", status: "missing", priority: "missing", dist_sku: "9202304", sdc_sku: "SDC-PS-016" , name_es: "Labels for scales (generic)", desc_es: "2.28W x 2.36L | Package Form: 5,000"},
+  { order: 1, cat: "paper", name: "Victoria Bay Food Trays 5 LB Paper Red", desc: "Package Form: 1/500 case", canonical: "img/paper_001.jpg", status: "extracted", priority: "low", dist_sku: "VBFT5RP", sdc_sku: "SDC-PT-001" , name_es: "Victoria Bay Food Trays 5 LB Paper Red", desc_es: "Package Form: 1/500 case"},
+  { order: 2, cat: "paper", name: "Aluminum Heavy Steam Table 1/2 Size", desc: "Deep container | Package Form: 1/100 Case", canonical: "img/paper_002.jpg", status: "extracted", priority: "low", dist_sku: "S89624", sdc_sku: "SDC-PT-002" , name_es: "Aluminum Heavy Steam Table 1/2 Size", desc_es: "Deep container | Package Form: 1/100 Case"},
+  { order: 3, cat: "paper", name: "Aluminum Steam Table", desc: "Full Size Medium container | Package Form: 1/50 Case", canonical: "img/paper_003.jpg", status: "extracted", priority: "low", dist_sku: "S89622", sdc_sku: "SDC-PT-003" , name_es: "Aluminum Steam Table", desc_es: "Full Size Medium container | Package Form: 1/50 Case"},
+  { order: 1, cat: "cups", name: "PCB 1.5 oz. Clear Portion Cup", desc: "Package Form: 10/250 Case", canonical: "img/cups_001.jpg", status: "extracted", priority: "low", dist_sku: "VBPC15C", sdc_sku: "SDC-CL-001" , name_es: "PCB 1.5 oz. Clear Portion Cup", desc_es: "Package Form: 10/250 Case"},
+  { order: 2, cat: "cups", name: "Victoria Bay Clear Portion Cup 2 oz", desc: "Freezer & Micro Safe | Package Form: 10/250 Case", canonical: "img/cups_002.jpg", status: "extracted", priority: "low", dist_sku: "VBPCP2C", sdc_sku: "SDC-CL-002" , name_es: "Victoria Bay Clear Portion Cup 2 oz", desc_es: "Freezer & Micro Safe | Package Form: 10/250 Case"},
+  { order: 3, cat: "cups", name: "Victoria Bay Lid Flat Pet Clear For 1.5-2 oz", desc: "Portion Cup | Package Form: 10/250 Case", canonical: "img/cups_003.jpg", status: "extracted", priority: "low", dist_sku: "VBPCLT2", sdc_sku: "SDC-CL-003" , name_es: "Victoria Bay Lid Flat Pet Clear For 1.5-2 oz", desc_es: "Portion Cup | Package Form: 10/250 Case"},
+  { order: 4, cat: "cups", name: "Victoria Bay Clear Portion Cup 4 oz", desc: "Freezer & Micro Safe | Package Form: 10/250 Case", canonical: "img/cups_004.jpg", status: "extracted", priority: "low", dist_sku: "VBPC4C", sdc_sku: "SDC-CL-004" , name_es: "Victoria Bay Clear Portion Cup 4 oz", desc_es: "Freezer & Micro Safe | Package Form: 10/250 Case"},
+  { order: 5, cat: "cups", name: "Victoria Bay Lid Flat Pet Clear", desc: "For 3.25 to 5.5 oz Portion Cup | Package Form: 10/250 Case", canonical: "img/cups_005.jpg", status: "extracted", priority: "low", dist_sku: "VBPCLT4", sdc_sku: "SDC-CL-005" , name_es: "Victoria Bay Lid Flat Pet Clear", desc_es: "For 3.25 to 5.5 oz Portion Cup | Package Form: 10/250 Case"},
+  { order: 6, cat: "cups", name: "PCB 2 oz. Black Portion Cup", desc: "Package Form: 10/250 Case", canonical: "img/cups_006.jpg", status: "extracted", priority: "low", dist_sku: "5022852", sdc_sku: "SDC-CL-006" , name_es: "PCB 2 oz. Black Portion Cup", desc_es: "Package Form: 10/250 Case"},
+  { order: 7, cat: "cups", name: "PCB  3.5 oz. Black Portion Cup", desc: "Package Form: 20/125 Case", canonical: "img/cups_007.jpg", status: "extracted", priority: "low", dist_sku: "502286", sdc_sku: "SDC-CL-007" , name_es: "PCB  3.5 oz. Black Portion Cup", desc_es: "Package Form: 20/125 Case"},
+  { order: 8, cat: "cups", name: "Victoria Bay PCB  4 oz. Black Portion Cup", desc: "Package Form: 20/125 Case", canonical: "img/cups_008.jpg", status: "extracted", priority: "low", dist_sku: "VBPCP4B", sdc_sku: "SDC-CL-008" , name_es: "Victoria Bay PCB  4 oz. Black Portion Cup", desc_es: "Package Form: 20/125 Case"},
+  { order: 9, cat: "cups", name: "PCL  3.5oz, 4oz,5oz. Clear", desc: "Portion Cup Lids | Package Form: 20/125 Case", canonical: "img/cups_009.jpg", status: "extracted", priority: "low", dist_sku: "502223", sdc_sku: "SDC-CL-009" , name_es: "PCL  3.5oz, 4oz,5oz. Clear", desc_es: "Portion Cup Lids | Package Form: 20/125 Case"},
+  { order: 10, cat: "cups", name: "Dart J Cup Insulated", desc: "8 oz White Foam | Package Form: 1/1000", canonical: "img/cups_010.jpg", status: "extracted", priority: "low", dist_sku: "8J8", sdc_sku: "SDC-CL-010" , name_es: "Dart J Cup Insulated", desc_es: "8 oz White Foam | Package Form: 1/1000"},
+  { order: 11, cat: "cups", name: "Dart J Cup Insulated", desc: "10 oz  White Foam | Package Form: 1/1000", canonical: "img/cups_011.jpg", status: "extracted", priority: "low", dist_sku: "10J10", sdc_sku: "SDC-CL-011" , name_es: "Dart J Cup Insulated", desc_es: "10 oz  White Foam | Package Form: 1/1000"},
+  { order: 12, cat: "cups", name: "Dart J Cup Insulated", desc: "12 oz  White Foam | Package Form: 1/1000", canonical: "img/cups_012.jpg", status: "extracted", priority: "low", dist_sku: "12J16", sdc_sku: "SDC-CL-012" , name_es: "Dart J Cup Insulated", desc_es: "12 oz  White Foam | Package Form: 1/1000"},
+  { order: 13, cat: "cups", name: "Dart J Cup Insulated", desc: "14 oz White Foam | Package Form: 1/1000", canonical: "img/cups_013.jpg", status: "extracted", priority: "low", dist_sku: "14J16", sdc_sku: "SDC-CL-013" , name_es: "Dart J Cup Insulated", desc_es: "14 oz White Foam | Package Form: 1/1000"},
+  { order: 14, cat: "cups", name: "Dart J Cup Insulated", desc: "16 oz White Foam | Package Form: 1/1000", canonical: "img/cups_014.jpg", status: "extracted", priority: "low", dist_sku: "16J16", sdc_sku: "SDC-CL-014" , name_es: "Dart J Cup Insulated", desc_es: "16 oz White Foam | Package Form: 1/1000"},
+  { order: 15, cat: "cups", name: "Dart J Cup Insulated", desc: "20 oz White Foam | Package Form: 1/500", canonical: "img/cups_015.jpg", status: "extracted", priority: "low", dist_sku: "20J16", sdc_sku: "SDC-CL-015" , name_es: "Dart J Cup Insulated", desc_es: "20 oz White Foam | Package Form: 1/500"},
+  { order: 16, cat: "cups", name: "Dart J  Cup Insulated", desc: "24 oz White Foam | Package Form: 1/500", canonical: "img/cups_016.jpg", status: "extracted", priority: "low", dist_sku: "24J16", sdc_sku: "SDC-CL-016" , name_es: "Dart J  Cup Insulated", desc_es: "24 oz White Foam | Package Form: 1/500"},
+  { order: 17, cat: "cups", name: "Dart J Cup Insulated", desc: "32 oz White Foam | Package Form: 1/500", canonical: "img/cups_017.jpg", status: "extracted", priority: "low", dist_sku: "32TJ32", sdc_sku: "SDC-CL-017" , name_es: "Dart J Cup Insulated", desc_es: "32 oz White Foam | Package Form: 1/500"},
+  { order: 18, cat: "cups", name: "Dart Lid Flat 3.3x0.3 Translucent", desc: "For 8 oz Cold Cup W/Hole | Package Form: 1/1000", canonical: "img/cups_018.jpg", status: "extracted", priority: "low", dist_sku: "8SL", sdc_sku: "SDC-CL-018" , name_es: "Dart Lid Flat 3.3x0.3 Translucent", desc_es: "For 8 oz Cold Cup W/Hole | Package Form: 1/1000"},
+  { order: 19, cat: "cups", name: "Dart Lid Flat 4.53x0.28 Translucent", desc: "For 12-24 oz Cold W/Hole | Package Form: 1/1000", canonical: "img/cups_019.jpg", status: "extracted", priority: "low", dist_sku: "16SL", sdc_sku: "SDC-CL-019" , name_es: "Dart Lid Flat 4.53x0.28 Translucent", desc_es: "For 12-24 oz Cold W/Hole | Package Form: 1/1000"},
+  { order: 20, cat: "cups", name: "Dart Lid Flat 4.8x0.3 for 32 oz.", desc: "Foam Cold Cups W/Hole | Package Form: 1/1000", canonical: "img/cups_020.jpg", status: "extracted", priority: "low", dist_sku: "32SL1", sdc_sku: "SDC-CL-020" , name_es: "Dart Lid Flat 4.8x0.3 for 32 oz.", desc_es: "Foam Cold Cups W/Hole | Package Form: 1/1000"},
+  { order: 21, cat: "cups", name: "Victoria Bay 98 Mm Series", desc: "Cold Cup 10 oz - Pet Clear | Package Form: 1/1000", canonical: "img/cups_021.jpg", status: "extracted", priority: "low", dist_sku: "VG10CF", sdc_sku: "SDC-CL-021" , name_es: "Victoria Bay 98 Mm Series", desc_es: "Cold Cup 10 oz - Pet Clear | Package Form: 1/1000"},
+  { order: 22, cat: "cups", name: "Victoria Bay 98 Mm Series", desc: "Cold Cup 16 oz Pet Clear | Package Form: 1/1000", canonical: "img/cups_022.jpg", status: "extracted", priority: "low", dist_sku: "VG16CF", sdc_sku: "SDC-CL-022" , name_es: "Victoria Bay 98 Mm Series", desc_es: "Cold Cup 16 oz Pet Clear | Package Form: 1/1000"},
+  { order: 23, cat: "cups", name: "Victoria Bay 98 Mm Series", desc: "Cold Cup 20 oz Clear | Package Form: 1/1000", canonical: "img/cups_023.jpg", status: "extracted", priority: "low", dist_sku: "VG20CF", sdc_sku: "SDC-CL-023" , name_es: "Victoria Bay 98 Mm Series", desc_es: "Cold Cup 20 oz Clear | Package Form: 1/1000"},
+  { order: 24, cat: "cups", name: "Victoria Bay 98 Mm Series", desc: "Cold Cup 24 oz Pet Clear | Package Form: 1/600", canonical: "img/cups_024.jpg", status: "extracted", priority: "low", dist_sku: "VG24CF", sdc_sku: "SDC-CL-024" , name_es: "Victoria Bay 98 Mm Series", desc_es: "Cold Cup 24 oz Pet Clear | Package Form: 1/600"},
+  { order: 25, cat: "cups", name: "Victoria Bay 98 Mm Series", desc: "Cold Cup 32 oz Pet Clear | Package Form: 1/300", canonical: "img/cups_025.jpg", status: "extracted", priority: "low", dist_sku: "292323", sdc_sku: "SDC-CL-025" , name_es: "Victoria Bay 98 Mm Series", desc_es: "Cold Cup 32 oz Pet Clear | Package Form: 1/300"},
+  { order: 26, cat: "cups", name: "Lid Flat In Pet Clear For 9-10 oz", desc: "Cold Cup With Hole | Package Form: 1/1000", canonical: "img/cups_026.jpg", status: "extracted", priority: "low", dist_sku: "610TS", sdc_sku: "SDC-CL-026" , name_es: "Lid Flat In Pet Clear For 9-10 oz", desc_es: "Cold Cup With Hole | Package Form: 1/1000"},
+  { order: 27, cat: "cups", name: "Dart Lid Flat 3.984x0.355 Clear", desc: "For 16-20-24 oz W/Hole | Package Form: 1/1000", canonical: "img/cups_027.jpg", status: "extracted", priority: "low", dist_sku: "626TS", sdc_sku: "SDC-CL-027" , name_es: "Dart Lid Flat 3.984x0.355 Clear", desc_es: "For 16-20-24 oz W/Hole | Package Form: 1/1000"},
+  { order: 28, cat: "cups", name: "Victoria Bay Lid Dome Clear", desc: "For 16 oz Cup W/Hole | Package Form: 1/1000", canonical: "img/cups_028.jpg", status: "extracted", priority: "low", dist_sku: "VBDLWH98", sdc_sku: "SDC-CL-028" , name_es: "Victoria Bay Lid Dome Clear", desc_es: "For 16 oz Cup W/Hole | Package Form: 1/1000"},
+  { order: 29, cat: "cups", name: "Lid Flat Plastic For 32oz - Cup With Hole", desc: "Package Form: 1/500", canonical: "img/cups_029.jpg", status: "extracted", priority: "low", dist_sku: "VBFLSS107", sdc_sku: "SDC-CL-029" , name_es: "Lid Flat Plastic For 32oz - Cup With Hole", desc_es: "Package Form: 1/500"},
+  { order: 30, cat: "cups", name: "ACR Giant Straw", desc: "10.25 In Clear Paper Wrapped | Package Form: 4/500", canonical: "img/cups_030.jpg", status: "extracted", priority: "low", dist_sku: "FS2041", sdc_sku: "SDC-CL-030" , name_es: "ACR Giant Straw", desc_es: "10.25 In Clear Paper Wrapped | Package Form: 4/500"},
+  { order: 31, cat: "cups", name: "Victoria Bay Jumbo Straw", desc: "10.25 In Pp Clear Paper Wrapped | Package Form: 4/500", canonical: "img/cups_031.jpg", status: "extracted", priority: "low", dist_sku: "VB266", sdc_sku: "SDC-CL-031" , name_es: "Victoria Bay Jumbo Straw", desc_es: "10.25 In Pp Clear Paper Wrapped | Package Form: 4/500"},
+  { order: 32, cat: "cups", name: "Cup Carrier 4 Compartment Paper Brown", desc: "For 4 oz to 32 oz W/Handle | Package Form: 1/250", canonical: "img/cups_032.jpg", status: "extracted", priority: "low", dist_sku: "2788", sdc_sku: "SDC-CL-032" , name_es: "Cup Carrier 4 Compartment Paper Brown", desc_es: "For 4 oz to 32 oz W/Handle | Package Form: 1/250"},
+  { order: 33, cat: "cups", name: "Victoria Bay Cup Carrier &Tray", desc: "4 Compartment Molded Fiber natural | Package Form: 1/300", canonical: "img/cups_033.jpg", status: "extracted", priority: "low", dist_sku: "VBBC4CK", sdc_sku: "SDC-CL-033" , name_es: "Victoria Bay Cup Carrier &Tray", desc_es: "4 Compartment Molded Fiber natural | Package Form: 1/300"},
+  { order: 1, cat: "tableware", name: "Victoria Bay Plastic Soup Spoons PP Black Heavy Duty", desc: "Package Form: 1/1000 Case", canonical: "img/tableware_001.jpg", status: "hd", priority: "hd", dist_sku: "P2SSB", sdc_sku: "SDC-TW-001" , name_es: "Victoria Bay Plastic Soup Spoons PP Black Heavy Duty", desc_es: "Package Form: 1/1000 Case"},
+  { order: 2, cat: "tableware", name: "Victoria Bay Fork Pp - White Heavy Duty", desc: "Package Form: 1/1000 Case", canonical: "img/tableware_002.jpg", status: "hd", priority: "hd", dist_sku: "P2FM", sdc_sku: "SDC-TW-002" , name_es: "Victoria Bay Fork Pp - White Heavy Duty", desc_es: "Package Form: 1/1000 Case"},
+  { order: 3, cat: "tableware", name: "Victoria Bay Knife Pp - White Heavy Duty", desc: "Package Form: 1/1000 Case", canonical: "img/tableware_003.jpg", status: "hd", priority: "hd", dist_sku: "P2KW", sdc_sku: "SDC-TW-003" , name_es: "Victoria Bay Knife Pp - White Heavy Duty", desc_es: "Package Form: 1/1000 Case"},
+  { order: 4, cat: "tableware", name: "Victoria Bay Spoon Pp - White  Heavy Duty", desc: "Package Form: 1/1000 Case", canonical: "img/tableware_004.jpg", status: "hd", priority: "hd", dist_sku: "P2TSW", sdc_sku: "SDC-TW-004" , name_es: "Victoria Bay Spoon Pp - White  Heavy Duty", desc_es: "Package Form: 1/1000 Case"},
+  { order: 5, cat: "tableware", name: "Victoria Bay 5PC Cutlery Kit:Napkin,Fork,Knife,", desc: "Salt & Pepper - Black Heavy Duty | Package Form: 1/250 Case", canonical: "img/tableware_005.jpg", status: "hd", priority: "hd", dist_sku: "98Hb4", sdc_sku: "SDC-TW-005" , name_es: "Victoria Bay 5PC Cutlery Kit:Napkin,Fork,Knife,", desc_es: "Salt & Pepper - Black Heavy Duty | Package Form: 1/250 Case"},
+  { order: 6, cat: "tableware", name: "Victoria Bay 6PC Cutlery Kit: Napkin,Fork,", desc: "Spoon, Knife, Salt & Pepper - Black Heavy Duty | Package Form: 1/250 Case", canonical: "img/tableware_006.jpg", status: "hd", priority: "hd", dist_sku: "6PCKIT", sdc_sku: "SDC-TW-006" , name_es: "Victoria Bay 6PC Cutlery Kit: Napkin,Fork,", desc_es: "Spoon, Knife, Salt & Pepper - Black Heavy Duty | Package Form: 1/250 Case"},
+  { order: 7, cat: "tableware", name: "Victoria Bay 6PC Cutlery Kit - White Heavy Duty  Weight", desc: "Package Form: 1/250 Case", canonical: "img/tableware_005.jpg", status: "hd", priority: "hd", dist_sku: "MK84", sdc_sku: "SDC-TW-007" , name_es: "Victoria Bay 6PC Cutlery Kit - White Heavy Duty  Weight", desc_es: "Package Form: 1/250 Case"},
+  { order: 8, cat: "tableware", name: "Victoria Bay 6PC Cutlery Kit - White Med. Weight", desc: "Package Form: 1/250 Case", canonical: "img/tableware_008.jpg", status: "hd", priority: "hd", dist_sku: "MK97", sdc_sku: "SDC-TW-008" , name_es: "Victoria Bay 6PC Cutlery Kit - White Med. Weight", desc_es: "Package Form: 1/250 Case"},
+  { order: 9, cat: "tableware", name: "6PC Cutlery Kit PS Napkin,Fork,Knife,Salt & Pepper,Spoon - Black Extra Heavy Duty", desc: "Package Form: 1/250 Case", canonical: "img/tableware_009.jpg", status: "hd", priority: "hd", dist_sku: "3893BLK", sdc_sku: "SDC-TW-009" , name_es: "6PC Cutlery Kit PS Napkin,Fork,Knife,Salt & Pepper,Spoon - Black Extra Heavy Duty", desc_es: "Package Form: 1/250 Case"},
+  { order: 10, cat: "tableware", name: "Victoria Bay Dinner Napkin", desc: "15X17 2PLY 1/8 Fold | Package Form: 1/3000 Case", canonical: "img/tableware_010.jpg", status: "extracted", priority: "low", dist_sku: "VB2PLYDN", sdc_sku: "SDC-TW-010" , name_es: "Victoria Bay Dinner Napkin", desc_es: "15X17 2PLY 1/8 Fold | Package Form: 1/3000 Case"},
+  { order: 11, cat: "tableware", name: "Victoria Bay Beverage  Napkin White 1 Ply", desc: "Package Form: 1/4000 Case", canonical: "img/tableware_011.jpg", status: "extracted", priority: "low", dist_sku: "VBBEVNAPK", sdc_sku: "SDC-TW-011" , name_es: "Victoria Bay Beverage  Napkin White 1 Ply", desc_es: "Package Form: 1/4000 Case"},
+  { order: 12, cat: "tableware", name: "Victoria Bay Dispenser  Napkin 6.5 x 8 In Kraft 2 Ply Interfold", desc: "Package Form: 12/500 Case", canonical: "img/tableware_012.jpg", status: "extracted", priority: "low", dist_sku: "VBIFNK", sdc_sku: "SDC-TW-012" , name_es: "Victoria Bay Dispenser  Napkin 6.5 x 8 In Kraft 2 Ply Interfold", desc_es: "Package Form: 12/500 Case"},
+  { order: 13, cat: "tableware", name: "Victoria Bay Dispenser  Napkin 6.5 x 8 In White 2 Ply Interfold", desc: "Package Form: 12/500 Case", canonical: "img/tableware_013.jpg", status: "extracted", priority: "low", dist_sku: "VBIFNWW", sdc_sku: "SDC-TW-013" , name_es: "Victoria Bay Dispenser  Napkin 6.5 x 8 In White 2 Ply Interfold", desc_es: "Package Form: 12/500 Case"},
+  { order: 14, cat: "tableware", name: "Roll Paper Towel", desc: "White H | Package Form: 1/12 Case", canonical: "img/tableware_014.jpg", status: "extracted", priority: "low", dist_sku: "W4348", sdc_sku: "SDC-TW-014" , name_es: "Roll Paper Towel", desc_es: "White H | Package Form: 1/12 Case"},
+  { order: 15, cat: "tableware", name: "Roll Paper Towel", desc: "White Standard | Package Form: 1/6 Case", canonical: "img/tableware_015.jpg", status: "extracted", priority: "low", dist_sku: "W4453", sdc_sku: "SDC-TW-015" , name_es: "Roll Paper Towel", desc_es: "White Standard | Package Form: 1/6 Case"},
+  { order: 16, cat: "tableware", name: "Victoria Bay Folded Paper Towel 9.5 x 9 In 1 ply Paper Kraft Multifold Embrossed", desc: "Package Form: 16/250 Case", canonical: "img/tableware_016.jpg", status: "extracted", priority: "low", dist_sku: "VBMF91K", sdc_sku: "SDC-TW-016" , name_es: "Victoria Bay Folded Paper Towel 9.5 x 9 In 1 ply Paper Kraft Multifold Embrossed", desc_es: "Package Form: 16/250 Case"},
+  { order: 17, cat: "tableware", name: "Victoria Bay Folded Paper Towel 9.5 x 9 In 1 ply Paper White Multifold Embrossed", desc: "Package Form: 16/250 Case", canonical: "img/tableware_017.jpg", status: "extracted", priority: "low", dist_sku: "VBMF95W", sdc_sku: "SDC-TW-017" , name_es: "Victoria Bay Folded Paper Towel 9.5 x 9 In 1 ply Paper White Multifold Embrossed", desc_es: "Package Form: 16/250 Case"},
+  { order: 18, cat: "tableware", name: "Trandem Napkin Dispenser Gray Plastic Interfold Tabletop", desc: "Package Form: 1 Case", canonical: "img/tableware_018.jpg", status: "missing", priority: "missing", dist_sku: "2568", sdc_sku: "SDC-TW-018" , name_es: "Trandem Napkin Dispenser Gray Plastic Interfold Tabletop", desc_es: "Package Form: 1 Case"},
+  { order: 19, cat: "tableware", name: "Victoria Bay Paper Towel Dispenser Mechanical", desc: "Package Form: 1 Case", canonical: "img/tableware_019.jpg", status: "extracted", priority: "low", dist_sku: "346356", sdc_sku: "SDC-TW-019" , name_es: "Victoria Bay Paper Towel Dispenser Mechanical", desc_es: "Package Form: 1 Case"},
+  { order: 20, cat: "tableware", name: "Victoria Bay Paper Towel Dispenser Touchless", desc: "Package Form: 1 Case", canonical: "img/tableware_020.jpg", status: "extracted", priority: "low", dist_sku: "346357", sdc_sku: "SDC-TW-020" , name_es: "Victoria Bay Paper Towel Dispenser Touchless", desc_es: "Package Form: 1 Case"},
+  { order: 1, cat: "food", name: "Dart J Cup 4 oz", desc: "Food Container White Foam | Package Form: 1/1000", canonical: "img/food_001.jpg", status: "hd", priority: "hd", dist_sku: "4J6", sdc_sku: "SDC-FC-001" , name_es: "Dart J Cup 4 oz", desc_es: "Food Container White Foam | Package Form: 1/1000"},
+  { order: 2, cat: "food", name: "Dart J Cup Hot/Cold", desc: "Inst Bowls 8oz | Package Form: 1/1000", canonical: "img/food_002.jpg", status: "hd", priority: "hd", dist_sku: "8B20", sdc_sku: "SDC-FC-002" , name_es: "Dart J Cup Hot/Cold", desc_es: "Inst Bowls 8oz | Package Form: 1/1000"},
+  { order: 3, cat: "food", name: "Dart J Cup 8 oz Food Container", desc: "Base White Foam | Package Form: 1/1000", canonical: "img/food_003.jpg", status: "extracted", priority: "low", dist_sku: "8SJ20", sdc_sku: "SDC-FC-003" , name_es: "Dart J Cup 8 oz Food Container", desc_es: "Base White Foam | Package Form: 1/1000"},
+  { order: 4, cat: "food", name: "Dart J Cup 10 oz Food Container", desc: "Base White Foam | Package Form: 1/1000", canonical: "img/food_004.jpg", status: "extracted", priority: "low", dist_sku: "10B20", sdc_sku: "SDC-FC-004" , name_es: "Dart J Cup 10 oz Food Container", desc_es: "Base White Foam | Package Form: 1/1000"},
+  { order: 5, cat: "food", name: "Dart J Cup 12 oz", desc: "Food Container White Foam | Package Form: 1/1000", canonical: "img/food_005.jpg", status: "extracted", priority: "low", dist_sku: "12SJ20", sdc_sku: "SDC-FC-005" , name_es: "Dart J Cup 12 oz", desc_es: "Food Container White Foam | Package Form: 1/1000"},
+  { order: 6, cat: "food", name: "Dart J Cup 16 oz", desc: "Food Container White Foam | Package Form: 1/500", canonical: "img/food_006.jpg", status: "extracted", priority: "low", dist_sku: "16MJ20", sdc_sku: "SDC-FC-006" , name_es: "Dart J Cup 16 oz", desc_es: "Food Container White Foam | Package Form: 1/500"},
+  { order: 7, cat: "food", name: "Dart J Cup 16 oz", desc: "Food Container White Foam | Package Form: 1/500", canonical: "img/food_007.jpg", status: "extracted", priority: "low", dist_sku: "16MJ32", sdc_sku: "SDC-FC-007" , name_es: "Dart J Cup 16 oz", desc_es: "Food Container White Foam | Package Form: 1/500"},
+  { order: 8, cat: "food", name: "Dart J Cup 24 oz", desc: "Food Container White Foam | Package Form: 1/500", canonical: "img/food_008.jpg", status: "extracted", priority: "low", dist_sku: "24MJ48", sdc_sku: "SDC-FC-008" , name_es: "Dart J Cup 24 oz", desc_es: "Food Container White Foam | Package Form: 1/500"},
+  { order: 9, cat: "food", name: "Dart J Cup 32 oz", desc: "Food Container White Foam | Package Form: 1/500", canonical: "img/food_009.jpg", status: "extracted", priority: "low", dist_sku: "32MJ48", sdc_sku: "SDC-FC-009" , name_es: "Dart J Cup 32 oz", desc_es: "Food Container White Foam | Package Form: 1/500"},
+  { order: 10, cat: "food", name: "Container Base & Lid Combo 32oz", desc: "Double Wall Poly Coated Paper | Package Form: 1/250", canonical: "img/food_010.jpg", status: "missing", priority: "missing", dist_sku: "32FCWC", sdc_sku: "SDC-FC-010" , name_es: "Container Base & Lid Combo 32oz", desc_es: "Double Wall Poly Coated Paper | Package Form: 1/250"},
+  { order: 11, cat: "food", name: "Dart Lid Flat", desc: "For 4 to 6 oz Cup  No Hole | Package Form: 1/1000", canonical: "img/food_011.jpg", status: "extracted", priority: "low", dist_sku: "6CLR", sdc_sku: "SDC-FC-011" , name_es: "Dart Lid Flat", desc_es: "For 4 to 6 oz Cup  No Hole | Package Form: 1/1000"},
+  { order: 12, cat: "food", name: "Dart Lid Flat Vented Lids", desc: "for 8,12 and 16 oz | Package Form: 1/1000", canonical: "img/food_012.jpg", status: "extracted", priority: "low", dist_sku: "20JL", sdc_sku: "SDC-FC-012" , name_es: "Dart Lid Flat Vented Lids", desc_es: "for 8,12 and 16 oz | Package Form: 1/1000"},
+  { order: 13, cat: "food", name: "Dart Lid Flat for 24-32oz", desc: "No Hole vented | Package Form: 1/500", canonical: "img/food_013.jpg", status: "extracted", priority: "low", dist_sku: "48JL", sdc_sku: "SDC-FC-013" , name_es: "Dart Lid Flat for 24-32oz", desc_es: "No Hole vented | Package Form: 1/500"},
+  { order: 14, cat: "food", name: "Deli Container Base & Lid Combo", desc: "8 oz Clear Heavy Duty | Package Form: 1/240", canonical: "img/food_014.jpg", status: "extracted", priority: "low", dist_sku: "PPC8CHC", sdc_sku: "SDC-FC-014" , name_es: "Deli Container Base & Lid Combo", desc_es: "8 oz Clear Heavy Duty | Package Form: 1/240"},
+  { order: 15, cat: "food", name: "Deli Container Base & Lid Combo", desc: "16oz  Heavy Duty | Package Form: 1/240", canonical: "img/food_015.jpg", status: "extracted", priority: "low", dist_sku: "0816CHC", sdc_sku: "SDC-FC-015" , name_es: "Deli Container Base & Lid Combo", desc_es: "16oz  Heavy Duty | Package Form: 1/240"},
+  { order: 16, cat: "food", name: "Deli Container Base & Lid Combo", desc: "32oz Heavy Duty | Package Form: 1/240", canonical: "img/food_016.jpg", status: "extracted", priority: "low", dist_sku: "0832CHC", sdc_sku: "SDC-FC-016" , name_es: "Deli Container Base & Lid Combo", desc_es: "32oz Heavy Duty | Package Form: 1/240"},
+  { order: 1, cat: "bags", name: "Clear Food Storage", desc: "Bags 6 X 3 x 15 | Package Form: 1/1000", canonical: "img/bags_001.jpg", status: "extracted", priority: "low", dist_sku: "91005", sdc_sku: "SDC-BG-001" , name_es: "Clear Food Storage", desc_es: "Bags 6 X 3 x 15 | Package Form: 1/1000"},
+  { order: 2, cat: "bags", name: "Clear Food Storage", desc: "Bags 18 X 24 | Package Form: 1/250", canonical: "img/bags_002.jpg", status: "extracted", priority: "low", dist_sku: "999764", sdc_sku: "SDC-BG-002" , name_es: "Clear Food Storage", desc_es: "Bags 18 X 24 | Package Form: 1/250"},
+  { order: 3, cat: "bags", name: "Can Liner Black", desc: "38X58 1.5MIL | Package Form: 1/100", canonical: "img/bags_003.jpg", status: "extracted", priority: "low", dist_sku: "61841BP", sdc_sku: "SDC-BG-003" , name_es: "Can Liner Black", desc_es: "38X58 1.5MIL | Package Form: 1/100"},
+  { order: 4, cat: "bags", name: "Can liner  Black", desc: "33X40 1.5MIL | Package Form: 1/100", canonical: "img/bags_004.jpg", status: "extracted", priority: "low", dist_sku: "62406BP", sdc_sku: "SDC-BG-004" , name_es: "Can liner  Black", desc_es: "33X40 1.5MIL | Package Form: 1/100"},
+  { order: 5, cat: "bags", name: "1/6 THANK YOU T-SAK", desc: "WHT 11.5X6.5X20 11.5 | Package Form: 1/900", canonical: "img/bags_005.jpg", status: "hd", priority: "hd", dist_sku: "Fuertety", sdc_sku: "SDC-BG-005" , name_es: "1/6 THANK YOU T-SAK", desc_es: "WHT 11.5X6.5X20 11.5 | Package Form: 1/900"},
+  { order: 6, cat: "bags", name: "T-Shirt Bags 1/8 10x5x18", desc: "White Thank You | Package Form: 1/2000", canonical: "img/bags_006.jpg", status: "hd", priority: "hd", dist_sku: "92268", sdc_sku: "SDC-BG-006" , name_es: "T-Shirt Bags 1/8 10x5x18", desc_es: "White Thank You | Package Form: 1/2000"},
+  { order: 7, cat: "bags", name: "Bag 10x5x18 In 12mic", desc: "White T-Sack | Package Form: 1/2000", canonical: "img/bags_007.jpg", status: "hd", priority: "hd", dist_sku: "10518", sdc_sku: "SDC-BG-007" , name_es: "Bag 10x5x18 In 12mic", desc_es: "White T-Sack | Package Form: 1/2000"},
+  { order: 8, cat: "bags", name: "Pull N Pak, Produce Bag Roll 16x28", desc: "In High-Density Hdpe | Package Form: 1/1900", canonical: "img/bags_008.jpg", status: "extracted", priority: "low", dist_sku: "10310", sdc_sku: "SDC-BG-008" , name_es: "Pull N Pak, Produce Bag Roll 16x28", desc_es: "In High-Density Hdpe | Package Form: 1/1900"},
+  { order: 9, cat: "bags", name: "Pull N Pak, Produce Bag Roll 15x20", desc: "In High-Density Hdpe | Package Form: 1/1900", canonical: "img/bags_009.jpg", status: "hd", priority: "hd", dist_sku: "10113", sdc_sku: "SDC-BG-009" , name_es: "Pull N Pak, Produce Bag Roll 15x20", desc_es: "In High-Density Hdpe | Package Form: 1/1900"},
+  { order: 10, cat: "bags", name: "Produce Bag 12x20 In Plastic", desc: "More Matters 4/Case | Package Form: 1/3000", canonical: "img/bags_010.jpg", status: "hd", priority: "hd", dist_sku: "MORE20NS", sdc_sku: "SDC-BG-010" , name_es: "Produce Bag 12x20 In Plastic", desc_es: "More Matters 4/Case | Package Form: 1/3000"},
+  { order: 11, cat: "bags", name: "Produce Bag 15x20 In", desc: "Plastic Stock Print 1/3000 Case | Package Form: 1/3000", canonical: "img/bags_011.jpg", status: "hd", priority: "hd", dist_sku: "10000BAG", sdc_sku: "SDC-BG-011" , name_es: "Produce Bag 15x20 In", desc_es: "Plastic Stock Print 1/3000 Case | Package Form: 1/3000"},
+  { order: 1, cat: "bakery", name: "Cake Container & Lid Combo", desc: "With High Dome Lid 7x5.25 | In Pet Clear Black Round Fluted | Package Form: 1/100", canonical: "img/bakery_001.jpg", status: "missing", priority: "missing", dist_sku: "09B525", sdc_sku: "SDC-BK-001" , name_es: "Cake Container & Lid Combo", desc_es: "With High Dome Lid 7x5.25 | In Pet Clear Black Round Fluted | Package Form: 1/100"},
+  { order: 2, cat: "bakery", name: "Cake Container & Lid Combo", desc: "With High Dome Lid 8x4.375 | In Pet Clear Black Round Fluted | Package Form: 1/100", canonical: "img/bakery_002.jpg", status: "missing", priority: "missing", dist_sku: "08B4225", sdc_sku: "SDC-BK-002" , name_es: "Cake Container & Lid Combo", desc_es: "With High Dome Lid 8x4.375 | In Pet Clear Black Round Fluted | Package Form: 1/100"},
+  { order: 3, cat: "bakery", name: "Cake Container & Lid Combo", desc: "With High Dome Lid 11.25x3.5 | In Pet Clear Black Round Fluted | Package Form: 1/50", canonical: "img/bakery_003.jpg", status: "extracted", priority: "low", dist_sku: "11B25", sdc_sku: "SDC-BK-003" , name_es: "Cake Container & Lid Combo", desc_es: "With High Dome Lid 11.25x3.5 | In Pet Clear Black Round Fluted | Package Form: 1/50"},
+  { order: 4, cat: "bakery", name: "Rose Dome Cake Container & Lid Combo", desc: "With High Dome Lid 13x5.75 | In Pet Clear Black Round | Package Form: 1/45", canonical: "img/bakery_004.jpg", status: "missing", priority: "missing", dist_sku: "CB13B575RY", sdc_sku: "SDC-BK-004" , name_es: "Rose Dome Cake Container & Lid Combo", desc_es: "With High Dome Lid 13x5.75 | In Pet Clear Black Round | Package Form: 1/45"},
+  { order: 5, cat: "bakery", name: "Cake Circle 12 In", desc: "Paperboard Gold Scalloped | Package Form: 1/100", canonical: "img/bakery_005.jpg", status: "extracted", priority: "low", dist_sku: "LGOL12", sdc_sku: "SDC-BK-005" , name_es: "Cake Circle 12 In", desc_es: "Paperboard Gold Scalloped | Package Form: 1/100"},
+  { order: 6, cat: "bakery", name: "Cake Circle 10in Corrugated", desc: "Paperboard White Round Grease R | Package Form: 1/100", canonical: "img/bakery_006.jpg", status: "extracted", priority: "low", dist_sku: "10CORRGP", sdc_sku: "SDC-BK-006" , name_es: "Cake Circle 10in Corrugated", desc_es: "Paperboard White Round Grease R | Package Form: 1/100"},
+  { order: 7, cat: "bakery", name: "Cake Board 19x14 Corrugated", desc: "Paperboard White Rect D/W | Package Form: 1/50", canonical: "img/bakery_007.jpg", status: "extracted", priority: "low", dist_sku: "1153", sdc_sku: "SDC-BK-007" , name_es: "Cake Board 19x14 Corrugated", desc_es: "Paperboard White Rect D/W | Package Form: 1/50"},
+  { order: 1, cat: "cleaning", name: "Victoria Bay Toiler Paper & Tissue Roll 3.3 IN 2 Ply White Embrossed Jumbo Jr", desc: "Package Form: 1/12 Roll Case", canonical: "img/cleaning_001.jpg", status: "extracted", priority: "low", dist_sku: "VBJT2750", sdc_sku: "SDC-PC-001" , name_es: "Victoria Bay Toiler Paper & Tissue Roll 3.3 IN 2 Ply White Embrossed Jumbo Jr", desc_es: "Package Form: 1/12 Roll Case"},
+  { order: 2, cat: "cleaning", name: "Victoria Bay Toiler Paper Dispenser 9 x 5.37 In Plastic Black", desc: "Package Form: 1 Case", canonical: "img/cleaning_002.jpg", status: "extracted", priority: "low", dist_sku: "VBTTDSJSB", sdc_sku: "SDC-PC-002" , name_es: "Victoria Bay Toiler Paper Dispenser 9 x 5.37 In Plastic Black", desc_es: "Package Form: 1 Case"},
+  { order: 3, cat: "cleaning", name: "Disposable Gloves M Blue 4mil", desc: "Nitrile Powder-Free | Package Form: 10/100", canonical: "img/cleaning_003.jpg", status: "extracted", priority: "low", dist_sku: "VAS574301", sdc_sku: "SDC-PC-003" , name_es: "Disposable Gloves M Blue 4mil", desc_es: "Nitrile Powder-Free | Package Form: 10/100"},
+  { order: 4, cat: "cleaning", name: "Disposable Gloves L Blue 4mil", desc: "Nitrile Powder-Free | Package Form: 10/100", canonical: "img/cleaning_004.jpg", status: "extracted", priority: "low", dist_sku: "VAS574401", sdc_sku: "SDC-PC-004" , name_es: "Disposable Gloves L Blue 4mil", desc_es: "Nitrile Powder-Free | Package Form: 10/100"},
+  { order: 5, cat: "cleaning", name: "Disposable GlovesXL Blue 4mil", desc: "Nitrile Powder-Free | Package Form: 10/100", canonical: "img/cleaning_005.jpg", status: "extracted", priority: "low", dist_sku: "VAS574402", sdc_sku: "SDC-PC-005" , name_es: "Disposable GlovesXL Blue 4mil", desc_es: "Nitrile Powder-Free | Package Form: 10/100"},
+  { order: 6, cat: "cleaning", name: "Disposable Gloves S Black 3mil", desc: "Nitrile Powder-Free | Package Form: 10/100", canonical: "img/cleaning_006.jpg", status: "extracted", priority: "low", dist_sku: "FNE201BK", sdc_sku: "SDC-PC-006" , name_es: "Disposable Gloves S Black 3mil", desc_es: "Nitrile Powder-Free | Package Form: 10/100"},
+  { order: 7, cat: "cleaning", name: "Disposable Gloves M Black 3mil", desc: "Nitrile Powder-Free | Package Form: 10/100", canonical: "img/cleaning_007.jpg", status: "extracted", priority: "low", dist_sku: "FNE202BK", sdc_sku: "SDC-PC-007" , name_es: "Disposable Gloves M Black 3mil", desc_es: "Nitrile Powder-Free | Package Form: 10/100"},
+  { order: 8, cat: "cleaning", name: "Disposable Gloves L Black 3mil", desc: "Nitrile Powder-Free | Package Form: 10/100", canonical: "img/cleaning_008.jpg", status: "extracted", priority: "low", dist_sku: "FNE203BK", sdc_sku: "SDC-PC-008" , name_es: "Disposable Gloves L Black 3mil", desc_es: "Nitrile Powder-Free | Package Form: 10/100"},
+  { order: 9, cat: "cleaning", name: "Disposable Gloves XL Black 3mil", desc: "Nitrile Powder-Free | Package Form: 10/100", canonical: "img/cleaning_009.jpg", status: "extracted", priority: "low", dist_sku: "FNE204BK", sdc_sku: "SDC-PC-009" , name_es: "Disposable Gloves XL Black 3mil", desc_es: "Nitrile Powder-Free | Package Form: 10/100"},
+  { order: 10, cat: "cleaning", name: "Disposable Gloves S", desc: "Latex Powder-Free | Package Form: 10/100", canonical: "img/cleaning_010.jpg", status: "extracted", priority: "low", dist_sku: "62323PFS", sdc_sku: "SDC-PC-010" , name_es: "Disposable Gloves S", desc_es: "Latex Powder-Free | Package Form: 10/100"},
+  { order: 11, cat: "cleaning", name: "Disposable Gloves M", desc: "Latex Powder-Free | Package Form: 10/100", canonical: "img/cleaning_011.jpg", status: "extracted", priority: "low", dist_sku: "62323PFM", sdc_sku: "SDC-PC-011" , name_es: "Disposable Gloves M", desc_es: "Latex Powder-Free | Package Form: 10/100"},
+  { order: 12, cat: "cleaning", name: "Disposable Gloves L", desc: "Latex Powder-Free | Package Form: 10/100", canonical: "img/cleaning_012.jpg", status: "extracted", priority: "low", dist_sku: "62323PFL", sdc_sku: "SDC-PC-012" , name_es: "Disposable Gloves L", desc_es: "Latex Powder-Free | Package Form: 10/100"},
+  { order: 13, cat: "cleaning", name: "Disposable Gloves XL", desc: "Latex Powder-Free | Package Form: 10/100", canonical: "img/cleaning_013.jpg", status: "extracted", priority: "low", dist_sku: "62323PFXL", sdc_sku: "SDC-PC-013" , name_es: "Disposable Gloves XL", desc_es: "Latex Powder-Free | Package Form: 10/100"},
+  { order: 14, cat: "cleaning", name: "Hairnet 26 in Black", desc: "Nylon | Package Form: 1/144", canonical: "img/cleaning_014.jpg", status: "extracted", priority: "low", dist_sku: "HN500BK", sdc_sku: "SDC-PC-014" , name_es: "Hairnet 26 in Black", desc_es: "Nylon | Package Form: 1/144"},
+  { order: 15, cat: "cleaning", name: "Victoria Bay Sparkle Green Dish Detergent", desc: "Package Form: 5 Gal 1/Pail", canonical: "img/cleaning_015.jpg", status: "extracted", priority: "low", dist_sku: "K01037", sdc_sku: "SDC-PC-015" , name_es: "Victoria Bay Sparkle Green Dish Detergent", desc_es: "Package Form: 5 Gal 1/Pail"},
+  { order: 16, cat: "cleaning", name: "Victoria Bay Rd", desc: "Oven & Grill Cleaner 1 Gal | Package Form: 4/Case", canonical: "img/cleaning_016.jpg", status: "extracted", priority: "low", dist_sku: "K00087", sdc_sku: "SDC-PC-016" , name_es: "Victoria Bay Rd", desc_es: "Oven & Grill Cleaner 1 Gal | Package Form: 4/Case"},
+  { order: 17, cat: "cleaning", name: "Gator Dusk  Premium Liquid Pot & Pan Detergent", desc: "Package Form: 4/Case", canonical: "img/cleaning_017.jpg", status: "extracted", priority: "low", dist_sku: "GPS91144", sdc_sku: "SDC-PC-017" , name_es: "Gator Dusk  Premium Liquid Pot & Pan Detergent", desc_es: "Package Form: 4/Case"},
+  { order: 18, cat: "cleaning", name: "Pure Bright Bleach 1 Gal Liquid Germicidal 6%", desc: "Package Form: 6/Case", canonical: "img/cleaning_018.jpg", status: "extracted", priority: "low", dist_sku: "PUREBRIGHTGL", sdc_sku: "SDC-PC-018" , name_es: "Pure Bright Bleach 1 Gal Liquid Germicidal 6%", desc_es: "Package Form: 6/Case"}
+];
+
+const catLabel = {
+  togo: "To-Go Containers", steak: "Steak & Butcher", packaging: "Packaging Supplies",
+  paper: "Paper Trays & Pans", cups: "Cups, Lids & Straws", tableware: "Tableware & Cutlery",
+  food: "Food Containers", bags: "Bags & Produce", bakery: "Bakery Supplies",
+  cleaning: "Protection & Cleaning"
+};
+
+// ── State ──
+let activeCat = "all";
+let searchTerm = "";
+let selectedSkus = new Set();
+let qtyPerLabel = 1;
+
+// ── URL Params ──
+(function parseURL() {
+  const params = new URLSearchParams(window.location.search);
+  const skusParam = params.get("skus");
+  if (skusParam) {
+    skusParam.split(",").forEach(s => {
+      const sku = s.trim();
+      if (sku && rows.some(r => r.sdc_sku === sku)) {
+        selectedSkus.add(sku);
+      }
+    });
+  }
+})();
+
+// ── Category Counts ──
+function getCatCounts() {
+  const counts = { all: rows.length };
+  for (const r of rows) {
+    counts[r.cat] = (counts[r.cat] || 0) + 1;
+  }
+  return counts;
+}
+
+// ── 1. Render Pills ──
+function renderPills() {
+  const counts = getCatCounts();
+  const pillsEl = document.getElementById("pills");
+  let html = `<button class="pill ${activeCat === 'all' ? 'active' : ''}" onclick="setCat('all')">All <span class="count">(${counts.all})</span></button>`;
+  for (const [key, label] of Object.entries(catLabel)) {
+    html += `<button class="pill ${activeCat === key ? 'active' : ''}" onclick="setCat('${key}')">${label} <span class="count">(${counts[key] || 0})</span></button>`;
+  }
+  pillsEl.innerHTML = html;
+}
+
+function setCat(cat) {
+  activeCat = cat;
+  renderPills();
+  renderProductList();
+}
+
+// ── 2. Get Filtered Rows ──
+function getFilteredRows() {
+  let filtered = rows;
+  if (activeCat !== "all") {
+    filtered = filtered.filter(r => r.cat === activeCat);
+  }
+  if (searchTerm) {
+    const q = searchTerm.toLowerCase();
+    filtered = filtered.filter(r =>
+      r.sdc_sku.toLowerCase().includes(q) ||
+      r.name.toLowerCase().includes(q) ||
+      r.desc.toLowerCase().includes(q)
+    );
+  }
+  return filtered;
+}
+
+// ── 3. Render Product List ──
+function renderProductList() {
+  const filtered = getFilteredRows();
+  const listEl = document.getElementById("productList");
+  if (filtered.length === 0) {
+    listEl.innerHTML = '<div class="no-selection">No products match your filters</div>';
+    return;
+  }
+  let html = "";
+  for (const r of filtered) {
+    const checked = selectedSkus.has(r.sdc_sku);
+    html += `<div class="product-row ${checked ? 'selected' : ''}" onclick="toggleProduct('${r.sdc_sku}')">
+      <input type="checkbox" ${checked ? 'checked' : ''} onclick="event.stopPropagation(); toggleProduct('${r.sdc_sku}')">
+      <span class="product-sku">${r.sdc_sku}</span>
+      <span class="product-name">${escHtml(r.name)}</span>
+      <span class="product-desc">${escHtml(r.desc)}</span>
+    </div>`;
+  }
+  listEl.innerHTML = html;
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+// ── 4. Toggle Product ──
+function toggleProduct(sku) {
+  if (selectedSkus.has(sku)) {
+    selectedSkus.delete(sku);
+  } else {
+    selectedSkus.add(sku);
+  }
+  renderProductList();
+  updateStats();
+  updatePreview();
+}
+
+// ── 5. Select All / Deselect All ──
+function selectAll() {
+  const filtered = getFilteredRows();
+  for (const r of filtered) {
+    selectedSkus.add(r.sdc_sku);
+  }
+  renderProductList();
+  updateStats();
+  updatePreview();
+}
+
+function deselectAll() {
+  selectedSkus.clear();
+  renderProductList();
+  updateStats();
+  updatePreview();
+}
+
+// ── 6. Update Stats ──
+function updateStats() {
+  const qty = parseInt(document.getElementById("qtyInput").value) || 1;
+  qtyPerLabel = qty;
+  document.getElementById("statTotal").textContent = rows.length;
+  document.getElementById("statSelected").textContent = selectedSkus.size;
+  document.getElementById("statLabels").textContent = selectedSkus.size * qty;
+}
+
+// ── 7. Update Preview ──
+function updatePreview() {
+  const previewEl = document.getElementById("previewArea");
+  const selected = rows.filter(r => selectedSkus.has(r.sdc_sku));
+  const qty = parseInt(document.getElementById("qtyInput").value) || 1;
+
+  if (selected.length === 0) {
+    previewEl.innerHTML = '<div class="no-selection">Select products to preview labels</div>';
+    return;
+  }
+
+  // Build flat label array
+  const labels = [];
+  for (const r of selected) {
+    for (let i = 0; i < qty; i++) {
+      labels.push(r);
+    }
+  }
+
+  const pages = [];
+  for (let i = 0; i < labels.length; i += 20) {
+    pages.push(labels.slice(i, i + 20));
+  }
+
+  let html = "";
+  pages.forEach((page, pi) => {
+    html += `<div class="page-indicator">Page ${pi + 1} of ${pages.length}</div>`;
+    html += '<div class="preview-grid">';
+    for (const r of page) {
+      const qrId = `prev-qr-${r.sdc_sku}-${pi}-${Math.random().toString(36).substr(2,6)}`;
+      html += `<div class="preview-label">
+        <div class="preview-qr" id="${qrId}"></div>
+        <div class="preview-info">
+          <div class="preview-sku">${r.sdc_sku}</div>
+          <div class="preview-name">${escHtml(r.name)}</div>
+          <div class="preview-desc">${escHtml(r.desc)}</div>
+        </div>
+      </div>`;
+    }
+    html += '</div>';
+  });
+
+  previewEl.innerHTML = html;
+
+  // Generate QR codes for preview
+  requestAnimationFrame(() => {
+    previewEl.querySelectorAll(".preview-qr").forEach(el => {
+      const label = el.closest(".preview-label");
+      const sku = label.querySelector(".preview-sku").textContent;
+      const name = label.querySelector(".preview-name").textContent;
+      const desc = label.querySelector(".preview-desc").textContent;
+      const qrText = `${sku} | ${name} | ${desc}`;
+      try {
+        new QRCode(el, {
+          text: qrText,
+          width: 56,
+          height: 56,
+          colorDark: "#000000",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      } catch(e) {}
+    });
+  });
+}
+
+// ── 8. Print Labels ──
+function printLabels() {
+  const selected = rows.filter(r => selectedSkus.has(r.sdc_sku));
+  const qty = parseInt(document.getElementById("qtyInput").value) || 1;
+
+  if (selected.length === 0) {
+    alert("Please select at least one product.");
+    return;
+  }
+
+  // Build flat label array
+  const labels = [];
+  for (const r of selected) {
+    for (let i = 0; i < qty; i++) {
+      labels.push(r);
+    }
+  }
+
+  // Split into pages of 20
+  const pages = [];
+  for (let i = 0; i < labels.length; i += 20) {
+    pages.push(labels.slice(i, i + 20));
+  }
+
+  const printArea = document.getElementById("printArea");
+  let html = "";
+
+  for (const page of pages) {
+    html += '<div class="label-page">';
+    for (let i = 0; i < 20; i++) {
+      if (i < page.length) {
+        const r = page[i];
+        const qrId = `print-qr-${r.sdc_sku}-${i}-${Math.random().toString(36).substr(2,6)}`;
+        html += `<div class="print-label">
+          <div class="print-label-qr" id="${qrId}"></div>
+          <div class="print-label-info">
+            <div class="print-label-sku">${r.sdc_sku}</div>
+            <div class="print-label-name">${escHtml(r.name)}</div>
+            <div class="print-label-desc">${escHtml(r.desc)}</div>
+          </div>
+        </div>`;
+      } else {
+        html += '<div class="print-label empty"></div>';
+      }
+    }
+    html += '</div>';
+  }
+
+  printArea.innerHTML = html;
+
+  // Generate QR codes for print
+  requestAnimationFrame(() => {
+    printArea.querySelectorAll(".print-label-qr").forEach(el => {
+      const label = el.closest(".print-label");
+      if (label.classList.contains("empty")) return;
+      const sku = label.querySelector(".print-label-sku").textContent;
+      const name = label.querySelector(".print-label-name").textContent;
+      const desc = label.querySelector(".print-label-desc").textContent;
+      const qrText = `${sku} | ${name} | ${desc}`;
+      try {
+        new QRCode(el, {
+          text: qrText,
+          width: 72,
+          height: 72,
+          colorDark: "#000000",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      } catch(e) {}
+    });
+
+    // Wait for QR codes to render, then print
+    setTimeout(() => {
+      window.print();
+    }, 500);
+  });
+}
+
+// ── 9. Search Handler ──
+document.getElementById("searchInput").addEventListener("input", function(e) {
+  searchTerm = e.target.value.trim();
+  renderProductList();
+});
+
+document.getElementById("qtyInput").addEventListener("change", function() {
+  updateStats();
+  if (selectedSkus.size > 0) updatePreview();
+});
+
+// ── 10. Init ──
+renderPills();
+renderProductList();
+updateStats();
+if (selectedSkus.size > 0) updatePreview();
+</script>
+</body>
+</html>
