@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inventory Dashboard — SDC Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f8f8f8;
+  color: #333;
+  min-height: 100vh;
+}
+
+/* ── Header ── */
+.header {
+  background: #111;
+  color: #fff;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.header-back {
+  color: #999;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color .2s;
+}
+.header-back:hover { color: #fff; }
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-mark {
+  width: 32px;
+  height: 32px;
+  background: #fff;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: #111;
+  flex-shrink: 0;
+}
+
+.brand-text { line-height: 1.2; }
+.brand-text .primary { font-weight: 600; font-size: 14px; }
+.brand-text .secondary { font-size: 11px; color: #999; }
+
+.header-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-left: 8px;
+  white-space: nowrap;
+}
+
+.header-spacer { flex: 1; }
+
+.date-pills {
+  display: flex;
+  gap: 4px;
+}
+
+.date-pill {
+  background: transparent;
+  color: #999;
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 100px;
+  padding: 5px 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .2s;
+}
+.date-pill:hover { color: #fff; border-color: rgba(255,255,255,.5); }
+.date-pill.active { background: #fff; color: #111; border-color: #fff; }
+
+/* ── Tab Bar ── */
+.tab-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  display: flex;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 0 24px;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 12px 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  transition: color .2s, border-color .2s;
+}
+.tab-btn:hover { color: #111; }
+.tab-btn.active { color: #111; border-bottom-color: #111; }
+
+/* ── Tab Content ── */
+.tab-content { display: none; padding: 24px; max-width: 1100px; margin: 0 auto; }
+.tab-content.active { display: block; }
+
+/* ── Search / Controls ── */
+.controls-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.search-input {
+  padding: 8px 14px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  outline: none;
+  width: 260px;
+  transition: border-color .2s;
+}
+.search-input:focus { border-color: #111; }
+.search-input::placeholder { color: #bbb; }
+
+.filter-select {
+  padding: 8px 14px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  background: #fff;
+  outline: none;
+  cursor: pointer;
+}
+
+.controls-spacer { flex: 1; }
+
+.btn-export {
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .2s;
+}
+.btn-export:hover { background: #333; }
+
+/* ── Stock Table ── */
+.stock-table-wrap {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  margin-bottom: 32px;
+}
+
+.stock-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.stock-table th {
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: #666;
+  background: #fafafa;
+  border-bottom: 1px solid #e5e5e5;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition: color .2s;
+}
+.stock-table th:hover { color: #111; }
+.stock-table th .sort-arrow { font-size: 10px; margin-left: 4px; color: #bbb; }
+.stock-table th.sorted .sort-arrow { color: #111; }
+
+.stock-table td {
+  padding: 10px 16px;
+  font-size: 13px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.stock-table tr:last-child td { border-bottom: none; }
+
+.stock-table .sku-cell {
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.stock-bar-cell { width: 160px; }
+.stock-bar-wrap {
+  width: 100%;
+  height: 8px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.stock-bar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width .3s;
+}
+
+/* ── Category Summary ── */
+.category-summary {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06);
+}
+.category-summary h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #111;
+}
+.cat-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.cat-bar-label {
+  width: 160px;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: right;
+  flex-shrink: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cat-bar-track {
+  flex: 1;
+  height: 20px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.cat-bar-fill {
+  height: 100%;
+  background: #111;
+  border-radius: 4px;
+  transition: width .3s;
+}
+.cat-bar-value {
+  width: 50px;
+  font-size: 13px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* ── Scan In/Out Tab ── */
+.mode-toggle {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.mode-btn {
+  padding: 10px 28px;
+  border: 2px solid #e5e5e5;
+  border-radius: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #fff;
+  color: #333;
+  transition: all .2s;
+}
+.mode-btn.receive.active { background: #16a34a; color: #fff; border-color: #16a34a; }
+.mode-btn.remove.active { background: #dc2626; color: #fff; border-color: #dc2626; }
+
+.scan-input-wrap {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.scan-input {
+  width: 100%;
+  padding: 18px 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  border: 2px solid #e5e5e5;
+  border-radius: 12px;
+  outline: none;
+  background: #fff;
+  transition: border-color .2s;
+}
+.scan-input:focus { border-color: #111; }
+.scan-input::placeholder { color: #bbb; }
+.scan-input.mode-receive:focus { border-color: #16a34a; }
+.scan-input.mode-remove:focus { border-color: #dc2626; }
+.scan-input.mode-receive { border-color: #16a34a; }
+.scan-input.mode-remove { border-color: #dc2626; }
+
+.scan-flash {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+.scan-flash.success { background: rgba(22, 163, 74, .2); }
+.scan-flash.error { background: rgba(220, 38, 38, .2); }
+.scan-flash.show { opacity: 1; }
+
+/* ── Manual Adjustment ── */
+.manual-form {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  margin-bottom: 24px;
+}
+.manual-form h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  color: #111;
+}
+.form-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.form-group label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: #666;
+}
+.form-group input, .form-group select {
+  padding: 8px 12px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  outline: none;
+}
+.form-group input:focus, .form-group select:focus { border-color: #111; }
+
+.product-name-display {
+  font-size: 13px;
+  color: #666;
+  padding: 8px 0;
+  min-height: 34px;
+}
+
+.btn-apply {
+  background: #dc2626;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s;
+  white-space: nowrap;
+}
+.btn-apply:hover { background: #b91c1c; }
+
+/* ── Activity Feed ── */
+.activity-feed {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  overflow: hidden;
+}
+.activity-feed h3 {
+  font-size: 14px;
+  font-weight: 600;
+  padding: 16px 20px 12px;
+  color: #111;
+}
+
+.feed-list { list-style: none; }
+
+.feed-entry {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 20px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 13px;
+  animation: fadeIn .2s ease;
+}
+.feed-entry:last-child { border-bottom: none; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.feed-time {
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 11px;
+  color: #999;
+  flex-shrink: 0;
+  width: 65px;
+}
+
+.badge-in, .badge-out {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 100px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  flex-shrink: 0;
+}
+.badge-in { background: #dcfce7; color: #16a34a; }
+.badge-out { background: #fef2f2; color: #dc2626; }
+
+.feed-sku {
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-weight: 600;
+  font-size: 12px;
+  color: #111;
+  flex-shrink: 0;
+}
+
+.feed-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #333;
+}
+
+.feed-qty {
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.feed-reason {
+  font-size: 11px;
+  color: #999;
+  flex-shrink: 0;
+  width: 70px;
+  text-align: right;
+}
+
+/* ── Activity Log Tab ── */
+.filter-pills {
+  display: flex;
+  gap: 4px;
+}
+.filter-pill {
+  background: #f0f0f0;
+  color: #666;
+  border: none;
+  border-radius: 100px;
+  padding: 5px 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .2s;
+}
+.filter-pill:hover { background: #e5e5e5; color: #333; }
+.filter-pill.active { background: #111; color: #fff; }
+
+.log-table-wrap {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06);
+}
+
+.log-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.log-table th {
+  text-align: left;
+  padding: 12px 14px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: #666;
+  background: #fafafa;
+  border-bottom: 1px solid #e5e5e5;
+  white-space: nowrap;
+}
+.log-table td {
+  padding: 9px 14px;
+  font-size: 13px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.log-table tr:last-child td { border-bottom: none; }
+.log-table .sku-cell {
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-weight: 600;
+  font-size: 12px;
+}
+.log-table .time-cell {
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 12px;
+  color: #666;
+}
+
+/* ── Empty State ── */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+}
+.empty-state p { font-size: 14px; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .header { padding: 12px 16px; gap: 10px; }
+  .tab-content { padding: 16px; }
+  .controls-row { gap: 8px; }
+  .search-input { width: 100%; }
+  .stock-bar-cell { width: 100px; }
+  .cat-bar-label { width: 100px; }
+  .form-row { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<header class="header">
+  <a href="index.html" class="header-back">&larr; Back</a>
+  <div class="header-brand">
+    <div class="logo-mark">SDC</div>
+    <div class="brand-text">
+      <div class="primary">SDC Solutions</div>
+      <div class="secondary">Sabores del Campo LLC</div>
+    </div>
+  </div>
+  <div class="header-title">Inventory Dashboard</div>
+  <div class="header-spacer"></div>
+  <div class="date-pills">
+    <button class="date-pill" data-range="today" onclick="setDateRange('today')">Today</button>
+    <button class="date-pill" data-range="week" onclick="setDateRange('week')">This Week</button>
+    <button class="date-pill active" data-range="all" onclick="setDateRange('all')">All Time</button>
+  </div>
+</header>
+
+<!-- ── Tab Bar ── -->
+<nav class="tab-bar">
+  <button class="tab-btn active" data-tab="stock" onclick="switchTab('stock')">Stock Levels</button>
+  <button class="tab-btn" data-tab="scanio" onclick="switchTab('scanio')">Scan In/Out</button>
+  <button class="tab-btn" data-tab="log" onclick="switchTab('log')">Activity Log</button>
+</nav>
+
+<!-- ── Stock Levels Tab ── -->
+<div class="tab-content active" id="tab-stock">
+  <div class="controls-row">
+    <input type="text" class="search-input" id="stock-search" placeholder="Search by SKU or product name..." oninput="renderStockTable()">
+  </div>
+  <div class="stock-table-wrap">
+    <table class="stock-table" id="stock-table">
+      <thead>
+        <tr>
+          <th data-col="sku" onclick="sortStock('sku')">SDC SKU <span class="sort-arrow">&#9650;</span></th>
+          <th data-col="name" onclick="sortStock('name')">Product Name <span class="sort-arrow">&#9650;</span></th>
+          <th data-col="category" onclick="sortStock('category')">Category <span class="sort-arrow">&#9650;</span></th>
+          <th data-col="received" onclick="sortStock('received')">Received <span class="sort-arrow">&#9650;</span></th>
+          <th data-col="removed" onclick="sortStock('removed')">Removed <span class="sort-arrow">&#9650;</span></th>
+          <th data-col="stock" onclick="sortStock('stock')">Current Stock <span class="sort-arrow">&#9650;</span></th>
+          <th>Bar</th>
+        </tr>
+      </thead>
+      <tbody id="stock-tbody"></tbody>
+    </table>
+  </div>
+  <div id="stock-empty" class="empty-state" style="display:none;">
+    <p>No inventory data yet. Scan items in the Scan Receiving Station or use Scan In/Out.</p>
+  </div>
+  <div class="category-summary" id="category-summary" style="display:none;">
+    <h3>Stock by Category</h3>
+    <div id="category-bars"></div>
+  </div>
+</div>
+
+<!-- ── Scan In/Out Tab ── -->
+<div class="tab-content" id="tab-scanio">
+  <div class="mode-toggle">
+    <button class="mode-btn receive active" id="btn-receive" onclick="switchMode('receive')">Receive</button>
+    <button class="mode-btn remove" id="btn-remove" onclick="switchMode('remove')">Remove</button>
+  </div>
+
+  <div class="scan-input-wrap">
+    <input type="text" class="scan-input mode-receive" id="scanio-input" placeholder="Scan QR code..." autocomplete="off" spellcheck="false">
+    <div class="scan-flash" id="scanio-flash"></div>
+  </div>
+
+  <div class="manual-form">
+    <h3>Manual Adjustment</h3>
+    <div class="form-row">
+      <div class="form-group">
+        <label>SKU</label>
+        <input type="text" id="manual-sku" list="sku-datalist" placeholder="SDC-..." oninput="onManualSkuInput()">
+        <datalist id="sku-datalist"></datalist>
+      </div>
+      <div class="form-group">
+        <label>Product</label>
+        <div class="product-name-display" id="manual-name">--</div>
+      </div>
+      <div class="form-group">
+        <label>Quantity</label>
+        <input type="number" id="manual-qty" value="1" min="1" style="width:80px;">
+      </div>
+      <div class="form-group">
+        <label>Reason</label>
+        <select id="manual-reason">
+          <option value="sold">Sold</option>
+          <option value="waste">Waste</option>
+          <option value="return">Return</option>
+          <option value="adjustment">Adjustment</option>
+        </select>
+      </div>
+      <button class="btn-apply" onclick="applyManualRemoval()">Apply Removal</button>
+    </div>
+  </div>
+
+  <div class="activity-feed">
+    <h3>Live Activity Feed</h3>
+    <ul class="feed-list" id="activity-feed"></ul>
+    <div class="empty-state" id="feed-empty">
+      <p>No recent activity. Scan items to begin.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── Activity Log Tab ── -->
+<div class="tab-content" id="tab-log">
+  <div class="controls-row">
+    <div class="filter-pills">
+      <button class="filter-pill active" data-filter="all" onclick="setLogFilter('all')">All</button>
+      <button class="filter-pill" data-filter="in" onclick="setLogFilter('in')">In Only</button>
+      <button class="filter-pill" data-filter="out" onclick="setLogFilter('out')">Out Only</button>
+    </div>
+    <select class="filter-select" id="log-category-filter" onchange="renderActivityLog()">
+      <option value="">All Categories</option>
+    </select>
+    <div class="controls-spacer"></div>
+    <button class="btn-export" onclick="exportActivityCSV()">Export CSV</button>
+  </div>
+  <div class="log-table-wrap">
+    <table class="log-table" id="log-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Type</th>
+          <th>SDC SKU</th>
+          <th>Product Name</th>
+          <th>Qty</th>
+          <th>Reason</th>
+          <th>Session</th>
+        </tr>
+      </thead>
+      <tbody id="log-tbody"></tbody>
+    </table>
+  </div>
+  <div class="empty-state" id="log-empty" style="display:none;">
+    <p>No activity recorded yet.</p>
+  </div>
+</div>
+
+<script>
+// ── Constants ──
+const SESSIONS_KEY = 'sdc_scan_sessions';
+const REMOVALS_KEY = 'sdc_stock_removals';
+
+// ── State ──
+let currentTab = 'stock';
+let currentDateRange = 'all';
+let currentMode = 'receive'; // receive or remove
+let stockSortCol = 'sku';
+let stockSortAsc = true;
+let logFilter = 'all';
+let audioCtx = null;
+
+// ── localStorage IO ──
+function loadSessions() {
+  try {
+    const raw = localStorage.getItem(SESSIONS_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (e) {}
+  return { sessions: [], activeSessionId: null };
+}
+
+function saveSessions(data) {
+  localStorage.setItem(SESSIONS_KEY, JSON.stringify(data));
+}
+
+function loadRemovals() {
+  try {
+    const raw = localStorage.getItem(REMOVALS_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (e) {}
+  return { removals: [] };
+}
+
+function saveRemovals(data) {
+  localStorage.setItem(REMOVALS_KEY, JSON.stringify(data));
+}
+
+// ── Date Range Filtering ──
+function isInDateRange(isoTimestamp) {
+  if (currentDateRange === 'all') return true;
+  const d = new Date(isoTimestamp);
+  const now = new Date();
+  if (currentDateRange === 'today') {
+    return d.getFullYear() === now.getFullYear() &&
+           d.getMonth() === now.getMonth() &&
+           d.getDate() === now.getDate();
+  }
+  if (currentDateRange === 'week') {
+    const weekAgo = new Date(now);
+    weekAgo.setDate(weekAgo.getDate() - 7);
+    weekAgo.setHours(0, 0, 0, 0);
+    return d >= weekAgo;
+  }
+  return true;
+}
+
+function setDateRange(range) {
+  currentDateRange = range;
+  document.querySelectorAll('.date-pill').forEach(p => p.classList.toggle('active', p.dataset.range === range));
+  refreshCurrentTab();
+}
+
+// ── Extract category from SKU ──
+function categoryFromSku(sku) {
+  // SDC-TG-001 => TG, SDC-CL-005 => CL
+  if (!sku) return 'Other';
+  const parts = sku.split('-');
+  if (parts.length >= 2) return parts[1].toUpperCase();
+  return 'Other';
+}
+
+// ── Compute Stock ──
+function computeStock() {
+  const sessionData = loadSessions();
+  const removalData = loadRemovals();
+
+  // Aggregate received per SKU
+  const skuMap = {}; // sku => { sku, name, desc, received, removed }
+
+  sessionData.sessions.forEach(session => {
+    session.scans.forEach(scan => {
+      if (!isInDateRange(scan.timestamp)) return;
+      if (!skuMap[scan.sku]) {
+        skuMap[scan.sku] = { sku: scan.sku, name: scan.name, desc: scan.desc || '', received: 0, removed: 0 };
+      }
+      skuMap[scan.sku].received++;
+    });
+  });
+
+  // Aggregate removed per SKU
+  removalData.removals.forEach(rem => {
+    if (!isInDateRange(rem.timestamp)) return;
+    if (!skuMap[rem.sku]) {
+      skuMap[rem.sku] = { sku: rem.sku, name: rem.name, desc: rem.desc || '', received: 0, removed: 0 };
+    }
+    skuMap[rem.sku].removed += (rem.qty || 1);
+  });
+
+  // Only include items with at least 1 scan (received or removed)
+  return Object.values(skuMap).filter(item => item.received > 0 || item.removed > 0).map(item => {
+    item.stock = Math.max(0, item.received - item.removed);
+    item.category = categoryFromSku(item.sku);
+    return item;
+  });
+}
+
+// ── All known SKUs (for datalist) ──
+function getAllKnownSkus() {
+  const sessionData = loadSessions();
+  const map = {};
+  sessionData.sessions.forEach(session => {
+    session.scans.forEach(scan => {
+      if (!map[scan.sku]) map[scan.sku] = scan.name;
+    });
+  });
+  return map;
+}
+
+// ── Stock Table ──
+function sortStock(col) {
+  if (stockSortCol === col) {
+    stockSortAsc = !stockSortAsc;
+  } else {
+    stockSortCol = col;
+    stockSortAsc = true;
+  }
+  renderStockTable();
+}
+
+function renderStockTable() {
+  let items = computeStock();
+  const search = (document.getElementById('stock-search').value || '').toLowerCase().trim();
+
+  if (search) {
+    items = items.filter(item =>
+      item.sku.toLowerCase().includes(search) ||
+      item.name.toLowerCase().includes(search)
+    );
+  }
+
+  // Sort
+  items.sort((a, b) => {
+    let va = a[stockSortCol];
+    let vb = b[stockSortCol];
+    if (typeof va === 'string') va = va.toLowerCase();
+    if (typeof vb === 'string') vb = vb.toLowerCase();
+    if (va < vb) return stockSortAsc ? -1 : 1;
+    if (va > vb) return stockSortAsc ? 1 : -1;
+    return 0;
+  });
+
+  // Update sort arrows
+  document.querySelectorAll('#stock-table th').forEach(th => {
+    th.classList.toggle('sorted', th.dataset.col === stockSortCol);
+    const arrow = th.querySelector('.sort-arrow');
+    if (arrow) {
+      arrow.innerHTML = th.dataset.col === stockSortCol ? (stockSortAsc ? '&#9650;' : '&#9660;') : '&#9650;';
+    }
+  });
+
+  const tbody = document.getElementById('stock-tbody');
+  const emptyEl = document.getElementById('stock-empty');
+  const catSummary = document.getElementById('category-summary');
+
+  if (items.length === 0) {
+    tbody.innerHTML = '';
+    emptyEl.style.display = '';
+    catSummary.style.display = 'none';
+    return;
+  }
+
+  emptyEl.style.display = 'none';
+  catSummary.style.display = '';
+
+  const maxStock = Math.max(...items.map(i => i.stock), 1);
+
+  let html = '';
+  items.forEach(item => {
+    const pct = Math.round((item.stock / maxStock) * 100);
+    let barColor = '#16a34a';
+    if (item.stock === 0) barColor = '#dc2626';
+    else if (item.stock <= 10) barColor = '#f59e0b';
+
+    html += '<tr>' +
+      '<td class="sku-cell">' + esc(item.sku) + '</td>' +
+      '<td>' + esc(item.name) + '</td>' +
+      '<td>' + esc(item.category) + '</td>' +
+      '<td>' + item.received + '</td>' +
+      '<td>' + item.removed + '</td>' +
+      '<td style="font-weight:600;color:' + barColor + '">' + item.stock + '</td>' +
+      '<td class="stock-bar-cell"><div class="stock-bar-wrap"><div class="stock-bar" style="width:' + pct + '%;background:' + barColor + '"></div></div></td>' +
+      '</tr>';
+  });
+  tbody.innerHTML = html;
+
+  renderCategorySummary(items);
+}
+
+// ── Category Summary ──
+function renderCategorySummary(items) {
+  const catMap = {};
+  items.forEach(item => {
+    catMap[item.category] = (catMap[item.category] || 0) + item.stock;
+  });
+
+  const cats = Object.entries(catMap).sort((a, b) => b[1] - a[1]);
+  const maxCat = cats.length > 0 ? cats[0][1] : 1;
+
+  let html = '';
+  cats.forEach(([cat, total]) => {
+    const pct = Math.round((total / Math.max(maxCat, 1)) * 100);
+    html += '<div class="cat-bar-row">' +
+      '<div class="cat-bar-label">' + esc(cat) + '</div>' +
+      '<div class="cat-bar-track"><div class="cat-bar-fill" style="width:' + pct + '%"></div></div>' +
+      '<div class="cat-bar-value">' + total + '</div>' +
+      '</div>';
+  });
+  document.getElementById('category-bars').innerHTML = html;
+}
+
+// ── Tabs ──
+function switchTab(tabName) {
+  currentTab = tabName;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tabName));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.toggle('active', c.id === 'tab-' + tabName));
+  if (tabName === 'stock') {
+    renderStockTable();
+  } else if (tabName === 'scanio') {
+    document.getElementById('scanio-input').focus();
+    populateSkuDatalist();
+    renderActivityFeed();
+  } else if (tabName === 'log') {
+    populateLogCategoryFilter();
+    renderActivityLog();
+  }
+}
+
+function refreshCurrentTab() {
+  switchTab(currentTab);
+}
+
+// ── Mode Toggle ──
+function switchMode(mode) {
+  currentMode = mode;
+  const btnRec = document.getElementById('btn-receive');
+  const btnRem = document.getElementById('btn-remove');
+  const input = document.getElementById('scanio-input');
+
+  btnRec.classList.toggle('active', mode === 'receive');
+  btnRem.classList.toggle('active', mode === 'remove');
+  input.className = 'scan-input mode-' + mode;
+  input.placeholder = mode === 'receive' ? 'Scan QR code to receive...' : 'Scan QR code to remove...';
+  input.focus();
+}
+
+// ── Audio ──
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  return audioCtx;
+}
+
+function playBeep(freq, duration) {
+  try {
+    const ctx = getAudioCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    gain.gain.value = 0.3;
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration / 1000);
+    osc.stop(ctx.currentTime + duration / 1000);
+  } catch (e) {}
+}
+
+function receiveBeep() { playBeep(880, 100); }
+function removeBeep() { playBeep(220, 200); }
+
+// ── Visual Feedback ──
+function flash(type) {
+  const el = document.getElementById('scanio-flash');
+  el.className = 'scan-flash ' + type + ' show';
+  requestAnimationFrame(() => {
+    setTimeout(() => { el.classList.remove('show'); }, 30);
+  });
+}
+
+// ── Get/Create Dashboard Session ──
+function getDashboardSession() {
+  const data = loadSessions();
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const dd = String(today.getDate()).padStart(2, '0');
+  const sessionName = 'Dashboard - ' + yyyy + '-' + mm + '-' + dd;
+
+  let session = data.sessions.find(s => s.name === sessionName);
+  if (!session) {
+    session = {
+      id: 'dashboard_' + Date.now(),
+      name: sessionName,
+      created: today.toISOString(),
+      scans: []
+    };
+    data.sessions.push(session);
+    saveSessions(data);
+  }
+  return { data, session };
+}
+
+// ── Scan Handler ──
+document.getElementById('scanio-input').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    const raw = this.value.trim();
+    if (!raw) return;
+
+    const parts = raw.split(' | ');
+    if (parts.length < 2) {
+      flash('error');
+      removeBeep();
+      this.value = '';
+      this.focus();
+      return;
+    }
+
+    const sku = parts[0].trim();
+    const name = parts[1].trim();
+    const desc = parts.slice(2).join(' | ').trim();
+    const now = new Date().toISOString();
+
+    if (currentMode === 'receive') {
+      // Add to sdc_scan_sessions under dashboard session
+      const { data, session } = getDashboardSession();
+      // Re-find session in data (reference)
+      const s = data.sessions.find(ss => ss.id === session.id);
+      s.scans.push({ timestamp: now, sku, name, desc });
+      saveSessions(data);
+      flash('success');
+      receiveBeep();
+    } else {
+      // Add to sdc_stock_removals
+      const remData = loadRemovals();
+      remData.removals.push({ timestamp: now, sku, name, desc, qty: 1, reason: 'scanned out' });
+      saveRemovals(remData);
+      flash('error'); // red flash for remove
+      removeBeep();
+    }
+
+    this.value = '';
+    this.focus();
+    renderActivityFeed();
+  }
+});
+
+// ── Populate SKU Datalist ──
+function populateSkuDatalist() {
+  const skus = getAllKnownSkus();
+  const datalist = document.getElementById('sku-datalist');
+  let html = '';
+  Object.entries(skus).forEach(([sku, name]) => {
+    html += '<option value="' + esc(sku) + '">' + esc(name) + '</option>';
+  });
+  datalist.innerHTML = html;
+}
+
+// ── Manual SKU Input ──
+function onManualSkuInput() {
+  const sku = document.getElementById('manual-sku').value.trim();
+  const skus = getAllKnownSkus();
+  document.getElementById('manual-name').textContent = skus[sku] || '--';
+}
+
+// ── Apply Manual Removal ──
+function applyManualRemoval() {
+  const sku = document.getElementById('manual-sku').value.trim();
+  if (!sku) { alert('Please enter a SKU.'); return; }
+
+  const qty = parseInt(document.getElementById('manual-qty').value) || 1;
+  const reason = document.getElementById('manual-reason').value;
+  const skus = getAllKnownSkus();
+  const name = skus[sku] || sku;
+
+  const remData = loadRemovals();
+  remData.removals.push({
+    timestamp: new Date().toISOString(),
+    sku,
+    name,
+    desc: '',
+    qty,
+    reason
+  });
+  saveRemovals(remData);
+
+  // Reset form
+  document.getElementById('manual-sku').value = '';
+  document.getElementById('manual-qty').value = '1';
+  document.getElementById('manual-name').textContent = '--';
+
+  renderActivityFeed();
+}
+
+// ── Activity Feed (last 50, Scan In/Out tab) ──
+function renderActivityFeed() {
+  const entries = getCombinedEntries();
+  const last50 = entries.slice(0, 50);
+
+  const feedEl = document.getElementById('activity-feed');
+  const emptyEl = document.getElementById('feed-empty');
+
+  if (last50.length === 0) {
+    feedEl.innerHTML = '';
+    emptyEl.style.display = '';
+    return;
+  }
+
+  emptyEl.style.display = 'none';
+  let html = '';
+  last50.forEach(entry => {
+    const t = new Date(entry.timestamp);
+    const time = pad(t.getHours()) + ':' + pad(t.getMinutes()) + ':' + pad(t.getSeconds());
+    const badge = entry.type === 'in' ? '<span class="badge-in">IN</span>' : '<span class="badge-out">OUT</span>';
+
+    html += '<li class="feed-entry">' +
+      '<span class="feed-time">' + time + '</span>' +
+      badge +
+      '<span class="feed-sku">' + esc(entry.sku) + '</span>' +
+      '<span class="feed-name">' + esc(entry.name) + '</span>' +
+      '<span class="feed-qty">' + entry.qty + '</span>' +
+      '<span class="feed-reason">' + esc(entry.reason || '') + '</span>' +
+      '</li>';
+  });
+  feedEl.innerHTML = html;
+}
+
+// ── Combined Entries (all incoming + all removals) ──
+function getCombinedEntries() {
+  const sessionData = loadSessions();
+  const removalData = loadRemovals();
+  const entries = [];
+
+  sessionData.sessions.forEach(session => {
+    session.scans.forEach(scan => {
+      entries.push({
+        timestamp: scan.timestamp,
+        type: 'in',
+        sku: scan.sku,
+        name: scan.name,
+        desc: scan.desc || '',
+        qty: 1,
+        reason: '',
+        session: session.name
+      });
+    });
+  });
+
+  removalData.removals.forEach(rem => {
+    entries.push({
+      timestamp: rem.timestamp,
+      type: 'out',
+      sku: rem.sku,
+      name: rem.name,
+      desc: rem.desc || '',
+      qty: rem.qty || 1,
+      reason: rem.reason || '',
+      session: ''
+    });
+  });
+
+  // Sort by timestamp descending
+  entries.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+  return entries;
+}
+
+// ── Activity Log Tab ──
+function setLogFilter(filter) {
+  logFilter = filter;
+  document.querySelectorAll('.filter-pill').forEach(p => p.classList.toggle('active', p.dataset.filter === filter));
+  renderActivityLog();
+}
+
+function populateLogCategoryFilter() {
+  const entries = getCombinedEntries();
+  const cats = new Set();
+  entries.forEach(e => cats.add(categoryFromSku(e.sku)));
+  const select = document.getElementById('log-category-filter');
+  const current = select.value;
+  let html = '<option value="">All Categories</option>';
+  Array.from(cats).sort().forEach(cat => {
+    html += '<option value="' + esc(cat) + '">' + esc(cat) + '</option>';
+  });
+  select.innerHTML = html;
+  select.value = current;
+}
+
+function renderActivityLog() {
+  let entries = getCombinedEntries();
+  const catFilter = document.getElementById('log-category-filter').value;
+
+  // Filter by type
+  if (logFilter === 'in') entries = entries.filter(e => e.type === 'in');
+  if (logFilter === 'out') entries = entries.filter(e => e.type === 'out');
+
+  // Filter by category
+  if (catFilter) entries = entries.filter(e => categoryFromSku(e.sku) === catFilter);
+
+  const tbody = document.getElementById('log-tbody');
+  const emptyEl = document.getElementById('log-empty');
+
+  if (entries.length === 0) {
+    tbody.innerHTML = '';
+    emptyEl.style.display = '';
+    return;
+  }
+
+  emptyEl.style.display = 'none';
+
+  let html = '';
+  entries.forEach(entry => {
+    const d = new Date(entry.timestamp);
+    const date = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
+    const time = pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+    const badge = entry.type === 'in' ? '<span class="badge-in">IN</span>' : '<span class="badge-out">OUT</span>';
+
+    html += '<tr>' +
+      '<td class="time-cell">' + date + '</td>' +
+      '<td class="time-cell">' + time + '</td>' +
+      '<td>' + badge + '</td>' +
+      '<td class="sku-cell">' + esc(entry.sku) + '</td>' +
+      '<td>' + esc(entry.name) + '</td>' +
+      '<td>' + entry.qty + '</td>' +
+      '<td>' + esc(entry.reason) + '</td>' +
+      '<td>' + esc(entry.session) + '</td>' +
+      '</tr>';
+  });
+  tbody.innerHTML = html;
+}
+
+// ── Export CSV ──
+function exportActivityCSV() {
+  let entries = getCombinedEntries();
+  const catFilter = document.getElementById('log-category-filter').value;
+
+  if (logFilter === 'in') entries = entries.filter(e => e.type === 'in');
+  if (logFilter === 'out') entries = entries.filter(e => e.type === 'out');
+  if (catFilter) entries = entries.filter(e => categoryFromSku(e.sku) === catFilter);
+
+  if (entries.length === 0) { alert('No entries to export.'); return; }
+
+  let csv = 'Date,Time,Type,SDC SKU,Product Name,Description,Quantity,Reason,Session\n';
+  entries.forEach(entry => {
+    const d = new Date(entry.timestamp);
+    const date = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
+    const time = pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+    csv += date + ',' + time + ',' +
+      (entry.type === 'in' ? 'IN' : 'OUT') + ',' +
+      csvQ(entry.sku) + ',' +
+      csvQ(entry.name) + ',' +
+      csvQ(entry.desc) + ',' +
+      entry.qty + ',' +
+      csvQ(entry.reason) + ',' +
+      csvQ(entry.session) + '\n';
+  });
+
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'sdc_inventory_activity.csv';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+// ── Helpers ──
+function pad(n) { return String(n).padStart(2, '0'); }
+function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+function csvQ(s) { return '"' + String(s || '').replace(/"/g, '""') + '"'; }
+
+// ── Init ──
+renderStockTable();
+</script>
+</body>
+</html>
