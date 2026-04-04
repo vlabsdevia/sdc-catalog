@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scan Training Guide — SDC Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f8f8f8;
+  color: #333;
+  min-height: 100vh;
+}
+
+.header {
+  background: #111;
+  color: #fff;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.header-back {
+  color: #999;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color .2s;
+}
+.header-back:hover { color: #fff; }
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-mark {
+  width: 32px;
+  height: 32px;
+  background: #fff;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: #111;
+  flex-shrink: 0;
+}
+
+.brand-text { line-height: 1.2; }
+.brand-text .primary { font-weight: 600; font-size: 14px; }
+.brand-text .secondary { font-size: 11px; color: #999; }
+
+.header-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-left: 8px;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* ── Intro Section ── */
+.intro {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06);
+}
+
+.intro h2 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.intro p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.intro .steps {
+  list-style: none;
+  margin-top: 12px;
+}
+
+.intro .steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 8px 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.step-num {
+  width: 28px;
+  height: 28px;
+  background: #111;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* ── Station Links ── */
+.station-links {
+  display: flex;
+  gap: 12px;
+  margin: 20px 0 8px;
+  flex-wrap: wrap;
+}
+
+.station-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all .2s;
+}
+
+.station-link.receive {
+  background: #16a34a;
+  color: #fff;
+}
+.station-link.receive:hover { background: #15803d; }
+
+.station-link.remove {
+  background: #dc2626;
+  color: #fff;
+}
+.station-link.remove:hover { background: #b91c1c; }
+
+.station-link.dashboard {
+  background: #111;
+  color: #fff;
+}
+.station-link.dashboard:hover { background: #333; }
+
+/* ── Sample Cards ── */
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 32px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #111;
+}
+
+.sample-card {
+  background: #fff;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
+}
+
+.sample-qr {
+  width: 130px;
+  min-height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fafafa;
+  border-right: 1px solid #f0f0f0;
+  padding: 12px;
+  flex-shrink: 0;
+}
+
+.sample-qr canvas, .sample-qr img {
+  display: block;
+}
+
+.sample-info {
+  flex: 1;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+}
+
+.sample-sku {
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-weight: 700;
+  font-size: 14px;
+  color: #111;
+}
+
+.sample-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.sample-desc {
+  font-size: 13px;
+  color: #666;
+}
+
+.sample-text {
+  margin-top: 6px;
+  background: #f3f3f3;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 11px;
+  color: #333;
+  word-break: break-all;
+  cursor: pointer;
+  position: relative;
+  transition: background .2s;
+}
+
+.sample-text:hover {
+  background: #e8e8e8;
+}
+
+.sample-text::after {
+  content: 'Click to copy';
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  color: #999;
+  font-weight: 500;
+}
+
+.sample-text.copied {
+  background: #dcfce7;
+}
+
+.sample-text.copied::after {
+  content: 'Copied!';
+  color: #16a34a;
+}
+
+.sample-cat {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  padding: 2px 8px;
+  border-radius: 100px;
+  background: #f0f0f0;
+  color: #666;
+}
+
+/* ── Tips Section ── */
+.tips {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-top: 32px;
+}
+
+.tips h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #92400e;
+  margin-bottom: 10px;
+}
+
+.tips ul {
+  list-style: none;
+  font-size: 14px;
+  color: #78350f;
+  line-height: 1.8;
+}
+
+.tips ul li::before {
+  content: '!';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background: #f59e0b;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .sample-card { flex-direction: column; }
+  .sample-qr {
+    width: 100%;
+    min-height: auto;
+    border-right: none;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 16px;
+  }
+  .sample-text::after { display: none; }
+  .station-links { flex-direction: column; }
+}
+
+@media print {
+  body { background: #fff; }
+  .header { display: none; }
+  .station-links { display: none; }
+  .sample-text::after { display: none; }
+  .sample-card { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="index.html" class="header-back">&larr; Back</a>
+  <div class="header-brand">
+    <div class="logo-mark">SDC</div>
+    <div class="brand-text">
+      <div class="primary">SDC Solutions</div>
+      <div class="secondary">Sabores del Campo LLC</div>
+    </div>
+  </div>
+  <div class="header-title">Scan Training Guide</div>
+</header>
+
+<div class="container">
+
+  <div class="intro">
+    <h2>How to Use the Scanning Stations</h2>
+    <p>SDC uses QR code labels on product cases. Each label encodes the SDC SKU, product name, and description. Use the barcode scanner or copy/paste the text codes below to practice.</p>
+
+    <ol class="steps">
+      <li><span class="step-num">1</span><span>Open the <strong>Scan Receiving Station</strong> (green) to log incoming shipments, or <strong>Scan Out Station</strong> (red) to log sold items</span></li>
+      <li><span class="step-num">2</span><span>Name your session (e.g., "Truck delivery 4/4" or "Sales 4/4")</span></li>
+      <li><span class="step-num">3</span><span>Point the barcode scanner at a QR label — or paste a text code and press Enter</span></li>
+      <li><span class="step-num">4</span><span>You'll hear a <strong>beep</strong> and see a <strong>flash</strong> confirming each scan</span></li>
+      <li><span class="step-num">5</span><span>Check the <strong>Summary</strong> tab for totals, and <strong>History</strong> for past sessions</span></li>
+      <li><span class="step-num">6</span><span>Use <strong>Export CSV</strong> to download records for backup</span></li>
+    </ol>
+
+    <div class="station-links">
+      <a href="scan-receiving.html" class="station-link receive">Scan Receiving Station</a>
+      <a href="scan-out.html" class="station-link remove">Scan Out Station</a>
+      <a href="inventory-dashboard.html" class="station-link dashboard">Inventory Dashboard</a>
+    </div>
+  </div>
+
+  <div class="section-title">Sample QR Codes &amp; Text Codes</div>
+  <p style="font-size:13px;color:#666;margin-bottom:16px;">Click any text code to copy it to your clipboard. Then paste into a scan station and press Enter.</p>
+
+  <div id="sample-cards"></div>
+
+  <div class="tips">
+    <h3>Tips &amp; Troubleshooting</h3>
+    <ul>
+      <li>Make sure the scan input field is focused (click on it) before scanning</li>
+      <li>The status dot turns green (receive) or red (scan out) when the scanner is ready</li>
+      <li>If you get a red flash, the QR code format wasn't recognized — check the label</li>
+      <li>Each scan in Receiving adds 1 unit; each scan in Scan Out removes 1 unit as "sold"</li>
+      <li>The Inventory Dashboard shows the combined stock: Received minus Removed</li>
+      <li>Always export CSV at the end of a session for backup</li>
+      <li>Sessions are saved in the browser — clearing browser data will erase scan history</li>
+    </ul>
+  </div>
+
+</div>
+
+<script>
+const SAMPLES = [
+  { cat: "To-Go Containers", sku: "SDC-TG-001", name: "Take-Out Container Hinged 8 x 8 IN 3 Compartment", desc: "Foam White | Package Form: 100/Case" },
+  { cat: "To-Go Containers", sku: "SDC-TG-002", name: "Take-Out Container Hinged 8 x 8 IN 1 Compartment", desc: "Foam White | Package Form: 100/Case" },
+  { cat: "To-Go Containers", sku: "SDC-TG-010", name: "Take-Out Container Hinged 6 X 6 IN", desc: "Foam White Hamburgers | Package Form: 500/case" },
+  { cat: "To-Go Containers", sku: "SDC-TG-015", name: "Burrito Bowl 27oz Pulp Fiber Natural Oval", desc: "Package Form: 300/Case" },
+  { cat: "Trays & Bowls", sku: "SDC-SB-005", name: "Meat Trays 4D White", desc: "Package Form: 500/Case" },
+  { cat: "Trays & Bowls", sku: "SDC-SB-001", name: "Meat Trays 2PP Yellow", desc: "Package Form: 500/Case" },
+  { cat: "Cups & Lids", sku: "SDC-CL-001", name: "Cold Cup 12 oz Pet Clear", desc: "Package Form: 1/1000" },
+  { cat: "Cups & Lids", sku: "SDC-CL-022", name: "Cold Cup 16 oz Pet Clear", desc: "Victoria Bay 98mm | Package Form: 1/1000" },
+  { cat: "Cutlery & Tableware", sku: "SDC-TW-006", name: "6PC Cutlery Kit", desc: "Spoon, Knife, Salt & Pepper - Black Heavy Duty | Package Form: 250/case" },
+  { cat: "Cutlery & Tableware", sku: "SDC-TW-001", name: "Fork Medium Weight PP White", desc: "Individually Wrapped | Package Form: 1000/case" },
+  { cat: "Bags & Wraps", sku: "SDC-BG-001", name: "T-Shirt Thank You Bag White", desc: "11.5 x 6.5 x 21 in | Package Form: 1000/case" },
+  { cat: "Paper & Cleaning", sku: "SDC-PC-007", name: "Disposable Gloves M Black 3mil", desc: "Nitrile Powder-Free | Package Form: 10/100" },
+  { cat: "Paper & Cleaning", sku: "SDC-PC-001", name: "Toilet Paper 2-Ply", desc: "500 Sheets/Roll | Package Form: 96/case" },
+  { cat: "Food Supplies", sku: "SDC-PS-005", name: "Food Foil Roll 12in x 1000ft", desc: "Aluminum Heavy Duty | Package Form: 1 Roll" },
+  { cat: "Food Supplies", sku: "SDC-PS-001", name: "Cooking Oil - Soybean Vegetable", desc: "35lb | Package Form: 1/35lb" },
+];
+
+function buildQRText(item) {
+  return item.sku + ' | ' + item.name + ' | ' + item.desc;
+}
+
+function renderCards() {
+  const container = document.getElementById('sample-cards');
+  let html = '';
+  let lastCat = '';
+
+  SAMPLES.forEach((item, idx) => {
+    if (item.cat !== lastCat) {
+      if (lastCat) html += '<div style="height:8px"></div>';
+      lastCat = item.cat;
+    }
+
+    const qrText = buildQRText(item);
+    html += '<div class="sample-card">' +
+      '<div class="sample-qr" id="qr-' + idx + '"></div>' +
+      '<div class="sample-info">' +
+        '<div style="display:flex;align-items:center;gap:8px;">' +
+          '<span class="sample-sku">' + item.sku + '</span>' +
+          '<span class="sample-cat">' + item.cat + '</span>' +
+        '</div>' +
+        '<div class="sample-name">' + item.name + '</div>' +
+        '<div class="sample-desc">' + item.desc + '</div>' +
+        '<div class="sample-text" onclick="copyText(this)" data-text="' + escAttr(qrText) + '">' + escHtml(qrText) + '</div>' +
+      '</div>' +
+    '</div>';
+  });
+
+  container.innerHTML = html;
+
+  // Generate QR codes
+  SAMPLES.forEach((item, idx) => {
+    const qrText = buildQRText(item);
+    new QRCode(document.getElementById('qr-' + idx), {
+      text: qrText,
+      width: 100,
+      height: 100,
+      colorDark: '#111',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  });
+}
+
+function copyText(el) {
+  const text = el.getAttribute('data-text');
+  navigator.clipboard.writeText(text).then(() => {
+    el.classList.add('copied');
+    setTimeout(() => el.classList.remove('copied'), 1500);
+  });
+}
+
+function escHtml(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+function escAttr(s) {
+  return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+renderCards();
+</script>
+</body>
+</html>
