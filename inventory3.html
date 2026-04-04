@@ -368,7 +368,7 @@
 <header>
   <div class="header-left">
     <div>
-      <h1>SDC Solutions &mdash; Product Inventory</h1>
+      <h1>SDC Solutions &mdash; Product Inventory (Generic)</h1>
       <p>All categories &middot; 183 products &middot; SDC SKUs &middot; Distributor SKUs &nbsp;&nbsp;
         <a href="index.html">&larr; Back to catalog</a>
       </p>
@@ -594,8 +594,8 @@ let rows = [
   { order: 31, cat: "steak", name: "Giesser Ham Knife", desc: "18\"", canonical: "img/steak_031.png", status: "extracted", priority: "low", dist_sku: "MPKNFG18", sdc_sku: "SDC-SB-031" , name_es: "Giesser Ham Knife", desc_es: "18in"},
   { order: 1, cat: "packaging", name: "Sheet 10.75 x 12", desc: "Dry Wax Paper White Interfold | Package Form: 12/500", canonical: "img/packaging_001.jpg", status: "extracted", priority: "low", dist_sku: "VB1210", sdc_sku: "SDC-PS-001" , name_es: "Sheet 10.75 x 12", desc_es: "Dry Wax Paper White Interfold | Package Form: 12/500"},
   { order: 2, cat: "packaging", name: "Sandwich Wrap Foil Sheets", desc: "14 x 16 In Insulated | Package Form: 1,000/Case", canonical: "img/packaging_002.jpg", status: "extracted", priority: "low", dist_sku: "VBFWAS1416", sdc_sku: "SDC-PS-002" , name_es: "Sandwich Wrap Foil Sheets", desc_es: "14 x 16 In Insulated | Package Form: 1,000/Case"},
-  { order: 3, cat: "packaging", name: " Aluminum Foil Sheets", desc: "9 x 10.75 | Package Form: 6 of 500/Case", canonical: "img/packaging_003.jpg", status: "extracted", priority: "low", dist_sku: "59100VB", sdc_sku: "SDC-PS-003" , name_es: " Aluminum Foil Sheets", desc_es: "9 x 10.75 | Package Form: 6 of 500/Case"},
-  { order: 4, cat: "packaging", name: " Aluminum Foil Sheets", desc: "12 x 10.75 | Package Form: 6 of 500/Case", canonical: "img/packaging_004.jpg", status: "extracted", priority: "low", dist_sku: "51210VB", sdc_sku: "SDC-PS-004" , name_es: " Aluminum Foil Sheets", desc_es: "12 x 10.75 | Package Form: 6 of 500/Case"},
+  { order: 3, cat: "packaging", name: "Aluminum Foil Sheets", desc: "9 x 10.75 | Package Form: 6 of 500/Case", canonical: "img/packaging_003.jpg", status: "extracted", priority: "low", dist_sku: "59100VB", sdc_sku: "SDC-PS-003" , name_es: "Aluminum Foil Sheets", desc_es: "9 x 10.75 | Package Form: 6 of 500/Case"},
+  { order: 4, cat: "packaging", name: "Aluminum Foil Sheets", desc: "12 x 10.75 | Package Form: 6 of 500/Case", canonical: "img/packaging_004.jpg", status: "extracted", priority: "low", dist_sku: "51210VB", sdc_sku: "SDC-PS-004" , name_es: "Aluminum Foil Sheets", desc_es: "12 x 10.75 | Package Form: 6 of 500/Case"},
   { order: 5, cat: "packaging", name: "Food Foil Roll 12in x 1000ft", desc: "Aluminum Heavy Duty | Package Form: 1", canonical: "img/packaging_005.jpg", status: "extracted", priority: "low", dist_sku: "11203", sdc_sku: "SDC-PS-005" , name_es: "Food Foil Roll 12in x 1000ft", desc_es: "Aluminum Heavy Duty | Package Form: 1"},
   { order: 6, cat: "packaging", name: "Food Foil Roll 18in x 1000ft", desc: "Aluminum Heavy Duty | Package Form: 1", canonical: "img/packaging_006.jpg", status: "extracted", priority: "low", dist_sku: "411805", sdc_sku: "SDC-PS-006" , name_es: "Food Foil Roll 18in x 1000ft", desc_es: "Aluminum Heavy Duty | Package Form: 1"},
   { order: 7, cat: "packaging", name: "Food Foil Roll 18in x 500ft", desc: "Aluminum Heavy Duty | Package Form: 1", canonical: "img/packaging_007.jpg", status: "extracted", priority: "low", dist_sku: "SJFS89042", sdc_sku: "SDC-PS-007" , name_es: "Food Foil Roll 18in x 500ft", desc_es: "Aluminum Heavy Duty | Package Form: 1"},
@@ -781,7 +781,7 @@ let activeCat = 'all';
 let activePri = 'all';
 let searchVal = '';
 
-const STORAGE_KEY = 'sdc_inventory_rows';
+const STORAGE_KEY = 'sdc_inventory3_rows';
 
 function persist() {
   const toSave = rows.map(({ img_data, ...rest }) => rest);
@@ -985,7 +985,7 @@ function replaceAndDownload(template) {
   const url  = URL.createObjectURL(blob);
   const a    = document.createElement('a');
   a.href     = url;
-  a.download = 'index2.html';
+  a.download = 'index3.html';
   a.click();
   URL.revokeObjectURL(url);
 }
@@ -1015,7 +1015,7 @@ async function generateCatalog() {
     btn.textContent = 'Generating...';
     btn.disabled = true;
     try {
-      const resp = await fetch('index2.html?nocache=' + Date.now());
+      const resp = await fetch('index3.html?nocache=' + Date.now());
       if (resp.ok) {
         replaceAndDownload(await resp.text());
         btn.textContent = '\u2713 Downloaded';
