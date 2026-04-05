@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SDC Solutions — Hub</title>
+  <meta name="description" content="SDC Solutions digital catalog, marketing materials, and resources.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #111;
+      --text: #333;
+      --muted: #666;
+      --bg: #f8f8f8;
+      --surface: #fff;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+      --shadow-hover: 0 8px 24px rgba(0,0,0,0.10);
+      --radius: 12px;
+      --font: 'Inter', sans-serif;
+      --container: min(960px, calc(100% - 2rem));
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { width: var(--container); margin: 0 auto; }
+
+    /* ── HEADER ── */
+    .header {
+      background: var(--primary);
+      color: #fff;
+      padding: 3rem 0;
+      text-align: center;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .brand-mark {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.875rem;
+      letter-spacing: 0.06em;
+    }
+    .brand-text { text-align: left; }
+    .brand-name {
+      display: block;
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: 0.03em;
+    }
+    .brand-sub {
+      display: block;
+      font-size: 0.75rem;
+      opacity: 0.6;
+    }
+    .header h1 {
+      font-size: 1.5rem;
+      font-weight: 400;
+      opacity: 0.8;
+      margin: 0.5rem 0 0;
+    }
+
+    /* ── GRID ── */
+    .section-title {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin: 2.5rem 0 1rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    .card {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.5rem;
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      text-decoration: none;
+      color: var(--text);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+    }
+    .card-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      background: var(--primary);
+      color: #fff;
+    }
+    .card-icon svg {
+      width: 22px; height: 22px;
+    }
+    .card-icon--outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+    .card-body h3 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    .card-body p {
+      margin: 0.25rem 0 0;
+      font-size: 0.8125rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      padding: 2rem 0;
+      text-align: center;
+      font-size: 0.8125rem;
+      color: var(--muted);
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 600px) {
+      .grid { grid-template-columns: 1fr; }
+      .header { padding: 2rem 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="container">
+      <div class="brand">
+        <div class="brand-mark">SDC</div>
+        <div class="brand-text">
+          <span class="brand-name">SDC Solutions</span>
+          <span class="brand-sub">Sabores del Campo LLC</span>
+        </div>
+      </div>
+      <h1>Digital Catalog & Resources</h1>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <div class="section-title">Catalogs</div>
+    <div class="grid">
+      <a href="index1.html" class="card">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+        </div>
+        <div class="card-body">
+          <h3>Original Catalog</h3>
+          <p>Full product catalog with category navigation, editor view</p>
+        </div>
+      </a>
+      <a href="index.html" class="card">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+        </div>
+        <div class="card-body">
+          <h3>Full Catalog — Landing Page</h3>
+          <p>Modern landing page with all 174 products, bilingual EN/ES</p>
+        </div>
+      </a>
+      <a href="index3.html" class="card">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div class="card-body">
+          <h3>Featured Products</h3>
+          <p>Curated selection of ~44 top products across all categories</p>
+        </div>
+      </a>
+      <a href="inventory.html" class="card">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+        </div>
+        <div class="card-body">
+          <h3>Inventory (Original)</h3>
+          <p>Full inventory list with vendor SKUs and SDC SKUs — editor view</p>
+        </div>
+      </a>
+      <a href="inventory2.html" class="card">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3z"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/></svg>
+        </div>
+        <div class="card-body">
+          <h3>Inventory (Modern)</h3>
+          <p>Searchable, filterable inventory table — modern design with bilingual support</p>
+        </div>
+      </a>
+      <a href="inventory3.html" class="card">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3z"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/></svg>
+        </div>
+        <div class="card-body">
+          <h3>Inventory (Generic)</h3>
+          <p>Modern inventory with brand references removed — generic product names</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="section-title">Sales Tools</div>
+    <div class="grid">
+      <a href="jacksonville-shops.html" class="card">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="card-body">
+          <h3>Jacksonville Food Shops</h3>
+          <p>52 independent stores with 3 sales routes and priority accounts</p>
+        </div>
+      </a>
+      <a href="jacksonville-foodtrucks.html" class="card">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <div class="card-body">
+          <h3>Jacksonville Food Trucks</h3>
+          <p>100 food trucks with phone, email, Instagram, and cuisine type</p>
+        </div>
+      </a>
+      <a href="label-generator.html" class="card">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </div>
+        <div class="card-body">
+          <h3>QR Label Generator</h3>
+          <p>Print QR code stickers on Avery 5261 labels for inventory scanning</p>
+        </div>
+      </a>
+      <a href="scan-receiving.html" class="card">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        </div>
+        <div class="card-body">
+          <h3>Scan Receiving Station</h3>
+          <p>Log incoming shipments with USB barcode scanner — CSV export</p>
+        </div>
+      </a>
+      <a href="scan-out.html" class="card">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </div>
+        <div class="card-body">
+          <h3>Scan Out Station</h3>
+          <p>Scan items out of inventory as sold — removes from stock</p>
+        </div>
+      </a>
+      <a href="scan-training.html" class="card">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <div class="card-body">
+          <h3>Scan Training Guide</h3>
+          <p>Sample QR codes and instructions for learning the scan stations</p>
+        </div>
+      </a>
+      <a href="inventory-dashboard.html" class="card">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="10" width="3" height="8"/><rect x="12" y="6" width="3" height="12"/><rect x="17" y="12" width="3" height="6"/></svg>
+        </div>
+        <div class="card-body">
+          <h3>Inventory Dashboard</h3>
+          <p>Track stock levels, scan in/out, and view activity history</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="section-title">Marketing Materials</div>
+    <div class="grid">
+      <a href="business-card.html" class="card">
+        <div class="card-icon card-icon--outline">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M12 12h.01"/><path d="M17 9h.01"/><path d="M7 9h.01"/></svg>
+        </div>
+        <div class="card-body">
+          <h3>Business Card</h3>
+          <p>Print-ready card for Jose Busto — open in Chrome, save as PDF</p>
+        </div>
+      </a>
+      <a href="business-card2.html" class="card">
+        <div class="card-icon card-icon--outline">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><rect x="14" y="8" width="6" height="6" rx="1"/></svg>
+        </div>
+        <div class="card-body">
+          <h3>Business Card v2 (QR)</h3>
+          <p>Jose Busto — QR code on front and back</p>
+        </div>
+      </a>
+      <a href="business-card-nigero.html" class="card">
+        <div class="card-icon card-icon--outline">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><rect x="14" y="8" width="6" height="6" rx="1"/></svg>
+        </div>
+        <div class="card-body">
+          <h3>Business Card — Nigero</h3>
+          <p>Nigero Vargas — QR code on front and back</p>
+        </div>
+      </a>
+      <a href="business-card-kira.html" class="card">
+        <div class="card-icon card-icon--outline">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><rect x="14" y="8" width="6" height="6" rx="1"/></svg>
+        </div>
+        <div class="card-body">
+          <h3>Business Card — Kira</h3>
+          <p>Kira Busto, Manager — QR on front and back</p>
+        </div>
+      </a>
+
+      <a href="flyer.html" class="card">
+        <div class="card-icon card-icon--outline">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div class="card-body">
+          <h3>Marketing Flyer</h3>
+          <p>8.5x11" flyer with product categories and JIT program — print-ready</p>
+        </div>
+      </a>
+      <a href="instagram.html" class="card">
+        <div class="card-icon card-icon--outline">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
+        </div>
+        <div class="card-body">
+          <h3>Instagram Post</h3>
+          <p>1080x1080 product showcase — screenshot or save as image</p>
+        </div>
+      </a>
+      <a href="weekly-special.html" class="card">
+        <div class="card-icon card-icon--outline">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="card-body">
+          <h3>Weekly Special: Meat Trays</h3>
+          <p>1080x1080 Instagram post featuring foam meat trays</p>
+        </div>
+      </a>
+      <a href="food-truck-special.html" class="card">
+        <div class="card-icon card-icon--outline">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <div class="card-body">
+          <h3>Food Truck Essentials</h3>
+          <p>1080x1080 Instagram post — 9 must-haves for food trucks</p>
+        </div>
+      </a>
+      <a href="food-truck-portrait.html" class="card">
+        <div class="card-icon card-icon--outline">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18.01"/></svg>
+        </div>
+        <div class="card-body">
+          <h3>Food Truck (Portrait)</h3>
+          <p>1080x1440 portrait format (3:4) — recommended for Instagram</p>
+        </div>
+      </a>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Sabores del Campo LLC &middot; dba SDC Solutions &middot; All rights reserved</p>
+    </div>
+  </footer>
+
+</body>
+</html>

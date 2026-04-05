@@ -370,7 +370,7 @@
     <div>
       <h1>SDC Solutions &mdash; Product Inventory</h1>
       <p>All categories &middot; 183 products &middot; SDC SKUs &middot; Distributor SKUs &nbsp;&nbsp;
-        <a href="index.html">&larr; Back to catalog</a>
+        <a href="hub.html">&larr; Back to catalog</a>
       </p>
     </div>
   </div>
@@ -989,7 +989,7 @@ function replaceAndDownload(template) {
   const url  = URL.createObjectURL(blob);
   const a    = document.createElement('a');
   a.href     = url;
-  a.download = 'index2.html';
+  a.download = 'index.html';
   a.click();
   URL.revokeObjectURL(url);
 }
@@ -1019,7 +1019,7 @@ async function generateCatalog() {
     btn.textContent = 'Generating...';
     btn.disabled = true;
     try {
-      const resp = await fetch('index2.html?nocache=' + Date.now());
+      const resp = await fetch('index.html?nocache=' + Date.now());
       if (resp.ok) {
         replaceAndDownload(await resp.text());
         btn.textContent = '\u2713 Downloaded';
