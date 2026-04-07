@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23111'/%3E%3Ctext x='50' y='62' font-family='Arial,sans-serif' font-size='36' font-weight='bold' fill='white' text-anchor='middle'%3ESDC%3C/text%3E%3C/svg%3E">
   <style>
     /* ── Custom Properties ── */
     :root {
@@ -180,6 +181,26 @@
       transform: translateY(-1px);
     }
 
+    .btn-wa-nav {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #25D366;
+      color: #fff;
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+    .btn-wa-nav:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(37,211,102,0.3);
+    }
+    .btn-wa-nav svg {
+      width: 18px;
+      height: 18px;
+    }
+
     /* ── Hero ── */
     .hero {
       padding: 5rem 0 4rem;
@@ -348,6 +369,22 @@
       display: none;
     }
 
+    .cat-nav::after {
+      content: '';
+      position: sticky;
+      right: 0;
+      top: 0;
+      min-width: 40px;
+      height: 100%;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.85) 70%);
+      pointer-events: none;
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 1280px) {
+      .cat-nav::after { display: none; }
+    }
+
     .cat-pill {
       padding: 0.5rem 1.25rem;
       border-radius: 999px;
@@ -370,6 +407,47 @@
       background: var(--primary);
       color: #fff;
       border-color: var(--primary);
+    }
+
+    /* ── Product Search ── */
+    .product-search-wrap {
+      max-width: 480px;
+      margin: 1.5rem auto 0;
+      position: relative;
+    }
+    .product-search-wrap svg {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 18px;
+      color: var(--muted);
+      pointer-events: none;
+    }
+    .product-search {
+      width: 100%;
+      padding: 0.75rem 1rem 0.75rem 2.75rem;
+      border: 1.5px solid rgba(0,0,0,0.1);
+      border-radius: 999px;
+      font-size: 0.875rem;
+      font-family: var(--font);
+      background: var(--surface);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .product-search:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0,0,0,0.05);
+    }
+    .product-search::placeholder {
+      color: #aaa;
+    }
+    .search-count {
+      text-align: center;
+      font-size: 0.8125rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
     }
 
     /* ── Product Section ── */
@@ -511,6 +589,27 @@
       transform: translateY(-2px);
       box-shadow: 0 8px 24px rgba(255,255,255,0.15);
     }
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 1rem 2.5rem;
+      border-radius: 999px;
+      background: #25D366;
+      color: #fff;
+      transition: transform 0.15s, box-shadow 0.2s;
+      text-decoration: none;
+    }
+    .btn-whatsapp:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(37,211,102,0.3);
+    }
+    .btn-whatsapp svg {
+      width: 20px;
+      height: 20px;
+    }
 
     /* ── Footer ── */
     .footer {
@@ -518,6 +617,42 @@
       text-align: center;
       font-size: 0.8125rem;
       color: var(--muted);
+    }
+
+    /* ── Back to Top ── */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 50;
+    }
+    .back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .back-to-top:hover {
+      background: #333;
+      transform: translateY(-2px);
+    }
+    .back-to-top svg {
+      width: 20px;
+      height: 20px;
     }
 
     /* ── Lightbox ── */
@@ -603,6 +738,48 @@
       color: var(--muted);
       line-height: 1.6;
     }
+    .lightbox-sku {
+      font-size: 0.75rem;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      background: #f0f0f0;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      color: var(--muted);
+      display: inline-block;
+      margin-top: 0.5rem;
+    }
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.9);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .lightbox-nav:hover {
+      background: #fff;
+      transform: translateY(-50%) scale(1.1);
+    }
+    .lightbox-nav svg {
+      width: 20px;
+      height: 20px;
+      color: var(--primary);
+    }
+    .lightbox-prev { left: 1rem; }
+    .lightbox-next { right: 1rem; }
+
+    @media (max-width: 640px) {
+      .lightbox-prev { left: 0.5rem; }
+      .lightbox-next { right: 0.5rem; }
+    }
 
     /* ── Responsive ── */
     @media (max-width: 768px) {
@@ -668,6 +845,9 @@
       <div class="nav-actions">
         <button class="lang-toggle" id="lang-toggle" onclick="toggleLang()" data-i18n="lang_toggle">ES</button>
         <a href="tel:+19046559190" class="btn-cta" data-i18n="nav_cta">Call Jose</a>
+        <a id="wa-nav" href="https://wa.me/19046559190?text=Hi%20Jose%2C%20I%27m%20interested%20in%20SDC%20Solutions%20products" class="btn-wa-nav" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.11.546 4.093 1.504 5.82L0 24l6.335-1.652A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.82c-1.91 0-3.78-.514-5.41-1.488l-.388-.23-3.761.982.998-3.648-.253-.402A9.814 9.814 0 012.18 12c0-5.422 4.398-9.82 9.82-9.82 5.422 0 9.82 4.398 9.82 9.82 0 5.422-4.398 9.82-9.82 9.82z"/></svg>
+        </a>
       </div>
     </div>
   </header>
@@ -692,7 +872,7 @@
       </div>
 
       <div class="hero-image-wrapper">
-        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=80" alt="Foodservice packaging and supplies" loading="lazy">
+        <img src="img/hero-banner.jpg" alt="Foodservice packaging and supplies" loading="lazy">
         <div class="hero-overlay">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
           <div class="hero-overlay-text">
@@ -709,6 +889,13 @@
 
   <!-- ── Products ── -->
   <div id="products"></div>
+  <div class="container">
+    <div class="product-search-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="search" class="product-search" id="product-search" placeholder="Search products, SKU, or description...">
+    </div>
+    <div class="search-count" id="search-count" style="display:none"></div>
+  </div>
   <section class="container">
     <div id="cat-sections"></div>
   </section>
@@ -730,7 +917,13 @@
         </div>
       </div>
 
-      <a href="tel:+19046559190" class="btn-contact" data-i18n="contact_cta">Call Jose Busto</a>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+        <a href="tel:+19046559190" class="btn-contact" data-i18n="contact_cta">Call Jose Busto</a>
+        <a id="wa-contact" href="https://wa.me/19046559190?text=Hi%20Jose%2C%20I%27m%20interested%20in%20SDC%20Solutions%20products" class="btn-whatsapp" target="_blank" rel="noopener" data-i18n="contact_whatsapp">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.11.546 4.093 1.504 5.82L0 24l6.335-1.652A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.82c-1.91 0-3.78-.514-5.41-1.488l-.388-.23-3.761.982.998-3.648-.253-.402A9.814 9.814 0 012.18 12c0-5.422 4.398-9.82 9.82-9.82 5.422 0 9.82 4.398 9.82 9.82 0 5.422-4.398 9.82-9.82 9.82z"/></svg>
+          WhatsApp Jose
+        </a>
+      </div>
     </div>
   </section>
 
@@ -744,14 +937,25 @@
   <!-- ── Lightbox ── -->
   <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
     <button class="lightbox-close" id="lightbox-close">&times;</button>
+    <button class="lightbox-nav lightbox-prev" onclick="event.stopPropagation();navLightbox(-1)">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="lightbox-nav lightbox-next" onclick="event.stopPropagation();navLightbox(1)">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+    </button>
     <div class="lightbox-content">
       <img class="lightbox-img" id="lightbox-img" src="" alt="">
       <div class="lightbox-info">
         <h3 class="lightbox-name" id="lightbox-name"></h3>
         <p class="lightbox-desc" id="lightbox-desc"></p>
+        <span class="lightbox-sku" id="lightbox-sku"></span>
       </div>
     </div>
   </div>
+
+  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
 
   <script>
     // ── Product Data ──
@@ -1057,18 +1261,34 @@
     // ── Category nav rendering ──
     function renderCatNav() {
       const nav = document.getElementById('cat-nav');
-      nav.innerHTML = '<div class="container" style="display:flex;gap:0.5rem;padding:0.75rem 0">' +
+      nav.innerHTML = '<div class="container" style="display:flex;gap:0.5rem;padding:0.75rem 0;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch">' +
         categories.map(cat =>
-          `<a href="#${cat.id}" class="cat-pill" data-cat="${cat.id}">${lang === 'en' ? cat.name_en : cat.name_es}</a>`
+          `<a href="#${cat.id}" class="cat-pill" data-cat="${cat.id}">${lang === 'en' ? cat.name_en : cat.name_es} (${cat.products.length})</a>`
         ).join('') + '</div>';
     }
 
     // ── Product section rendering ──
     function renderSections() {
       const el = document.getElementById('cat-sections');
+      const query = (document.getElementById('product-search').value || '').toLowerCase().trim();
+      const countEl = document.getElementById('search-count');
       el.innerHTML = '';
+      let totalShown = 0;
+
       categories.forEach(cat => {
-        const cards = cat.products.map(p =>
+        const filtered = query
+          ? cat.products.filter(p => {
+              const name = (lang === 'en' ? p.name_en : p.name_es).toLowerCase();
+              const desc = (lang === 'en' ? p.desc_en : p.desc_es).toLowerCase();
+              const sku = (p.sdc_sku || '').toLowerCase();
+              return name.includes(query) || desc.includes(query) || sku.includes(query);
+            })
+          : cat.products;
+
+        if (filtered.length === 0) return;
+        totalShown += filtered.length;
+
+        const cards = filtered.map(p =>
           `<div class="product-card" onclick="openLightbox(${p._flatIdx})">
             <img src="${p.img}" alt="${lang === 'en' ? p.name_en : p.name_es}" loading="lazy">
             <div class="product-card-body">
@@ -1088,19 +1308,39 @@
             </div>
           </section>`;
       });
+
+      if (query) {
+        countEl.textContent = totalShown + (lang === 'en' ? ' products found' : ' productos encontrados');
+        countEl.style.display = '';
+      } else {
+        countEl.style.display = 'none';
+      }
     }
 
     // ── Lightbox ──
+    let currentLightboxIdx = 0;
+
     function openLightbox(idx) {
+      currentLightboxIdx = idx;
+      showLightboxProduct(idx);
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function showLightboxProduct(idx) {
       const p = flatProducts[idx];
       document.getElementById('lightbox-img').src = p.img;
       document.getElementById('lightbox-img').alt = lang === 'en' ? p.name_en : p.name_es;
       document.getElementById('lightbox-name').textContent = lang === 'en' ? p.name_en : p.name_es;
       document.getElementById('lightbox-desc').textContent =
-        (lang === 'en' ? p.catName_en : p.catName_es) + ' — ' +
+        (lang === 'en' ? p.catName_en : p.catName_es) + ' \u2014 ' +
         (lang === 'en' ? p.desc_en : p.desc_es);
-      document.getElementById('lightbox').classList.add('open');
-      document.body.style.overflow = 'hidden';
+      document.getElementById('lightbox-sku').textContent = p.sdc_sku || '';
+    }
+
+    function navLightbox(dir) {
+      currentLightboxIdx = (currentLightboxIdx + dir + flatProducts.length) % flatProducts.length;
+      showLightboxProduct(currentLightboxIdx);
     }
 
     function closeLightbox(e) {
@@ -1111,10 +1351,11 @@
     }
 
     document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') {
-        document.getElementById('lightbox').classList.remove('open');
-        document.body.style.overflow = '';
-      }
+      const lb = document.getElementById('lightbox');
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') { lb.classList.remove('open'); document.body.style.overflow = ''; }
+      if (e.key === 'ArrowLeft') navLightbox(-1);
+      if (e.key === 'ArrowRight') navLightbox(1);
     });
 
     // ── Bilingual translations ──
@@ -1132,7 +1373,9 @@
         contact_phone: "(904) 655-9190",
         contact_address: "1001 Mayport Road, P.O. 330107, Atlantic Beach, FL 32233",
         contact_cta: "Call Jose Busto",
-        footer_copy: "\u00a9 2026 Sabores del Campo LLC \u00b7 dba SDC Solutions \u00b7 All rights reserved"
+        contact_whatsapp: "WhatsApp Jose",
+        footer_copy: "\u00a9 2026 Sabores del Campo LLC \u00b7 dba SDC Solutions \u00b7 All rights reserved",
+        search_placeholder: "Search products, SKU, or description...",
       },
       es: {
         nav_products: "Productos", nav_contact: "Contacto", nav_cta: "Llamar a Jose",
@@ -1147,7 +1390,9 @@
         contact_phone: "(904) 655-9190",
         contact_address: "1001 Mayport Road, P.O. 330107, Atlantic Beach, FL 32233",
         contact_cta: "Llamar a Jose Busto",
-        footer_copy: "\u00a9 2026 Sabores del Campo LLC \u00b7 dba SDC Solutions \u00b7 Todos los derechos reservados"
+        contact_whatsapp: "WhatsApp a Jose",
+        footer_copy: "\u00a9 2026 Sabores del Campo LLC \u00b7 dba SDC Solutions \u00b7 Todos los derechos reservados",
+        search_placeholder: "Buscar productos, SKU o descripci\u00f3n...",
       }
     };
 
@@ -1164,6 +1409,15 @@
         }
       });
       document.getElementById('lang-toggle').textContent = lang === 'en' ? 'ES' : 'EN';
+      const searchInput = document.getElementById('product-search');
+      searchInput.placeholder = T[lang].search_placeholder;
+      // WhatsApp message by language
+      const waMsg = lang === 'en'
+        ? 'Hi Jose, I\'m interested in SDC Solutions products'
+        : 'Hola Jose, estoy interesado en los productos de SDC Solutions';
+      const waUrl = 'https://wa.me/19046559190?text=' + encodeURIComponent(waMsg);
+      document.getElementById('wa-nav').href = waUrl;
+      document.getElementById('wa-contact').href = waUrl;
       renderCatNav();
       renderSections();
     }
@@ -1198,6 +1452,17 @@
     // ── Initialize ──
     applyLang();
     setupCategoryObserver();
+
+    // ── Back to Top visibility ──
+    const btt = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      btt.classList.toggle('visible', window.scrollY > 600);
+    }, { passive: true });
+
+    // ── Product Search ──
+    document.getElementById('product-search').addEventListener('input', () => {
+      renderSections();
+    });
   </script>
 
 </body>
