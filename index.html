@@ -163,42 +163,35 @@
       border-color: rgba(0,0,0,0.2);
     }
 
-    .btn-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.875rem;
-      font-weight: 600;
-      padding: 0.5rem 1.25rem;
-      border-radius: 999px;
-      background: var(--primary);
-      color: #fff;
-      transition: background 0.2s, transform 0.15s;
-    }
-
-    .btn-cta:hover {
-      background: #333;
-      transform: translateY(-1px);
-    }
-
-    .btn-wa-nav {
+    .nav-icon-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: #25D366;
       color: #fff;
       transition: transform 0.15s, box-shadow 0.2s;
     }
-    .btn-wa-nav:hover {
+    .nav-icon-btn:hover {
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(37,211,102,0.3);
     }
-    .btn-wa-nav svg {
+    .nav-icon-btn svg {
       width: 18px;
       height: 18px;
+    }
+    .nav-icon-phone {
+      background: var(--primary);
+    }
+    .nav-icon-phone:hover {
+      background: #333;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .nav-icon-wa {
+      background: #25D366;
+    }
+    .nav-icon-wa:hover {
+      box-shadow: 0 4px 12px rgba(37,211,102,0.3);
     }
 
     /* ── Hero ── */
@@ -844,8 +837,10 @@
 
       <div class="nav-actions">
         <button class="lang-toggle" id="lang-toggle" onclick="toggleLang()" data-i18n="lang_toggle">ES</button>
-        <a href="tel:+19046559190" class="btn-cta" data-i18n="nav_cta">Call Jose</a>
-        <a id="wa-nav" href="https://wa.me/19046559190?text=Hi%20Jose%2C%20I%27m%20interested%20in%20SDC%20Solutions%20products" class="btn-wa-nav" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <a href="tel:+19046559190" class="nav-icon-btn nav-icon-phone" aria-label="Call Jose">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </a>
+        <a id="wa-nav" href="https://wa.me/19046559190?text=Hi%20Jose%2C%20I%27m%20interested%20in%20SDC%20Solutions%20products" class="nav-icon-btn nav-icon-wa" target="_blank" rel="noopener" aria-label="WhatsApp">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.11.546 4.093 1.504 5.82L0 24l6.335-1.652A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.82c-1.91 0-3.78-.514-5.41-1.488l-.388-.23-3.761.982.998-3.648-.253-.402A9.814 9.814 0 012.18 12c0-5.422 4.398-9.82 9.82-9.82 5.422 0 9.82 4.398 9.82 9.82 0 5.422-4.398 9.82-9.82 9.82z"/></svg>
         </a>
       </div>
