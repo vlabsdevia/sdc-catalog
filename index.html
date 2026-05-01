@@ -2,1701 +2,404 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="SDC Solutions - Your one-stop supplier for foodservice packaging in Jacksonville & surrounding areas.">
-  <title>SDC Solutions | Foodservice Packaging Supplier</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title id="page-title" data-page="home">SDC Solutions — Foodservice packaging for Northeast Florida kitchens</title>
+  <meta name="description" content="Family-run foodservice packaging supplier serving Jacksonville, Duval, Nassau, St. Johns, and Clay counties. Cups, containers, bags, utensils, and cleaning — bilingual service, no pallet minimums.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23001D3D'/%3E%3Ctext x='50' y='62' font-family='Arial,sans-serif' font-size='36' font-weight='bold' fill='white' text-anchor='middle'%3ESDC%3C/text%3E%3C/svg%3E">
-  <style>
-    /* ── Custom Properties ── */
-    :root {
-      --primary: #001D3D;
-      --primary-hover: #00132a;
-      --accent: #1B8E53;
-      --accent-hover: #157a47;
-      --accent-light: rgba(27,142,83,0.08);
-      --text: #1A1A1A;
-      --muted: #5A6B7A;
-      --bg: #F4F7F9;
-      --surface: #fff;
-      --shadow-sm: 0 1px 3px rgba(0,29,61,0.06), 0 1px 2px rgba(0,29,61,0.04);
-      --shadow-hover: 0 8px 28px rgba(0,29,61,0.14);
-      --radius: 8px;
-      --font: 'Inter', sans-serif;
-      --font-display: 'Outfit', sans-serif;
-      --container: min(1320px, calc(100% - 2rem));
-    }
-
-    /* ── CSS Reset ── */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: var(--font);
-      color: var(--text);
-      background: var(--bg);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    img {
-      display: block;
-      max-width: 100%;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    button {
-      font-family: var(--font);
-      cursor: pointer;
-      border: none;
-      background: none;
-    }
-
-    /* ── Container ── */
-    .container {
-      width: var(--container);
-      margin: 0 auto;
-    }
-
-    /* ── Sticky Nav ── */
-    .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: var(--primary);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      height: 80px;
-    }
-
-    .navbar .container {
-      display: flex;
-      align-items: center;
-      height: 100%;
-      gap: 1.25rem;
-    }
-
-    .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: 0.85rem;
-      margin-right: auto;
-    }
-
-    .nav-logo {
-      width: 44px;
-      height: 44px;
-      background: var(--accent);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-weight: 800;
-      font-size: 0.8rem;
-      letter-spacing: 0.5px;
-      flex-shrink: 0;
-    }
-
-    .nav-brand-text {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.25;
-    }
-
-    .nav-brand-name {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 1.15rem;
-      color: #fff;
-    }
-
-    .nav-brand-sub {
-      font-size: 0.75rem;
-      color: rgba(255,255,255,0.5);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-    }
-
-    .nav-link {
-      font-size: 1rem;
-      font-weight: 500;
-      color: rgba(255,255,255,0.7);
-      transition: color 0.2s;
-    }
-
-    .nav-link:hover {
-      color: #fff;
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .lang-picker {
-      position: relative;
-    }
-
-    .lang-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      font-size: 0.9375rem;
-      font-weight: 600;
-      padding: 0.45rem 0.8rem;
-      border-radius: 999px;
-      border: 1.5px solid rgba(255,255,255,0.25);
-      color: rgba(255,255,255,0.85);
-      background: transparent;
-      cursor: pointer;
-      transition: background 0.2s, border-color 0.2s;
-      font-family: var(--font);
-    }
-
-    .lang-btn:hover {
-      background: rgba(255,255,255,0.1);
-      border-color: rgba(255,255,255,0.4);
-    }
-
-    .lang-btn .flag { font-size: 1.15rem; line-height: 1; }
-
-    .lang-btn .chevron {
-      width: 14px; height: 14px;
-      transition: transform 0.2s;
-    }
-
-    .lang-picker.open .chevron { transform: rotate(180deg); }
-
-    .lang-dropdown {
-      position: absolute;
-      top: calc(100% + 0.5rem);
-      right: 0;
-      min-width: 180px;
-      background: var(--primary);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 12px;
-      padding: 0.4rem;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-8px);
-      transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
-      z-index: 200;
-    }
-
-    .lang-picker.open .lang-dropdown {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    .lang-option {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      padding: 0.55rem 0.75rem;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.15s;
-      border: none;
-      background: none;
-      width: 100%;
-      font-family: var(--font);
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: rgba(255,255,255,0.75);
-      text-align: left;
-    }
-
-    .lang-option:hover {
-      background: rgba(255,255,255,0.08);
-    }
-
-    .lang-option.active {
-      background: rgba(27,142,83,0.15);
-      color: #fff;
-    }
-
-    .lang-option .flag { font-size: 1.1rem; }
-
-    .lang-option .lang-code {
-      margin-left: auto;
-      font-size: 0.75rem;
-      color: rgba(255,255,255,0.35);
-      font-weight: 400;
-    }
-
-    .nav-icon-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      color: #fff;
-      transition: transform 0.15s, box-shadow 0.2s;
-    }
-    .nav-icon-btn:hover {
-      transform: translateY(-1px);
-    }
-    .nav-icon-btn svg {
-      width: 22px;
-      height: 22px;
-    }
-    .nav-icon-phone {
-      background: transparent;
-      color: rgba(255,255,255,0.85);
-    }
-    .nav-icon-phone:hover {
-      background: rgba(255,255,255,0.1);
-    }
-    .nav-icon-wa {
-      background: transparent;
-      color: #25D366;
-    }
-    .nav-icon-wa:hover {
-      background: rgba(37,211,102,0.15);
-    }
-
-    /* ── Hero ── */
-    .hero {
-      padding: 5rem 0 4rem;
-    }
-
-    .hero .container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-    }
-
-    .hero-content {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.8125rem;
-      font-weight: 500;
-      color: var(--muted);
-      background: var(--surface);
-      padding: 0.375rem 1rem;
-      border-radius: 999px;
-      border: 1px solid rgba(0,0,0,0.06);
-      width: fit-content;
-    }
-
-    .hero-badge svg {
-      width: 14px;
-      height: 14px;
-      flex-shrink: 0;
-    }
-
-    .hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: 900;
-      line-height: 1.05;
-      color: var(--primary);
-      letter-spacing: -0.02em;
-    }
-
-    .hero-title em {
-      font-style: normal;
-      font-weight: 900;
-      color: var(--accent);
-    }
-
-    .hero-subtitle {
-      font-size: 1.0625rem;
-      color: var(--muted);
-      max-width: 480px;
-      line-height: 1.6;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: var(--font-display);
-      font-size: 0.9375rem;
-      font-weight: 700;
-      padding: 0.875rem 2rem;
-      border-radius: 999px;
-      background: var(--accent);
-      color: #fff;
-      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-      box-shadow: 0 4px 16px rgba(27,142,83,0.25);
-    }
-
-    .btn-primary:hover {
-      background: var(--accent-hover);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(27,142,83,0.35);
-    }
-
-    .btn-outline {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: var(--font-display);
-      font-size: 0.9375rem;
-      font-weight: 600;
-      padding: 0.875rem 2rem;
-      border-radius: 999px;
-      background: transparent;
-      color: var(--primary);
-      border: 2px solid rgba(0,29,61,0.2);
-      transition: border-color 0.2s, background 0.2s, transform 0.15s;
-    }
-
-    .btn-outline:hover {
-      border-color: var(--primary);
-      background: rgba(0,29,61,0.04);
-      transform: translateY(-1px);
-    }
-
-    .hero-image-wrapper {
-      position: relative;
-    }
-
-    .hero-image-wrapper img {
-      width: 100%;
-      border-radius: 24px;
-      aspect-ratio: 4 / 3;
-      object-fit: cover;
-    }
-
-    .hero-overlay {
-      position: absolute;
-      bottom: 1.25rem;
-      left: 1.25rem;
-      right: 1.25rem;
-      background: rgba(255,255,255,0.75);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-radius: 16px;
-      padding: 1rem 1.25rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .hero-overlay svg {
-      width: 24px;
-      height: 24px;
-      flex-shrink: 0;
-      color: var(--accent);
-    }
-
-    .hero-overlay-text strong {
-      display: block;
-      font-size: 0.875rem;
-      font-weight: 700;
-      color: var(--primary);
-    }
-
-    .hero-overlay-text span {
-      font-size: 0.8125rem;
-      color: var(--muted);
-    }
-
-    /* ── Category Nav ── */
-    .cat-nav {
-      position: sticky;
-      top: 80px;
-      z-index: 90;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(0,29,61,0.08);
-      padding: 0.6rem 0;
-    }
-
-    .cat-nav-inner {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      justify-content: center;
-    }
-
-    /* Mobile category toggle */
-    .cat-mobile-toggle {
-      display: none;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      padding: 0.65rem 1rem;
-      border-radius: 999px;
-      border: 1px solid rgba(0,29,61,0.12);
-      background: var(--surface);
-      color: var(--primary);
-      font-family: var(--font-display);
-      font-size: 0.9375rem;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .cat-mobile-toggle svg {
-      width: 18px; height: 18px;
-      transition: transform 0.25s;
-      color: var(--muted);
-    }
-
-    .cat-nav.open .cat-mobile-toggle svg {
-      transform: rotate(180deg);
-    }
-
-    .cat-mobile-count {
-      font-size: 0.75rem;
-      font-weight: 400;
-      color: var(--muted);
-      margin-left: 0.35rem;
-    }
-
-    @media (max-width: 768px) {
-      .cat-nav { padding: 0.5rem; }
-      .cat-nav-inner {
-        flex-direction: column;
-        gap: 0.3rem;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease, opacity 0.25s ease;
-        opacity: 0;
-      }
-      .cat-nav.open .cat-nav-inner {
-        max-height: 600px;
-        opacity: 1;
-        margin-top: 0.5rem;
-      }
-      .cat-mobile-toggle { display: flex; }
-      .cat-pill {
-        width: 100%;
-        text-align: center;
-        padding: 0.6rem 1rem;
-      }
-    }
-
-    .cat-pill {
-      padding: 0.5rem 1.25rem;
-      border-radius: 999px;
-      font-size: 0.875rem;
-      font-weight: 500;
-      white-space: nowrap;
-      border: 1px solid rgba(0,0,0,0.08);
-      background: var(--surface);
-      color: var(--text);
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s, border-color 0.2s;
-    }
-
-    .cat-pill:hover {
-      color: var(--accent);
-      background: var(--accent-light);
-      border-color: rgba(27,142,83,0.15);
-    }
-
-    .cat-pill.active {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-    }
-
-    /* ── Product Search ── */
-    .product-search-wrap {
-      max-width: 480px;
-      margin: 1.5rem auto 0;
-      position: relative;
-    }
-    .product-search-wrap svg {
-      position: absolute;
-      left: 1rem;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 18px;
-      height: 18px;
-      color: var(--muted);
-      pointer-events: none;
-    }
-    .product-search {
-      width: 100%;
-      padding: 0.75rem 1rem 0.75rem 2.75rem;
-      border: 1.5px solid rgba(0,0,0,0.1);
-      border-radius: 999px;
-      font-size: 0.875rem;
-      font-family: var(--font);
-      background: var(--surface);
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .product-search:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(27,142,83,0.1);
-    }
-    .product-search::placeholder {
-      color: #aaa;
-    }
-    .search-count {
-      text-align: center;
-      font-size: 0.8125rem;
-      color: var(--muted);
-      margin-top: 0.5rem;
-    }
-
-    /* ── Product Section ── */
-    .cat-section {
-      padding: 3rem 0 2rem;
-    }
-
-    .cat-section-title {
-      font-family: var(--font-display);
-      font-size: 1.75rem;
-      font-weight: 800;
-      color: var(--primary);
-      margin-bottom: 0.375rem;
-    }
-
-    .cat-section-desc {
-      font-size: 0.9375rem;
-      color: var(--muted);
-      margin-bottom: 2rem;
-    }
-
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .product-card {
-      background: var(--surface);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-sm);
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .product-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-hover);
-    }
-
-    .product-card img {
-      width: 100%;
-      aspect-ratio: 1;
-      object-fit: cover;
-      background: #f0f0f0;
-    }
-
-    .product-card-body {
-      padding: 1rem;
-    }
-
-    .product-card-name {
-      font-weight: 600;
-      font-size: 0.9375rem;
-      color: var(--primary);
-      margin-bottom: 0.25rem;
-    }
-
-    .product-card-desc {
-      font-size: 0.8125rem;
-      color: var(--muted);
-      margin-bottom: 0.5rem;
-      line-height: 1.5;
-    }
-
-    .product-card-sku {
-      display: inline-block;
-      font-size: 0.75rem;
-      font-family: 'SF Mono', 'Fira Code', monospace;
-      background: var(--accent-light);
-      border: 1px solid rgba(27,142,83,0.15);
-      padding: 0.2rem 0.6rem;
-      border-radius: 999px;
-      color: var(--accent);
-    }
-
-    .product-card-quote {
-      display: inline-block;
-      font-size: 0.75rem;
-      font-weight: 600;
-      background: var(--accent-light);
-      border: 1px solid rgba(27,142,83,0.15);
-      padding: 0.2rem 0.6rem;
-      border-radius: 999px;
-      color: var(--accent);
-      margin-left: 0.35rem;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-    }
-
-    .product-card-quote:hover {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
-    }
-
-    /* ── Contact Section ── */
-    .contact {
-      background: var(--primary);
-      color: #fff;
-      padding: 5rem 0;
-      text-align: center;
-    }
-
-    .contact h2 {
-      font-family: var(--font-display);
-      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-      font-weight: 900;
-      margin-bottom: 1rem;
-    }
-
-    .contact-desc {
-      font-size: 1.0625rem;
-      color: rgba(255,255,255,0.65);
-      max-width: 520px;
-      margin: 0 auto 2rem;
-      line-height: 1.6;
-    }
-
-    .contact-info {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-bottom: 2rem;
-    }
-
-    .contact-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.875rem;
-      font-weight: 500;
-      padding: 0.625rem 1.25rem;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.1);
-      color: rgba(255,255,255,0.85);
-    }
-
-    .contact-pill svg {
-      width: 16px;
-      height: 16px;
-      flex-shrink: 0;
-    }
-
-    .btn-contact {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 1rem;
-      font-weight: 700;
-      padding: 1rem 2.5rem;
-      border-radius: 999px;
-      background: #fff;
-      color: var(--primary);
-      transition: transform 0.15s, box-shadow 0.2s;
-    }
-
-    .btn-contact:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(255,255,255,0.15);
-    }
-    .btn-whatsapp {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 1rem;
-      font-weight: 700;
-      padding: 1rem 2.5rem;
-      border-radius: 999px;
-      background: #25D366;
-      color: #fff;
-      transition: transform 0.15s, box-shadow 0.2s;
-      text-decoration: none;
-    }
-    .btn-whatsapp:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(37,211,102,0.3);
-    }
-    .btn-whatsapp svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    /* ── Footer ── */
-    .footer {
-      padding: 2rem 0;
-      text-align: center;
-      font-size: 0.8125rem;
-      color: var(--muted);
-    }
-
-    /* ── Back to Top ── */
-    .back-to-top {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: var(--accent);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      border: none;
-      box-shadow: 0 4px 12px rgba(27,142,83,0.25);
-      opacity: 0;
-      transform: translateY(10px);
-      pointer-events: none;
-      transition: opacity 0.3s, transform 0.3s;
-      z-index: 50;
-    }
-    .back-to-top.visible {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-    .back-to-top:hover {
-      background: var(--accent-hover);
-      transform: translateY(-2px);
-    }
-    .back-to-top svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    /* ── Lightbox ── */
-    .lightbox {
-      position: fixed;
-      inset: 0;
-      z-index: 1000;
-      background: rgba(0,0,0,0.8);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
-    .lightbox.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .lightbox-content {
-      background: var(--surface);
-      border-radius: 20px;
-      overflow: hidden;
-      max-width: 560px;
-      width: calc(100% - 2rem);
-      max-height: 90vh;
-      overflow-y: auto;
-      transform: scale(0.95);
-      transition: transform 0.3s ease;
-    }
-
-    .lightbox.open .lightbox-content {
-      transform: scale(1);
-    }
-
-    .lightbox-close {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.9);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.25rem;
-      color: var(--primary);
-      cursor: pointer;
-      border: none;
-      z-index: 10;
-      transition: background 0.2s;
-    }
-
-    .lightbox-close:hover {
-      background: #fff;
-    }
-
-    .lightbox-img {
-      width: 100%;
-      aspect-ratio: 1;
-      object-fit: cover;
-      background: #f0f0f0;
-    }
-
-    .lightbox-info {
-      padding: 1.5rem;
-    }
-
-    .lightbox-name {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 0.5rem;
-    }
-
-    .lightbox-desc {
-      font-size: 0.9375rem;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-    .lightbox-sku {
-      font-size: 0.75rem;
-      font-family: 'SF Mono', 'Fira Code', monospace;
-      background: var(--accent-light);
-      border: 1px solid rgba(27,142,83,0.15);
-      padding: 0.2rem 0.6rem;
-      border-radius: 999px;
-      color: var(--accent);
-      display: inline-block;
-      margin-top: 0.5rem;
-    }
-    .lightbox-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.9);
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 10;
-      transition: background 0.2s, transform 0.2s;
-    }
-    .lightbox-nav:hover {
-      background: #fff;
-      transform: translateY(-50%) scale(1.1);
-    }
-    .lightbox-nav svg {
-      width: 20px;
-      height: 20px;
-      color: var(--primary);
-    }
-    .lightbox-name {
-      font-family: var(--font-display);
-    }
-    .lightbox-prev { left: 1rem; }
-    .lightbox-next { right: 1rem; }
-
-    @media (max-width: 640px) {
-      .lightbox-prev { left: 0.5rem; }
-      .lightbox-next { right: 0.5rem; }
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 768px) {
-      .hero .container {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-        text-align: center;
-      }
-
-      .hero-content {
-        align-items: center;
-      }
-
-      .hero-subtitle {
-        max-width: 100%;
-      }
-
-      .hero-actions {
-        justify-content: center;
-      }
-
-      .nav-links {
-        display: none;
-      }
-
-      .product-grid {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: 1rem;
-      }
-
-      .contact-info {
-        flex-direction: column;
-      }
-
-      .hero {
-        padding: 3rem 0 2.5rem;
-      }
-
-      .cat-section {
-        padding: 2rem 0 1.5rem;
-      }
-    }
-
-  /* ── Social Proof Line ── */
-  .hero-social-proof {
-    margin: 1.5rem 0;
-    padding: 1rem;
-    background: rgba(27, 142, 83, 0.08);
-    border-left: 3px solid var(--accent);
-    border-radius: 6px;
-    font-size: 0.95rem;
-    color: var(--text);
-    line-height: 1.5;
-  }
-
-  .hero-social-proof strong {
-    color: var(--accent);
-    font-weight: 700;
-  }
-
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- ── Navbar ── -->
-  <header class="navbar">
-    <div class="container">
-      <a href="#" class="nav-brand">
-        <div class="nav-logo">SDC</div>
-        <div class="nav-brand-text">
-          <span class="nav-brand-name" data-i18n="brand_name">SDC Solutions</span>
-          <span class="nav-brand-sub" data-i18n="brand_sub">Sabores del Campo LLC</span>
-        </div>
-      </a>
-
-      <nav class="nav-links">
-        <a href="#products" class="nav-link" data-i18n="nav_products">Products</a>
-        <a href="faq.html" class="nav-link" data-i18n="nav_faq">FAQ</a>
-        <a href="#contact" class="nav-link" data-i18n="nav_contact">Contact</a>
-      </nav>
-
-      <div class="nav-actions">
-        <div class="lang-picker" id="lang-picker">
-          <button class="lang-btn" id="lang-btn" onclick="document.getElementById('lang-picker').classList.toggle('open')">
-            <span class="flag" id="lang-flag">&#x1F1FA;&#x1F1F8;</span>
-            <span id="lang-label">EN</span>
-            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="lang-dropdown" id="lang-dropdown">
-            <button class="lang-option active" data-lang="en" onclick="setLang('en')">
-              <span class="flag">&#x1F1FA;&#x1F1F8;</span> English <span class="lang-code">en</span>
-            </button>
-            <button class="lang-option" data-lang="es" onclick="setLang('es')">
-              <span class="flag">&#x1F1EA;&#x1F1F8;</span> Espa&ntilde;ol <span class="lang-code">es</span>
-            </button>
-          </div>
-        </div>
-        <a href="tel:+19046559190" class="nav-icon-btn nav-icon-phone" aria-label="Call Jose">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        </a>
-        <a id="wa-nav" href="https://wa.me/19046559190?text=Hi%20Jose%2C%20I%27m%20interested%20in%20SDC%20Solutions%20products" class="nav-icon-btn nav-icon-wa" target="_blank" rel="noopener" aria-label="WhatsApp">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.11.546 4.093 1.504 5.82L0 24l6.335-1.652A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.82c-1.91 0-3.78-.514-5.41-1.488l-.388-.23-3.761.982.998-3.648-.253-.402A9.814 9.814 0 012.18 12c0-5.422 4.398-9.82 9.82-9.82 5.422 0 9.82 4.398 9.82 9.82 0 5.422-4.398 9.82-9.82 9.82z"/></svg>
-        </a>
-      </div>
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<nav class="site-nav" aria-label="Site navigation">
+  <a href="index.html" class="site-brand" style="text-decoration:none;color:inherit">
+    <div class="site-logo" aria-hidden="true">s</div>
+    <div class="site-name">
+      <b>SDC Solutions</b>
+      <small>Sabores del Campo · Est. Jacksonville</small>
     </div>
-  </header>
-
-  <!-- ── Hero ── -->
-  <section class="hero">
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-badge" data-i18n="hero_badge">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4-8-10a8 8 0 0 1 16 0c0 6-8 10-8 10z"/></svg>
-          Serving 50+ Local Restaurants
-        </div>
-
-        <h1 class="hero-title" data-i18n="hero_title">Never Stockout Again — Your Reliable Foodservice Supplier</h1>
-
-        <p class="hero-subtitle" data-i18n="hero_subtitle">Quality cups, containers, utensils, and packaging delivered to restaurants, food trucks, and commercial kitchens across Northeast Florida.</p>
-
-        <div class="hero-social-proof" data-i18n="hero_social_proof">
-          <strong>Trusted by 50+ Jacksonville restaurants</strong> • Just-in-time delivery never fails
-        </div>
-
-        <div class="hero-actions">
-          <a href="#products" class="btn-primary" data-i18n="hero_cta_catalog">View Catalog &rarr;</a>
-          <a href="tel:+19046559190" class="btn-outline" data-i18n="hero_cta_phone">Call Jose: (904) 655-9190</a>
-        </div>
-
-      </div>
-
-      <div class="hero-image-wrapper">
-        <img src="img/hero-banner.jpg" alt="Foodservice packaging and supplies" loading="lazy" decoding="async">
-        <div class="hero-overlay">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-          <div class="hero-overlay-text">
-            <strong data-i18n="hero_overlay_title">Just In Time Delivery</strong>
-            <span data-i18n="hero_overlay_desc">Never run out of stock again.</span>
-          </div>
-          <div style="width:1px;height:2rem;background:rgba(0,29,61,0.12);flex-shrink:0"></div>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-          <div class="hero-overlay-text">
-            <strong data-i18n="hero_overlay_title2">Free Delivery</strong>
-            <span data-i18n="hero_overlay_desc2">Across Jacksonville & surrounding areas.</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Category Nav ── -->
-  <nav class="cat-nav" id="cat-nav"></nav>
-
-  <!-- ── Products ── -->
-  <div id="products"></div>
-  <div class="container">
-    <div class="product-search-wrap">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="search" class="product-search" id="product-search" placeholder="Search products, SKU, or description...">
-    </div>
-    <div class="search-count" id="search-count" style="display:none"></div>
+  </a>
+  <div class="site-links">
+    <a href="index.html" class="site-link active" data-i="nav_home">Home</a>
+    <a href="catalog.html" class="site-link" data-i="nav_catalog">Catalog</a>
+    <a href="case-studies.html" class="site-link" data-i="nav_case">Case Studies</a>
+    <a href="contact.html" class="site-link" data-i="nav_contact">Contact</a>
   </div>
-  <section class="container">
-    <div id="cat-sections"></div>
-  </section>
-
-  <!-- ── Contact ── -->
-  <section class="contact" id="contact">
-    <div class="container">
-      <h2 data-i18n="contact_title">Ready to stock your kitchen?</h2>
-      <p class="contact-desc" data-i18n="contact_desc">We supply restaurants, food trucks, and commercial kitchens across Jacksonville and Northeast Florida. Get in touch for pricing and delivery.</p>
-
-      <div class="contact-info">
-        <div class="contact-pill">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          <span data-i18n="contact_phone">(904) 655-9190</span>
-        </div>
-        <div class="contact-pill">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          <span data-i18n="contact_address">1001 Mayport Road, P.O. 330107, Atlantic Beach, FL 32233</span>
-        </div>
-      </div>
-
-      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
-        <a href="tel:+19046559190" class="btn-contact" data-i18n="contact_cta">Call Jose</a>
-        <a id="wa-contact" href="https://wa.me/19046559190?text=Hi%20Jose%2C%20I%27m%20interested%20in%20SDC%20Solutions%20products" class="btn-whatsapp" target="_blank" rel="noopener" data-i18n="contact_whatsapp">
-          <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.11.546 4.093 1.504 5.82L0 24l6.335-1.652A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.82c-1.91 0-3.78-.514-5.41-1.488l-.388-.23-3.761.982.998-3.648-.253-.402A9.814 9.814 0 012.18 12c0-5.422 4.398-9.82 9.82-9.82 5.422 0 9.82 4.398 9.82 9.82 0 5.422-4.398 9.82-9.82 9.82z"/></svg>
-          WhatsApp Jose
-        </a>
-      </div>
+  <div class="site-nav-right">
+    <div class="lang-toggle" aria-label="Language toggle">
+      <button data-lang="en" class="active">EN</button>
+      <button data-lang="es">ES</button>
     </div>
-  </section>
+    <a href="tel:+19046559190" class="cta-call">
+      <span class="dot" aria-hidden="true"></span>
+      <span data-i="nav_cta">Call Jose · (904) 655-9190</span>
+    </a>
+  </div>
+</nav>
 
-  <!-- ── Footer ── -->
-  <footer class="footer">
-    <div class="container">
-      <p data-i18n="footer_copy">&copy; 2026 SDC Solutions &mdash; Sabores del Campo LLC. All rights reserved.</p>
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero">
+  <div>
+    <div class="hero-badge">
+      <span class="pulse" aria-hidden="true"></span>
+      <span data-i="hero_badge">Jacksonville · Nassau · St. Johns · Clay · Duval</span>
     </div>
-  </footer>
-
-  <!-- ── Lightbox ── -->
-  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
-    <button class="lightbox-close" id="lightbox-close">&times;</button>
-    <button class="lightbox-nav lightbox-prev" onclick="event.stopPropagation();navLightbox(-1)">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-    </button>
-    <button class="lightbox-nav lightbox-next" onclick="event.stopPropagation();navLightbox(1)">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
-    </button>
-    <div class="lightbox-content">
-      <img class="lightbox-img" id="lightbox-img" src="" alt="">
-      <div class="lightbox-info">
-        <h3 class="lightbox-name" id="lightbox-name"></h3>
-        <p class="lightbox-desc" id="lightbox-desc"></p>
-        <span class="lightbox-sku" id="lightbox-sku"></span>
+    <h1>
+      <span data-i="hero_h1a">Packaging for</span>
+      <em data-i="hero_h1b">Northeast Florida</em>
+      <span data-i="hero_h1c">kitchens.</span>
+      <span class="outline" data-i="hero_h1d">On your shelf tomorrow.</span>
+    </h1>
+    <p class="hero-sub" data-i="hero_sub">Family-run supplier of cups, containers, utensils, and packaging. Order Tuesday, delivered Wednesday — across Jacksonville and surrounding counties. Bilingual service, no pallet minimums.</p>
+    <div class="hero-ctas">
+      <a href="catalog.html" class="btn"><span data-i="hero_cta1">Browse the catalog</span> →</a>
+      <a href="contact.html" class="btn ghost" data-i="hero_cta2">Request a quote</a>
+      <a href="https://wa.me/19046559190" target="_blank" rel="noopener" class="btn wa" data-i="hero_cta3">WhatsApp Jose</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="n">1,200+</div>
+        <div class="l" data-i="hero_stat1">SKUs in stock</div>
+      </div>
+      <div class="stat">
+        <div class="n">24hr</div>
+        <div class="l" data-i="hero_stat2">Typical delivery</div>
+      </div>
+      <div class="stat">
+        <div class="n">4</div>
+        <div class="l" data-i="hero_stat3">Counties served</div>
+      </div>
+      <div class="stat">
+        <div class="n">EN · ES</div>
+        <div class="l" data-i="hero_stat4">Order in your language</div>
       </div>
     </div>
   </div>
+  <div class="hero-media">
+    <img src="img/food_001.jpg" alt="Fresh food served on a plate — SDC Solutions serves Jacksonville's restaurant kitchens" loading="eager">
+  </div>
+</section>
 
-  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
-  </button>
+<!-- ============================================================
+     MARQUEE
+     ============================================================ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Cups · Vasos</span>
+    <span>Deli containers · Envases</span>
+    <span>Utensils · Cubiertos</span>
+    <span>Paper goods · Papel</span>
+    <span>Bags · Bolsas</span>
+    <span>Gloves · Guantes</span>
+    <span>Trays · Bandejas</span>
+    <span>Cleaning · Limpieza</span>
+    <span>Cups · Vasos</span>
+    <span>Deli containers · Envases</span>
+    <span>Utensils · Cubiertos</span>
+    <span>Paper goods · Papel</span>
+    <span>Bags · Bolsas</span>
+    <span>Gloves · Guantes</span>
+    <span>Trays · Bandejas</span>
+    <span>Cleaning · Limpieza</span>
+  </div>
+</div>
 
-  <script>
-    // ── Product Data ──
-    const categories = [
-      {
-        id: "cat-togo", code: "TG", iconClass: "cat-icon--brand",
-        name_en: "To-Go Containers", name_es: "Contenedores para Llevar",
-        desc_en: "Hinged foam, black & white, hamburger, hotdog, burrito bowl, and eco sugarcane containers",
-        desc_es: "Contenedores de espuma bisagra, blancos y negros, para hamburguesas, hot dogs, burritos y opciones eco de bagazo de caña",
-        tags_en: ["Foam", "Hinged", "Eco", "Sugarcane"],
-        tags_es: ["Espuma", "Bisagra", "Eco", "Bagazo"],
-        products: [
-          { img: "img/togo_001.jpg", name_en: "Take-Out Container Hinged 8 x 8 IN 3 Compartment", name_es: "Take-Out Container Hinged 8 x 8 IN 3 Compartment", desc_en: "Foam White | Package Form: 100/Case", desc_es: "Foam White | Package Form: 100/Case" , sdc_sku: "SDC-TG-001" },
-          { img: "img/togo_002.jpg", name_en: "Take-Out Container Hinged 8 x 8 IN 1 Compartment", name_es: "Take-Out Container Hinged 8 x 8 IN 1 Compartment", desc_en: "Foam White | Package Form: 100/Case", desc_es: "Foam White | Package Form: 100/Case" , sdc_sku: "SDC-TG-002" },
-          { img: "img/togo_003.jpg", name_en: "Take-Out Container Hinged 9.5 x 9 IN 3 Compartment", name_es: "Take-Out Container Hinged 9.5 x 9 IN 3 Compartment", desc_en: "Foam White | Package Form: 200/Case", desc_es: "Foam White | Package Form: 200/Case" , sdc_sku: "SDC-TG-003" },
-          { img: "img/togo_004.jpg", name_en: "Take-Out Container Hinged 9.5 x 9 IN 1 Compartment", name_es: "Take-Out Container Hinged 9.5 x 9 IN 1 Compartment", desc_en: "Foam White | Package Form: 200/Case", desc_es: "Foam White | Package Form: 200/Case" , sdc_sku: "SDC-TG-004" },
-          { img: "img/togo_005.jpg", name_en: "Take-Out Container Hinged 8 x 8 IN 3 Compartment", name_es: "Take-Out Container Hinged 8 x 8 IN 3 Compartment", desc_en: "Foam Black | Package Form: 200/Case", desc_es: "Foam Black | Package Form: 200/Case" , sdc_sku: "SDC-TG-005" },
-          { img: "img/togo_006.png", name_en: "Take-Out Container Hinged 8 x 8 IN 1 Compartment", name_es: "Take-Out Container Hinged 8 x 8 IN 1 Compartment", desc_en: "Foam Black | Package Form: 200/Case", desc_es: "Foam Black | Package Form: 200/Case" , sdc_sku: "SDC-TG-006" },
-          { img: "img/togo_007.jpg", name_en: "Take-Out Container Hinged 9.5 x 9 IN 1 Compartment", name_es: "Take-Out Container Hinged 9.5 x 9 IN 1 Compartment", desc_en: "Foam Black | Package Form: 150/Case", desc_es: "Foam Black | Package Form: 150/Case" , sdc_sku: "SDC-TG-007" },
-          { img: "img/togo_008.jpg", name_en: "Victoria Bay Hinged 6 x 6", name_es: "Victoria Bay Hinged 6 x 6", desc_en: "Black Square Freezer & Micro | Package Form: 250/case", desc_es: "Black Square Freezer & Micro | Package Form: 250/case" , sdc_sku: "SDC-TG-008" },
-          { img: "img/togo_009.jpg", name_en: "Victoria Bay Hinged 9x9x3", name_es: "Victoria Bay Hinged 9x9x3", desc_en: "Black Square Freezer & Micro | Package Form: 200/case", desc_es: "Black Square Freezer & Micro | Package Form: 200/case" , sdc_sku: "SDC-TG-009" },
-          { img: "img/togo_010.jpg", name_en: "Take-Out Container Hinged 6 X 6 IN", name_es: "Take-Out Container Hinged 6 X 6 IN", desc_en: "Foam White Hamburgers | Package Form: 500/case", desc_es: "Foam White Hamburgers | Package Form: 500/case" , sdc_sku: "SDC-TG-010" },
-          { img: "img/togo_011.jpg", name_en: "Victoria Bay Take-Out Container Hinged  6X6X3 IN", name_es: "Victoria Bay Take-Out Container Hinged  6X6X3 IN", desc_en: "Foam White  Hamburgers | Package Form: 500/case", desc_es: "Foam White  Hamburgers | Package Form: 500/case" , sdc_sku: "SDC-TG-011" },
-          { img: "img/togo_012.jpg", name_en: "Take-Out Container Hinged  11.61 x 7.24 x 0.51 IN", name_es: "Take-Out Container Hinged  11.61 x 7.24 x 0.51 IN", desc_en: "Foam White Hot Dog | Package Form: 200/Case", desc_es: "Foam White Hot Dog | Package Form: 200/Case" , sdc_sku: "SDC-TG-012" },
-          { img: "img/togo_013.jpg", name_en: "Take-Out Container Hinged  8.75 x 6 x 3.5 IN", name_es: "Take-Out Container Hinged  8.75 x 6 x 3.5 IN", desc_en: "Foam White Double Hot Dog | Package Form: 200/Case", desc_es: "Foam White Double Hot Dog | Package Form: 200/Case" , sdc_sku: "SDC-TG-013" },
-          { img: "img/togo_014.jpg", name_en: "Take-Out Container Hinged 9.19X6.5X2.75 IN", name_es: "Take-Out Container Hinged 9.19X6.5X2.75 IN", desc_en: "Foam White M205 Rectangular | Package Form: 150/Case", desc_es: "Foam White M205 Rectangular | Package Form: 150/Case" , sdc_sku: "SDC-TG-014" },
-          { img: "img/togo_015.jpg", name_en: "Burrito Bowl 27oz Pulp Fiber Natural Oval", name_es: "Burrito Bowl 27oz Pulp Fiber Natural Oval", desc_en: "Package Form: 300/Case", desc_es: "Package Form: 300/Case" , sdc_sku: "SDC-TG-015" },
-          { img: "img/togo_016.jpg", name_en: "Lid Dome Small  9.29X6.79X1.5 IN 1 Comp PP Clear Oval For Burrito Bowl Unhinged", name_es: "Lid Dome Small  9.29X6.79X1.5 IN 1 Comp PP Clear Oval For Burrito Bowl Unhinged", desc_en: "Package Form: 300/Case", desc_es: "Package Form: 300/Case" , sdc_sku: "SDC-TG-016" },
-          { img: "img/togo_017.jpg", name_en: "VB Bowl 32oz Pulp Fiber Natural Round", name_es: "VB Bowl 32oz Pulp Fiber Natural Round", desc_en: "Package Form: 300/Case", desc_es: "Package Form: 300/Case" , sdc_sku: "SDC-TG-017" },
-          { img: "img/togo_018.jpg", name_en: "VB Bowl 48oz Pulp Fiber Natural Round", name_es: "VB Bowl 48oz Pulp Fiber Natural Round", desc_en: "Package Form: 300/Case", desc_es: "Package Form: 300/Case" , sdc_sku: "SDC-TG-018" },
-          { img: "img/togo_019.jpg", name_en: "VB Lid High Dome Plastic Clear Round For 24-48oz", name_es: "VB Lid High Dome Plastic Clear Round For 24-48oz", desc_en: "Package Form: 300/Case", desc_es: "Package Form: 300/Case" , sdc_sku: "SDC-TG-019" },
-          { img: "img/togo_020.jpg", name_en: "Container Hinged 9x9 In", name_es: "Container Hinged 9x9 In", desc_en: "Pp Clear Square | Package Form: 1/180", desc_es: "Pp Clear Square | Package Form: 1/180" , sdc_sku: "SDC-TG-020" },
-          { img: "img/togo_021.jpg", name_en: "Dart Clear seal Container", name_es: "Dart Clear seal Container", desc_en: "Hinged 5.25x5.308x2.64 Square | Package Form: 1/500", desc_es: "Hinged 5.25x5.308x2.64 Square | Package Form: 1/500" , sdc_sku: "SDC-TG-021" },
-          { img: "img/togo_022.jpg", name_en: "Dart Clear seal Container", name_es: "Dart Clear seal Container", desc_en: "Hinged 5.96x5.86x3.11 Square | Package Form: 1/500", desc_es: "Hinged 5.96x5.86x3.11 Square | Package Form: 1/500" , sdc_sku: "SDC-TG-022" },
-          { img: "img/togo_023.jpg", name_en: "Atrium Hoagie & Sub", name_es: "Atrium Hoagie & Sub", desc_en: "Hinged With Dome Lid 8 in OPS Clear Rectangle | Package Form: 1/250", desc_es: "Hinged With Dome Lid 8 in OPS Clear Rectangle | Package Form: 1/250" , sdc_sku: "SDC-TG-023" },
-          { img: "img/togo_024.jpg", name_en: "Black Chicken Roaster", name_es: "Black Chicken Roaster", desc_en: "Take-Out Container W/Dome Lid  9\" | Package Form: 1/200", desc_es: "Take-Out Container W/Dome Lid 9in | Package Form: 1/200" , sdc_sku: "SDC-TG-024" },
-          { img: "img/togo_025.jpg", name_en: "White Foam Bowl 12 oz Round", name_es: "White Foam Bowl 12 oz Round", desc_en: "Retail Package | Package Form: 20/25", desc_es: "Retail Package | Package Form: 20/25" , sdc_sku: "SDC-TG-025" },
-          { img: "img/togo_026.jpg", name_en: "White Foam Bowl 28 oz Round", name_es: "White Foam Bowl 28 oz Round", desc_en: "Retail Package | Package Form: 20/25", desc_es: "Retail Package | Package Form: 20/25" , sdc_sku: "SDC-TG-026" },
-          { img: "img/togo_027.jpg", name_en: "Take-Out Container 8 x 8 In 3 Compartment", name_es: "Take-Out Container 8 x 8 In 3 Compartment", desc_en: "Retail Package | Package Form: 20/10", desc_es: "Retail Package | Package Form: 20/10" , sdc_sku: "SDC-TG-027" },
-          { img: "img/togo_028.jpg", name_en: "Take-Out Container 8 x 8 In 1 Compartment", name_es: "Take-Out Container 8 x 8 In 1 Compartment", desc_en: "Retail Package | Package Form: 20/10", desc_es: "Retail Package | Package Form: 20/10" , sdc_sku: "SDC-TG-028" }
-        ]
-      },
-      {
-        id: "cat-steak", code: "SB", iconClass: "cat-icon--brown",
-        name_en: "Steak & Butcher", name_es: "Carnicería y Res",
-        desc_en: "Foam meat trays in white, black, and yellow; biodegradable options available",
-        desc_es: "Bandejas de espuma para carnes en blanco, negro y amarillo; opciones biodegradables",
-        tags_en: ["Trays", "Foam", "Biodegradable"],
-        tags_es: ["Bandejas", "Espuma", "Biodegradable"],
-        products: [
-          { img: "img/steak_001.jpg", name_en: "Meat Trays 1D", name_es: "Meat Trays 1D", desc_en: "Package Form: 500/Case", desc_es: "Package Form: 500/Case" , sdc_sku: "SDC-SB-001" },
-          { img: "img/steak_001.jpg", name_en: "Meat Trays 1S", name_es: "Meat Trays 1S", desc_en: "Package Form: 1,000 Case", desc_es: "Package Form: 1,000 Case" , sdc_sku: "SDC-SB-002" },
-          { img: "img/steak_003.jpg", name_en: "Meat Trays 2D Deep white", name_es: "Meat Trays 2D Deep white", desc_en: "Package Form: 500/Case", desc_es: "Package Form: 500/Case" , sdc_sku: "SDC-SB-003" },
-          { img: "img/steak_004.jpg", name_en: "Meat Trays 2S  white", name_es: "Meat Trays 2S  white", desc_en: "Package Form: 500/Case", desc_es: "Package Form: 500/Case" , sdc_sku: "SDC-SB-004" },
-          { img: "img/steak_005.jpg", name_en: "Meat Trays 4D White", name_es: "Meat Trays 4D White", desc_en: "Package Form: 500/Case", desc_es: "Package Form: 500/Case" , sdc_sku: "SDC-SB-005" },
-          { img: "img/steak_006.jpg", name_en: "Meat Trays 4P Yellow", name_es: "Meat Trays 4P Yellow", desc_en: "Package Form: 500/Case", desc_es: "Package Form: 500/Case" , sdc_sku: "SDC-SB-006" },
-          { img: "img/steak_006.jpg", name_en: "Meat Trays  4P White", name_es: "Meat Trays  4P White", desc_en: "Package Form:  = 1/500", desc_es: "Package Form:  = 1/500" , sdc_sku: "SDC-SB-007" },
-          { img: "img/steak_008.jpg", name_en: "Meat Trays  4S White", name_es: "Meat Trays  4S White", desc_en: "Package Form:  = 1/500", desc_es: "Package Form:  = 1/500" , sdc_sku: "SDC-SB-008" },
-          { img: "img/steak_009.jpg", name_en: "Meat Trays 8P Yellow", name_es: "Meat Trays 8P Yellow", desc_en: "Package Form: 200/Case", desc_es: "Package Form: 200/Case" , sdc_sku: "SDC-SB-009" },
-          { img: "img/steak_009.jpg", name_en: "Meat Trays 8P White", name_es: "Meat Trays 8P White", desc_en: "Package Form: 200/Case", desc_es: "Package Form: 200/Case" , sdc_sku: "SDC-SB-010" },
-          { img: "img/steak_008.jpg", name_en: "Meat Trays 8S White", name_es: "Meat Trays 8S White", desc_en: "Package Form: 500/Case", desc_es: "Package Form: 500/Case" , sdc_sku: "SDC-SB-011" },
-          { img: "img/steak_012.jpg", name_en: "Meat Tray 10K White", name_es: "Meat Tray 10K White", desc_en: "Package Form: 500/Case", desc_es: "Package Form: 500/Case" , sdc_sku: "SDC-SB-012" },
-          { img: "img/steak_012.jpg", name_en: "Meat Tray 10S White", name_es: "Meat Tray 10S White", desc_en: "Package Form: 500/Case", desc_es: "Package Form: 500/Case" , sdc_sku: "SDC-SB-013" },
-          { img: "img/steak_014.jpg", name_en: "Meat Trays 12S White", name_es: "Meat Trays 12S White", desc_en: "Package Form: 250/Case", desc_es: "Package Form: 250/Case" , sdc_sku: "SDC-SB-014" },
-          { img: "img/steak_015.jpg", name_en: "Meat Trays 16S White", name_es: "Meat Trays 16S White", desc_en: "Package Form: 250/Case", desc_es: "Package Form: 250/Case" , sdc_sku: "SDC-SB-015" },
-          { img: "img/steak_015.jpg", name_en: "Meat Trays 20K White", name_es: "Meat Trays 20K White", desc_en: "Package Form: 100/Case", desc_es: "Package Form: 100/Case" , sdc_sku: "SDC-SB-016" },
-          { img: "img/steak_015.jpg", name_en: "Meat Trays 20S White", name_es: "Meat Trays 20S White", desc_en: "Package Form: 500/Case", desc_es: "Package Form: 500/Case" , sdc_sku: "SDC-SB-017" },
-          { img: "img/steak_015.jpg", name_en: "Meat Tray 25S 8x14.75x0.9", name_es: "Meat Tray 25S 8x14.75x0.9", desc_en: "White | Package Form: 250/Case", desc_es: "White | Package Form: 250/Case" , sdc_sku: "SDC-SB-018" },
-          { img: "img/steak_019.jpg", name_en: "Pad Meat Rec Absorbent 4.5X6.25", name_es: "Pad Meat Rec Absorbent 4.5X6.25", desc_en: "PAD-LOC White | Package Form: 1500/Case", desc_es: "PAD-LOC White | Package Form: 1500/Case" , sdc_sku: "SDC-SB-019" },
-          { img: "img/steak_020.jpg", name_en: "Steak & Butcher Paper Sheets 8X30", name_es: "Steak & Butcher Paper Sheets 8X30", desc_en: "In Peach | Package Form:  1000/Case", desc_es: "In Peach | Package Form:  1000/Case" , sdc_sku: "SDC-SB-020" },
-          { img: "img/steak_021.jpg", name_en: "Steak & Butcher Paper Sheets 10X30", name_es: "Steak & Butcher Paper Sheets 10X30", desc_en: "In Peach | Package Form: 1000/Case", desc_es: "In Peach | Package Form: 1000/Case" , sdc_sku: "SDC-SB-021" },
-          { img: "img/steak_022.jpg", name_en: "Meat Cling Film Roll 18inx4000ft", name_es: "Meat Cling Film Roll 18inx4000ft", desc_en: "Plastic 70 Gauge Clear | Package Form: 1/Roll", desc_es: "Plastic 70 Gauge Clear | Package Form: 1/Roll" , sdc_sku: "SDC-SB-022" },
-          { img: "img/steak_023.jpg", name_en: "Victoria Bay Cling Meat Film Roll 16in x 4500ft", name_es: "Victoria Bay Cling Meat Film Roll 16in x 4500ft", desc_en: "Pvc Clear | Package Form:  = 1", desc_es: "Pvc Clear | Package Form:  = 1" , sdc_sku: "SDC-SB-023" },
-          { img: "img/steak_024.jpg", name_en: "Victoria Bay Cling Meat Film Roll 18in x 2000ft", name_es: "Victoria Bay Cling Meat Film Roll 18in x 2000ft", desc_en: "Pvc Clear | Package Form: 1/Roll", desc_es: "Pvc Clear | Package Form: 1/Roll" , sdc_sku: "SDC-SB-024" },
-          { img: "img/steak_025.jpg", name_en: "Victoria Bay Cling Meat Film Roll 24in x 2000ft", name_es: "Victoria Bay Cling Meat Film Roll 24in x 2000ft", desc_en: "Pvc Clear | Package Form: 1/Roll", desc_es: "Pvc Clear | Package Form: 1/Roll" , sdc_sku: "SDC-SB-025" },
-          { img: "img/steak_026.png", name_en: "Clear Plastic Food Bin One Comp", name_es: "Clear Plastic Food Bin One Comp", desc_en: "27\"x6.5\"x7", desc_es: "27in x 6.5in x 7" , sdc_sku: "SDC-SB-026" },
-          { img: "img/steak_027.png", name_en: "Clear Plastic Food Bin One Comp", name_es: "Clear Plastic Food Bin One Comp", desc_en: "27\"x8.5\"x7", desc_es: "27in x 8.5in x 7" , sdc_sku: "SDC-SB-027" },
-          { img: "img/steak_028.png", name_en: "Victorino Boning Curved Stiff Granton", name_es: "Victorino Boning Curved Stiff Granton", desc_en: "6\"", desc_es: "6in" , sdc_sku: "SDC-SB-028" },
-          { img: "img/steak_029.png", name_en: "Victorino Cimeter Granton Edge Knife", name_es: "Victorino Cimeter Granton Edge Knife", desc_en: "12\"", desc_es: "12in" , sdc_sku: "SDC-SB-029" },
-          { img: "img/steak_030.png", name_en: "Giesser Ham Slicer", name_es: "Giesser Ham Slicer", desc_en: "14\" Long Scallop Knife", desc_es: "14in Long Scallop Knife" , sdc_sku: "SDC-SB-030" },
-          { img: "img/steak_031.png", name_en: "Giesser Ham Knife", name_es: "Giesser Ham Knife", desc_en: "18\"", desc_es: "18in" , sdc_sku: "SDC-SB-031" }
-        ]
-      },
-      {
-        id: "cat-packaging", code: "PS", iconClass: "cat-icon--teal",
-        name_en: "Packaging Supplies", name_es: "Empaques",
-        desc_en: "Dry wax paper, foil sheets, foil rolls, and insulated sandwich wraps",
-        desc_es: "Papel encerado, láminas de aluminio, rollos de papel aluminio y envoltura para sándwich",
-        tags_en: ["Foil", "Wax Paper", "Wrap"],
-        tags_es: ["Aluminio", "Papel Encerado", "Envoltura"],
-        products: [
-          { img: "img/packaging_001.jpg", name_en: "Victoria Bay Sheet 10.75 x 12", name_es: "Victoria Bay Sheet 10.75 x 12", desc_en: "Dry Wax Paper White Interfold | Package Form: 12/500", desc_es: "Dry Wax Paper White Interfold | Package Form: 12/500" , sdc_sku: "SDC-PS-001" },
-          { img: "img/packaging_002.jpg", name_en: "Victoria Bay Sandwich Wrap Foil Sheets", name_es: "Victoria Bay Sandwich Wrap Foil Sheets", desc_en: "14 x 16 In Insulated | Package Form: 1,000/Case", desc_es: "14 x 16 In Insulated | Package Form: 1,000/Case" , sdc_sku: "SDC-PS-002" },
-          { img: "img/packaging_003.jpg", name_en: "Victoria Bay  Aluminum Foil Sheets", name_es: "Victoria Bay  Aluminum Foil Sheets", desc_en: "9 x 10.75 | Package Form: 6 of 500/Case", desc_es: "9 x 10.75 | Package Form: 6 of 500/Case" , sdc_sku: "SDC-PS-003" },
-          { img: "img/packaging_004.jpg", name_en: "Victoria Bay  Aluminum Foil Sheets", name_es: "Victoria Bay  Aluminum Foil Sheets", desc_en: "12 x 10.75 | Package Form: 6 of 500/Case", desc_es: "12 x 10.75 | Package Form: 6 of 500/Case" , sdc_sku: "SDC-PS-004" },
-          { img: "img/packaging_005.jpg", name_en: "Victoria Bay Food Foil Roll 12in x 1000ft", name_es: "Victoria Bay Food Foil Roll 12in x 1000ft", desc_en: "Aluminum Heavy Duty | Package Form: 1", desc_es: "Aluminum Heavy Duty | Package Form: 1" , sdc_sku: "SDC-PS-005" },
-          { img: "img/packaging_006.jpg", name_en: "Victoria Bay Food Foil Roll 18in x 1000ft", name_es: "Victoria Bay Food Foil Roll 18in x 1000ft", desc_en: "Aluminum Heavy Duty | Package Form: 1", desc_es: "Aluminum Heavy Duty | Package Form: 1" , sdc_sku: "SDC-PS-006" },
-          { img: "img/packaging_007.jpg", name_en: "Food Foil Roll 18in x 500ft", name_es: "Food Foil Roll 18in x 500ft", desc_en: "Aluminum Heavy Duty | Package Form: 1", desc_es: "Aluminum Heavy Duty | Package Form: 1" , sdc_sku: "SDC-PS-007" },
-          { img: "img/packaging_008.jpg", name_en: "Bagcraft  Sheet IN Dry Wax Paper Red Check", name_es: "Bagcraft  Sheet IN Dry Wax Paper Red Check", desc_en: "12 x 12 | Package Form: 1/2000", desc_es: "12 x 12 | Package Form: 1/2000" , sdc_sku: "SDC-PS-008" },
-          { img: "img/packaging_009.jpg", name_en: "Pick 5 for 19.99 Value Pack Label", name_es: "Pick 5 for 19.99 Value Pack Label", desc_en: "1.5 x 2 Orange Rectangular | Package Form: 1/500", desc_es: "1.5 x 2 Orange Rectangular | Package Form: 1/500" , sdc_sku: "SDC-PS-009" },
-          { img: "img/packaging_010.jpg", name_en: "Pick 5 for 19.99 Value Pack Label", name_es: "Pick 5 for 19.99 Value Pack Label", desc_en: "1.5 x 2 Green Rectangular | Package Form: 1/500", desc_es: "1.5 x 2 Green Rectangular | Package Form: 1/500" , sdc_sku: "SDC-PS-010" },
-          { img: "img/packaging_011.jpg", name_en: "Square Labels", name_es: "Square Labels", desc_en: "Monday to Sunday 1 x 1 Permanent | Package Form: 1/1,000", desc_es: "Monday to Sunday 1 x 1 Permanent | Package Form: 1/1,000" , sdc_sku: "SDC-PS-011" },
-          { img: "img/packaging_012.jpg", name_en: "Printing Scale Labels", name_es: "Printing Scale Labels", desc_en: "50 x 60 mm, UPC Safe | Package Form: 12 Rolls", desc_es: "50 x 60 mm, UPC Safe | Package Form: 12 Rolls" , sdc_sku: "SDC-PS-012" },
-          { img: "img/packaging_013.jpg", name_en: "Rectangular Labels", name_es: "Rectangular Labels", desc_en: "with Custom Logo 2.875 x 5.71 | Package Form: 15,000", desc_es: "with Custom Logo 2.875 x 5.71 | Package Form: 15,000" , sdc_sku: "SDC-PS-013" },
-          { img: "img/packaging_014.jpg", name_en: "Round  Labels", name_es: "Round  Labels", desc_en: "with Custom Logo 3.75 x 3.75 | Package Form: 15,000", desc_es: "with Custom Logo 3.75 x 3.75 | Package Form: 15,000" , sdc_sku: "SDC-PS-014" },
-          { img: "img/packaging_015.jpg", name_en: "Oval Labels", name_es: "Oval Labels", desc_en: "with Custom Logo 5.5 x 3.25 | Package Form: 15,000", desc_es: "with Custom Logo 5.5 x 3.25 | Package Form: 15,000" , sdc_sku: "SDC-PS-015" },
-          { img: "img/packaging_016.jpg", name_en: "Labels for scales (generic)", name_es: "Labels for scales (generic)", desc_en: "2.28W x 2.36L | Package Form: 5,000", desc_es: "2.28W x 2.36L | Package Form: 5,000" , sdc_sku: "SDC-PS-016" }
-        ]
-      },
-      {
-        id: "cat-paper", code: "PT", iconClass: "cat-icon--gold",
-        name_en: "Paper Trays & Pans", name_es: "Bandejas y Moldes de Papel",
-        desc_en: "Aluminum foil steam pans, trays, and baking molds",
-        desc_es: "Charolas y moldes de aluminio para vapor y horneado",
-        tags_en: ["Aluminum", "Steam", "Baking"],
-        tags_es: ["Aluminio", "Vapor", "Horneado"],
-        products: [
-          { img: "img/paper_001.jpg", name_en: "Victoria Bay Food Trays 5 LB Paper Red", name_es: "Victoria Bay Food Trays 5 LB Paper Red", desc_en: "Package Form: 1/500 case", desc_es: "Package Form: 1/500 case" , sdc_sku: "SDC-PT-001" },
-          { img: "img/paper_002.jpg", name_en: "Aluminum Heavy Steam Table 1/2 Size", name_es: "Aluminum Heavy Steam Table 1/2 Size", desc_en: "Deep container | Package Form: 1/100 Case", desc_es: "Deep container | Package Form: 1/100 Case" , sdc_sku: "SDC-PT-002" },
-          { img: "img/paper_003.jpg", name_en: "Aluminum Steam Table", name_es: "Aluminum Steam Table", desc_en: "Full Size Medium container | Package Form: 1/50 Case", desc_es: "Full Size Medium container | Package Form: 1/50 Case" , sdc_sku: "SDC-PT-003" }
-        ]
-      },
-      {
-        id: "cat-cups", code: "CL", iconClass: "cat-icon--blue",
-        name_en: "Cups, Lids & Straws", name_es: "Vasos, Tapas y Popotes",
-        desc_en: "Hot and cold cups, dome and flat lids, straws, and stirrers",
-        desc_es: "Vasos para bebidas calientes y frías, tapas, popotes y agitadores",
-        tags_en: ["Hot", "Cold", "Lids", "Straws"],
-        tags_es: ["Caliente", "Frío", "Tapas", "Popotes"],
-        products: [
-          { img: "img/cups_001.jpg", name_en: "PCB 1.5 oz. Clear Portion Cup", name_es: "PCB 1.5 oz. Clear Portion Cup", desc_en: "Package Form: 10/250 Case", desc_es: "Package Form: 10/250 Case" , sdc_sku: "SDC-CL-001" },
-          { img: "img/cups_002.jpg", name_en: "Victoria Bay Clear Portion Cup 2 oz", name_es: "Victoria Bay Clear Portion Cup 2 oz", desc_en: "Freezer & Micro Safe | Package Form: 10/250 Case", desc_es: "Freezer & Micro Safe | Package Form: 10/250 Case" , sdc_sku: "SDC-CL-002" },
-          { img: "img/cups_003.jpg", name_en: "Victoria Bay Lid Flat Pet Clear For 1.5-2 oz", name_es: "Victoria Bay Lid Flat Pet Clear For 1.5-2 oz", desc_en: "Portion Cup | Package Form: 10/250 Case", desc_es: "Portion Cup | Package Form: 10/250 Case" , sdc_sku: "SDC-CL-003" },
-          { img: "img/cups_004.jpg", name_en: "Victoria Bay Clear Portion Cup 4 oz", name_es: "Victoria Bay Clear Portion Cup 4 oz", desc_en: "Freezer & Micro Safe | Package Form: 10/250 Case", desc_es: "Freezer & Micro Safe | Package Form: 10/250 Case" , sdc_sku: "SDC-CL-004" },
-          { img: "img/cups_005.jpg", name_en: "Victoria Bay Lid Flat Pet Clear", name_es: "Victoria Bay Lid Flat Pet Clear", desc_en: "For 3.25 to 5.5 oz Portion Cup | Package Form: 10/250 Case", desc_es: "For 3.25 to 5.5 oz Portion Cup | Package Form: 10/250 Case" , sdc_sku: "SDC-CL-005" },
-          { img: "img/cups_006.jpg", name_en: "PCB 2 oz. Black Portion Cup", name_es: "PCB 2 oz. Black Portion Cup", desc_en: "Package Form: 10/250 Case", desc_es: "Package Form: 10/250 Case" , sdc_sku: "SDC-CL-006" },
-          { img: "img/cups_007.jpg", name_en: "PCB  3.5 oz. Black Portion Cup", name_es: "PCB  3.5 oz. Black Portion Cup", desc_en: "Package Form: 20/125 Case", desc_es: "Package Form: 20/125 Case" , sdc_sku: "SDC-CL-007" },
-          { img: "img/cups_008.jpg", name_en: "Victoria Bay PCB  4 oz. Black Portion Cup", name_es: "Victoria Bay PCB  4 oz. Black Portion Cup", desc_en: "Package Form: 20/125 Case", desc_es: "Package Form: 20/125 Case" , sdc_sku: "SDC-CL-008" },
-          { img: "img/cups_009.jpg", name_en: "PCL  3.5oz, 4oz,5oz. Clear", name_es: "PCL  3.5oz, 4oz,5oz. Clear", desc_en: "Portion Cup Lids | Package Form: 20/125 Case", desc_es: "Portion Cup Lids | Package Form: 20/125 Case" , sdc_sku: "SDC-CL-009" },
-          { img: "img/cups_010.jpg", name_en: "Dart J Cup Insulated", name_es: "Dart J Cup Insulated", desc_en: "8 oz White Foam | Package Form: 1/1000", desc_es: "8 oz White Foam | Package Form: 1/1000" , sdc_sku: "SDC-CL-010" },
-          { img: "img/cups_011.jpg", name_en: "Dart J Cup Insulated", name_es: "Dart J Cup Insulated", desc_en: "10 oz  White Foam | Package Form: 1/1000", desc_es: "10 oz  White Foam | Package Form: 1/1000" , sdc_sku: "SDC-CL-011" },
-          { img: "img/cups_012.jpg", name_en: "Dart J Cup Insulated", name_es: "Dart J Cup Insulated", desc_en: "12 oz  White Foam | Package Form: 1/1000", desc_es: "12 oz  White Foam | Package Form: 1/1000" , sdc_sku: "SDC-CL-012" },
-          { img: "img/cups_013.jpg", name_en: "Dart J Cup Insulated", name_es: "Dart J Cup Insulated", desc_en: "14 oz White Foam | Package Form: 1/1000", desc_es: "14 oz White Foam | Package Form: 1/1000" , sdc_sku: "SDC-CL-013" },
-          { img: "img/cups_014.jpg", name_en: "Dart J Cup Insulated", name_es: "Dart J Cup Insulated", desc_en: "16 oz White Foam | Package Form: 1/1000", desc_es: "16 oz White Foam | Package Form: 1/1000" , sdc_sku: "SDC-CL-014" },
-          { img: "img/cups_015.jpg", name_en: "Dart J Cup Insulated", name_es: "Dart J Cup Insulated", desc_en: "20 oz White Foam | Package Form: 1/500", desc_es: "20 oz White Foam | Package Form: 1/500" , sdc_sku: "SDC-CL-015" },
-          { img: "img/cups_016.jpg", name_en: "Dart J  Cup Insulated", name_es: "Dart J  Cup Insulated", desc_en: "24 oz White Foam | Package Form: 1/500", desc_es: "24 oz White Foam | Package Form: 1/500" , sdc_sku: "SDC-CL-016" },
-          { img: "img/cups_017.jpg", name_en: "Dart J Cup Insulated", name_es: "Dart J Cup Insulated", desc_en: "32 oz White Foam | Package Form: 1/500", desc_es: "32 oz White Foam | Package Form: 1/500" , sdc_sku: "SDC-CL-017" },
-          { img: "img/cups_018.jpg", name_en: "Dart Lid Flat 3.3x0.3 Translucent", name_es: "Dart Lid Flat 3.3x0.3 Translucent", desc_en: "For 8 oz Cold Cup W/Hole | Package Form: 1/1000", desc_es: "For 8 oz Cold Cup W/Hole | Package Form: 1/1000" , sdc_sku: "SDC-CL-018" },
-          { img: "img/cups_019.jpg", name_en: "Dart Lid Flat 4.53x0.28 Translucent", name_es: "Dart Lid Flat 4.53x0.28 Translucent", desc_en: "For 12-24 oz Cold W/Hole | Package Form: 1/1000", desc_es: "For 12-24 oz Cold W/Hole | Package Form: 1/1000" , sdc_sku: "SDC-CL-019" },
-          { img: "img/cups_020.jpg", name_en: "Dart Lid Flat 4.8x0.3 for 32 oz.", name_es: "Dart Lid Flat 4.8x0.3 for 32 oz.", desc_en: "Foam Cold Cups W/Hole | Package Form: 1/1000", desc_es: "Foam Cold Cups W/Hole | Package Form: 1/1000" , sdc_sku: "SDC-CL-020" },
-          { img: "img/cups_021.jpg", name_en: "Victoria Bay 98 Mm Series", name_es: "Victoria Bay 98 Mm Series", desc_en: "Cold Cup 10 oz - Pet Clear | Package Form: 1/1000", desc_es: "Cold Cup 10 oz - Pet Clear | Package Form: 1/1000" , sdc_sku: "SDC-CL-021" },
-          { img: "img/cups_022.jpg", name_en: "Victoria Bay 98 Mm Series", name_es: "Victoria Bay 98 Mm Series", desc_en: "Cold Cup 16 oz Pet Clear | Package Form: 1/1000", desc_es: "Cold Cup 16 oz Pet Clear | Package Form: 1/1000" , sdc_sku: "SDC-CL-022" },
-          { img: "img/cups_023.jpg", name_en: "Victoria Bay 98 Mm Series", name_es: "Victoria Bay 98 Mm Series", desc_en: "Cold Cup 20 oz Clear | Package Form: 1/1000", desc_es: "Cold Cup 20 oz Clear | Package Form: 1/1000" , sdc_sku: "SDC-CL-023" },
-          { img: "img/cups_024.jpg", name_en: "Victoria Bay 98 Mm Series", name_es: "Victoria Bay 98 Mm Series", desc_en: "Cold Cup 24 oz Pet Clear | Package Form: 1/600", desc_es: "Cold Cup 24 oz Pet Clear | Package Form: 1/600" , sdc_sku: "SDC-CL-024" },
-          { img: "img/cups_025.jpg", name_en: "Victoria Bay 98 Mm Series", name_es: "Victoria Bay 98 Mm Series", desc_en: "Cold Cup 32 oz Pet Clear | Package Form: 1/300", desc_es: "Cold Cup 32 oz Pet Clear | Package Form: 1/300" , sdc_sku: "SDC-CL-025" },
-          { img: "img/cups_026.jpg", name_en: "Lid Flat In Pet Clear For 9-10 oz", name_es: "Lid Flat In Pet Clear For 9-10 oz", desc_en: "Cold Cup With Hole | Package Form: 1/1000", desc_es: "Cold Cup With Hole | Package Form: 1/1000" , sdc_sku: "SDC-CL-026" },
-          { img: "img/cups_027.jpg", name_en: "Dart Lid Flat 3.984x0.355 Clear", name_es: "Dart Lid Flat 3.984x0.355 Clear", desc_en: "For 16-20-24 oz W/Hole | Package Form: 1/1000", desc_es: "For 16-20-24 oz W/Hole | Package Form: 1/1000" , sdc_sku: "SDC-CL-027" },
-          { img: "img/cups_028.jpg", name_en: "Victoria Bay Lid Dome Clear", name_es: "Victoria Bay Lid Dome Clear", desc_en: "For 16 oz Cup W/Hole | Package Form: 1/1000", desc_es: "For 16 oz Cup W/Hole | Package Form: 1/1000" , sdc_sku: "SDC-CL-028" },
-          { img: "img/cups_029.jpg", name_en: "Lid Flat Plastic For 32oz - Cup With Hole", name_es: "Lid Flat Plastic For 32oz - Cup With Hole", desc_en: "Package Form: 1/500", desc_es: "Package Form: 1/500" , sdc_sku: "SDC-CL-029" },
-          { img: "img/cups_030.jpg", name_en: "ACR Giant Straw", name_es: "ACR Giant Straw", desc_en: "10.25 In Clear Paper Wrapped | Package Form: 4/500", desc_es: "10.25 In Clear Paper Wrapped | Package Form: 4/500" , sdc_sku: "SDC-CL-030" },
-          { img: "img/cups_031.jpg", name_en: "Victoria Bay Jumbo Straw", name_es: "Victoria Bay Jumbo Straw", desc_en: "10.25 In Pp Clear Paper Wrapped | Package Form: 4/500", desc_es: "10.25 In Pp Clear Paper Wrapped | Package Form: 4/500" , sdc_sku: "SDC-CL-031" },
-          { img: "img/cups_032.jpg", name_en: "Cup Carrier 4 Compartment Paper Brown", name_es: "Cup Carrier 4 Compartment Paper Brown", desc_en: "For 4 oz to 32 oz W/Handle | Package Form: 1/250", desc_es: "For 4 oz to 32 oz W/Handle | Package Form: 1/250" , sdc_sku: "SDC-CL-032" },
-          { img: "img/cups_033.jpg", name_en: "Victoria Bay Cup Carrier &Tray", name_es: "Victoria Bay Cup Carrier &Tray", desc_en: "4 Compartment Molded Fiber natural | Package Form: 1/300", desc_es: "4 Compartment Molded Fiber natural | Package Form: 1/300" , sdc_sku: "SDC-CL-033" }
-        ]
-      },
-      {
-        id: "cat-tableware", code: "TW", iconClass: "cat-icon--orange",
-        name_en: "Tableware & Cutlery", name_es: "Vajilla y Cubiertos",
-        desc_en: "Plastic cutlery, napkins, paper towels, and dispensers",
-        desc_es: "Cubiertos plásticos, servilletas, toallas de papel y dispensadores",
-        tags_en: ["Cutlery", "Napkins", "Paper Towel"],
-        tags_es: ["Cubiertos", "Servilletas", "Toallas"],
-        products: [
-          { img: "img/tableware_001.jpg", name_en: "Victoria Bay Plastic Soup Spoons PP Black Heavy Duty", name_es: "Victoria Bay Plastic Soup Spoons PP Black Heavy Duty", desc_en: "Package Form: 1/1000 Case", desc_es: "Package Form: 1/1000 Case" , sdc_sku: "SDC-TW-001" },
-          { img: "img/tableware_002.jpg", name_en: "Victoria Bay Fork Pp - White Heavy Duty", name_es: "Victoria Bay Fork Pp - White Heavy Duty", desc_en: "Package Form: 1/1000 Case", desc_es: "Package Form: 1/1000 Case" , sdc_sku: "SDC-TW-002" },
-          { img: "img/tableware_003.jpg", name_en: "Victoria Bay Knife Pp - White Heavy Duty", name_es: "Victoria Bay Knife Pp - White Heavy Duty", desc_en: "Package Form: 1/1000 Case", desc_es: "Package Form: 1/1000 Case" , sdc_sku: "SDC-TW-003" },
-          { img: "img/tableware_004.jpg", name_en: "Victoria Bay Spoon Pp - White  Heavy Duty", name_es: "Victoria Bay Spoon Pp - White  Heavy Duty", desc_en: "Package Form: 1/1000 Case", desc_es: "Package Form: 1/1000 Case" , sdc_sku: "SDC-TW-004" },
-          { img: "img/tableware_005.jpg", name_en: "Victoria Bay 5PC Cutlery Kit:Napkin,Fork,Knife,", name_es: "Victoria Bay 5PC Cutlery Kit:Napkin,Fork,Knife,", desc_en: "Salt & Pepper - Black Heavy Duty | Package Form: 1/250 Case", desc_es: "Salt & Pepper - Black Heavy Duty | Package Form: 1/250 Case" , sdc_sku: "SDC-TW-005" },
-          { img: "img/tableware_006.jpg", name_en: "Victoria Bay 6PC Cutlery Kit: Napkin,Fork,", name_es: "Victoria Bay 6PC Cutlery Kit: Napkin,Fork,", desc_en: "Spoon, Knife, Salt & Pepper - Black Heavy Duty | Package Form: 1/250 Case", desc_es: "Spoon, Knife, Salt & Pepper - Black Heavy Duty | Package Form: 1/250 Case" , sdc_sku: "SDC-TW-006" },
-          { img: "img/tableware_005.jpg", name_en: "Victoria Bay 6PC Cutlery Kit - White Heavy Duty  Weight", name_es: "Victoria Bay 6PC Cutlery Kit - White Heavy Duty  Weight", desc_en: "Package Form: 1/250 Case", desc_es: "Package Form: 1/250 Case" , sdc_sku: "SDC-TW-007" },
-          { img: "img/tableware_008.jpg", name_en: "Victoria Bay 6PC Cutlery Kit - White Med. Weight", name_es: "Victoria Bay 6PC Cutlery Kit - White Med. Weight", desc_en: "Package Form: 1/250 Case", desc_es: "Package Form: 1/250 Case" , sdc_sku: "SDC-TW-008" },
-          { img: "img/tableware_009.jpg", name_en: "6PC Cutlery Kit PS Napkin,Fork,Knife,Salt & Pepper,Spoon - Black Extra Heavy Duty", name_es: "6PC Cutlery Kit PS Napkin,Fork,Knife,Salt & Pepper,Spoon - Black Extra Heavy Duty", desc_en: "Package Form: 1/250 Case", desc_es: "Package Form: 1/250 Case" , sdc_sku: "SDC-TW-009" },
-          { img: "img/tableware_010.jpg", name_en: "Victoria Bay Dinner Napkin", name_es: "Victoria Bay Dinner Napkin", desc_en: "15X17 2PLY 1/8 Fold | Package Form: 1/3000 Case", desc_es: "15X17 2PLY 1/8 Fold | Package Form: 1/3000 Case" , sdc_sku: "SDC-TW-010" },
-          { img: "img/tableware_011.jpg", name_en: "Victoria Bay Beverage  Napkin White 1 Ply", name_es: "Victoria Bay Beverage  Napkin White 1 Ply", desc_en: "Package Form: 1/4000 Case", desc_es: "Package Form: 1/4000 Case" , sdc_sku: "SDC-TW-011" },
-          { img: "img/tableware_012.jpg", name_en: "Victoria Bay Dispenser  Napkin 6.5 x 8 In Kraft 2 Ply Interfold", name_es: "Victoria Bay Dispenser  Napkin 6.5 x 8 In Kraft 2 Ply Interfold", desc_en: "Package Form: 12/500 Case", desc_es: "Package Form: 12/500 Case" , sdc_sku: "SDC-TW-012" },
-          { img: "img/tableware_013.jpg", name_en: "Victoria Bay Dispenser  Napkin 6.5 x 8 In White 2 Ply Interfold", name_es: "Victoria Bay Dispenser  Napkin 6.5 x 8 In White 2 Ply Interfold", desc_en: "Package Form: 12/500 Case", desc_es: "Package Form: 12/500 Case" , sdc_sku: "SDC-TW-013" },
-          { img: "img/tableware_014.jpg", name_en: "Roll Paper Towel", name_es: "Roll Paper Towel", desc_en: "White H | Package Form: 1/12 Case", desc_es: "White H | Package Form: 1/12 Case" , sdc_sku: "SDC-TW-014" },
-          { img: "img/tableware_015.jpg", name_en: "Roll Paper Towel", name_es: "Roll Paper Towel", desc_en: "White Standard | Package Form: 1/6 Case", desc_es: "White Standard | Package Form: 1/6 Case" , sdc_sku: "SDC-TW-015" },
-          { img: "img/tableware_016.jpg", name_en: "Victoria Bay Folded Paper Towel 9.5 x 9 In 1 ply Paper Kraft Multifold Embrossed", name_es: "Victoria Bay Folded Paper Towel 9.5 x 9 In 1 ply Paper Kraft Multifold Embrossed", desc_en: "Package Form: 16/250 Case", desc_es: "Package Form: 16/250 Case" , sdc_sku: "SDC-TW-016" },
-          { img: "img/tableware_017.jpg", name_en: "Victoria Bay Folded Paper Towel 9.5 x 9 In 1 ply Paper White Multifold Embrossed", name_es: "Victoria Bay Folded Paper Towel 9.5 x 9 In 1 ply Paper White Multifold Embrossed", desc_en: "Package Form: 16/250 Case", desc_es: "Package Form: 16/250 Case" , sdc_sku: "SDC-TW-017" },
-          { img: "img/tableware_018.jpg", name_en: "Trandem Napkin Dispenser Gray Plastic Interfold Tabletop", name_es: "Trandem Napkin Dispenser Gray Plastic Interfold Tabletop", desc_en: "Package Form: 1 Case", desc_es: "Package Form: 1 Case" , sdc_sku: "SDC-TW-018" },
-          { img: "img/tableware_019.jpg", name_en: "Victoria Bay Paper Towel Dispenser Mechanical", name_es: "Victoria Bay Paper Towel Dispenser Mechanical", desc_en: "Package Form: 1 Case", desc_es: "Package Form: 1 Case" , sdc_sku: "SDC-TW-019" },
-          { img: "img/tableware_020.jpg", name_en: "Victoria Bay Paper Towel Dispenser Touchless", name_es: "Victoria Bay Paper Towel Dispenser Touchless", desc_en: "Package Form: 1 Case", desc_es: "Package Form: 1 Case" , sdc_sku: "SDC-TW-020" }
-        ]
-      },
-      {
-        id: "cat-food", code: "FC", iconClass: "cat-icon--purple",
-        name_en: "Food Containers", name_es: "Contenedores de Alimentos",
-        desc_en: "Deli containers, portion cups, and food storage lids",
-        desc_es: "Envases para deli, tazas de porción y tapas para almacenamiento",
-        tags_en: ["Deli", "Portion", "Storage"],
-        tags_es: ["Deli", "Porción", "Almacenamiento"],
-        products: [
-          { img: "img/food_001.jpg", name_en: "Dart J Cup 4 oz", name_es: "Dart J Cup 4 oz", desc_en: "Food Container White Foam | Package Form: 1/1000", desc_es: "Food Container White Foam | Package Form: 1/1000" , sdc_sku: "SDC-FC-001" },
-          { img: "img/food_002.jpg", name_en: "Dart J Cup Hot/Cold", name_es: "Dart J Cup Hot/Cold", desc_en: "Inst Bowls 8oz | Package Form: 1/1000", desc_es: "Inst Bowls 8oz | Package Form: 1/1000" , sdc_sku: "SDC-FC-002" },
-          { img: "img/food_003.jpg", name_en: "Dart J Cup 8 oz Food Container", name_es: "Dart J Cup 8 oz Food Container", desc_en: "Base White Foam | Package Form: 1/1000", desc_es: "Base White Foam | Package Form: 1/1000" , sdc_sku: "SDC-FC-003" },
-          { img: "img/food_004.jpg", name_en: "Dart J Cup 10 oz Food Container", name_es: "Dart J Cup 10 oz Food Container", desc_en: "Base White Foam | Package Form: 1/1000", desc_es: "Base White Foam | Package Form: 1/1000" , sdc_sku: "SDC-FC-004" },
-          { img: "img/food_005.jpg", name_en: "Dart J Cup 12 oz", name_es: "Dart J Cup 12 oz", desc_en: "Food Container White Foam | Package Form: 1/1000", desc_es: "Food Container White Foam | Package Form: 1/1000" , sdc_sku: "SDC-FC-005" },
-          { img: "img/food_006.jpg", name_en: "Dart J Cup 16 oz", name_es: "Dart J Cup 16 oz", desc_en: "Food Container White Foam | Package Form: 1/500", desc_es: "Food Container White Foam | Package Form: 1/500" , sdc_sku: "SDC-FC-006" },
-          { img: "img/food_007.jpg", name_en: "Dart J Cup 16 oz", name_es: "Dart J Cup 16 oz", desc_en: "Food Container White Foam | Package Form: 1/500", desc_es: "Food Container White Foam | Package Form: 1/500" , sdc_sku: "SDC-FC-007" },
-          { img: "img/food_008.jpg", name_en: "Dart J Cup 24 oz", name_es: "Dart J Cup 24 oz", desc_en: "Food Container White Foam | Package Form: 1/500", desc_es: "Food Container White Foam | Package Form: 1/500" , sdc_sku: "SDC-FC-008" },
-          { img: "img/food_009.jpg", name_en: "Dart J Cup 32 oz", name_es: "Dart J Cup 32 oz", desc_en: "Food Container White Foam | Package Form: 1/500", desc_es: "Food Container White Foam | Package Form: 1/500" , sdc_sku: "SDC-FC-009" },
-          { img: "img/food_010.jpg", name_en: "Container Base & Lid Combo 32oz", name_es: "Container Base & Lid Combo 32oz", desc_en: "Double Wall Poly Coated Paper | Package Form: 1/250", desc_es: "Double Wall Poly Coated Paper | Package Form: 1/250" , sdc_sku: "SDC-FC-010" },
-          { img: "img/food_011.jpg", name_en: "Dart Lid Flat", name_es: "Dart Lid Flat", desc_en: "For 4 to 6 oz Cup  No Hole | Package Form: 1/1000", desc_es: "For 4 to 6 oz Cup  No Hole | Package Form: 1/1000" , sdc_sku: "SDC-FC-011" },
-          { img: "img/food_012.jpg", name_en: "Dart Lid Flat Vented Lids", name_es: "Dart Lid Flat Vented Lids", desc_en: "for 8,12 and 16 oz | Package Form: 1/1000", desc_es: "for 8,12 and 16 oz | Package Form: 1/1000" , sdc_sku: "SDC-FC-012" },
-          { img: "img/food_013.jpg", name_en: "Dart Lid Flat for 24-32oz", name_es: "Dart Lid Flat for 24-32oz", desc_en: "No Hole vented | Package Form: 1/500", desc_es: "No Hole vented | Package Form: 1/500" , sdc_sku: "SDC-FC-013" },
-          { img: "img/food_014.jpg", name_en: "Deli Container Base & Lid Combo", name_es: "Deli Container Base & Lid Combo", desc_en: "8 oz Clear Heavy Duty | Package Form: 1/240", desc_es: "8 oz Clear Heavy Duty | Package Form: 1/240" , sdc_sku: "SDC-FC-014" },
-          { img: "img/food_015.jpg", name_en: "Deli Container Base & Lid Combo", name_es: "Deli Container Base & Lid Combo", desc_en: "16oz  Heavy Duty | Package Form: 1/240", desc_es: "16oz  Heavy Duty | Package Form: 1/240" , sdc_sku: "SDC-FC-015" },
-          { img: "img/food_016.jpg", name_en: "Deli Container Base & Lid Combo", name_es: "Deli Container Base & Lid Combo", desc_en: "32oz Heavy Duty | Package Form: 1/240", desc_es: "32oz Heavy Duty | Package Form: 1/240" , sdc_sku: "SDC-FC-016" }
-        ]
-      },
-      {
-        id: "cat-bags", code: "BG", iconClass: "cat-icon--olive",
-        name_en: "Bags & Produce", name_es: "Bolsas y Productos Frescos",
-        desc_en: "Poly bags, zip bags, produce rolls, and shopping bags",
-        desc_es: "Bolsas de polietileno, bolsas zip, rollos para frutas y bolsas de compras",
-        tags_en: ["Poly", "Zip", "Produce"],
-        tags_es: ["Polietileno", "Zip", "Frutas"],
-        products: [
-          { img: "img/bags_001.jpg", name_en: "Clear Food Storage", name_es: "Clear Food Storage", desc_en: "Bags 6 X 3 x 15 | Package Form: 1/1000", desc_es: "Bags 6 X 3 x 15 | Package Form: 1/1000" , sdc_sku: "SDC-BG-001" },
-          { img: "img/bags_002.jpg", name_en: "Clear Food Storage", name_es: "Clear Food Storage", desc_en: "Bags 18 X 24 | Package Form: 1/250", desc_es: "Bags 18 X 24 | Package Form: 1/250" , sdc_sku: "SDC-BG-002" },
-          { img: "img/bags_003.jpg", name_en: "Can Liner Black", name_es: "Can Liner Black", desc_en: "38X58 1.5MIL | Package Form: 1/100", desc_es: "38X58 1.5MIL | Package Form: 1/100" , sdc_sku: "SDC-BG-003" },
-          { img: "img/bags_004.jpg", name_en: "Can liner  Black", name_es: "Can liner  Black", desc_en: "33X40 1.5MIL | Package Form: 1/100", desc_es: "33X40 1.5MIL | Package Form: 1/100" , sdc_sku: "SDC-BG-004" },
-          { img: "img/bags_005.jpg", name_en: "1/6 THANK YOU T-SAK", name_es: "1/6 THANK YOU T-SAK", desc_en: "WHT 11.5X6.5X20 11.5 | Package Form: 1/900", desc_es: "WHT 11.5X6.5X20 11.5 | Package Form: 1/900" , sdc_sku: "SDC-BG-005" },
-          { img: "img/bags_006.jpg", name_en: "T-Shirt Bags 1/8 10x5x18", name_es: "T-Shirt Bags 1/8 10x5x18", desc_en: "White Thank You | Package Form: 1/2000", desc_es: "White Thank You | Package Form: 1/2000" , sdc_sku: "SDC-BG-006" },
-          { img: "img/bags_007.jpg", name_en: "Bag 10x5x18 In 12mic", name_es: "Bag 10x5x18 In 12mic", desc_en: "White T-Sack | Package Form: 1/2000", desc_es: "White T-Sack | Package Form: 1/2000" , sdc_sku: "SDC-BG-007" },
-          { img: "img/bags_008.jpg", name_en: "Pull N Pak, Produce Bag Roll 16x28", name_es: "Pull N Pak, Produce Bag Roll 16x28", desc_en: "In High-Density Hdpe | Package Form: 1/1900", desc_es: "In High-Density Hdpe | Package Form: 1/1900" , sdc_sku: "SDC-BG-008" },
-          { img: "img/bags_009.jpg", name_en: "Pull N Pak, Produce Bag Roll 15x20", name_es: "Pull N Pak, Produce Bag Roll 15x20", desc_en: "In High-Density Hdpe | Package Form: 1/1900", desc_es: "In High-Density Hdpe | Package Form: 1/1900" , sdc_sku: "SDC-BG-009" },
-          { img: "img/bags_010.jpg", name_en: "Produce Bag 12x20 In Plastic", name_es: "Produce Bag 12x20 In Plastic", desc_en: "More Matters 4/Case | Package Form: 1/3000", desc_es: "More Matters 4/Case | Package Form: 1/3000" , sdc_sku: "SDC-BG-010" },
-          { img: "img/bags_011.jpg", name_en: "Produce Bag 15x20 In", name_es: "Produce Bag 15x20 In", desc_en: "Plastic Stock Print 1/3000 Case | Package Form: 1/3000", desc_es: "Plastic Stock Print 1/3000 Case | Package Form: 1/3000" , sdc_sku: "SDC-BG-011" }
-        ]
-      },
-      {
-        id: "cat-bakery", code: "BK", iconClass: "cat-icon--rose",
-        name_en: "Bakery Supplies", name_es: "Artículos de Panadería",
-        desc_en: "Bakery bags, wax sheets, twist ties, and donut boxes",
-        desc_es: "Bolsas para panadería, papel encerado, amarres y cajas para donas",
-        tags_en: ["Bags", "Wax", "Boxes"],
-        tags_es: ["Bolsas", "Encerado", "Cajas"],
-        products: [
-          { img: "img/bakery_001.jpg", name_en: "Cake Container & Lid Combo", name_es: "Cake Container & Lid Combo", desc_en: "With High Dome Lid 7x5.25 | In Pet Clear Black Round Fluted | Package Form: 1/100", desc_es: "With High Dome Lid 7x5.25 | In Pet Clear Black Round Fluted | Package Form: 1/100" , sdc_sku: "SDC-BK-001" },
-          { img: "img/bakery_002.jpg", name_en: "Cake Container & Lid Combo", name_es: "Cake Container & Lid Combo", desc_en: "With High Dome Lid 8x4.375 | In Pet Clear Black Round Fluted | Package Form: 1/100", desc_es: "With High Dome Lid 8x4.375 | In Pet Clear Black Round Fluted | Package Form: 1/100" , sdc_sku: "SDC-BK-002" },
-          { img: "img/bakery_003.jpg", name_en: "Cake Container & Lid Combo", name_es: "Cake Container & Lid Combo", desc_en: "With High Dome Lid 11.25x3.5 | In Pet Clear Black Round Fluted | Package Form: 1/50", desc_es: "With High Dome Lid 11.25x3.5 | In Pet Clear Black Round Fluted | Package Form: 1/50" , sdc_sku: "SDC-BK-003" },
-          { img: "img/bakery_004.jpg", name_en: "Rose Dome Cake Container & Lid Combo", name_es: "Rose Dome Cake Container & Lid Combo", desc_en: "With High Dome Lid 13x5.75 | In Pet Clear Black Round | Package Form: 1/45", desc_es: "With High Dome Lid 13x5.75 | In Pet Clear Black Round | Package Form: 1/45" , sdc_sku: "SDC-BK-004" },
-          { img: "img/bakery_005.jpg", name_en: "Cake Circle 12 In", name_es: "Cake Circle 12 In", desc_en: "Paperboard Gold Scalloped | Package Form: 1/100", desc_es: "Paperboard Gold Scalloped | Package Form: 1/100" , sdc_sku: "SDC-BK-005" },
-          { img: "img/bakery_006.jpg", name_en: "Cake Circle 10in Corrugated", name_es: "Cake Circle 10in Corrugated", desc_en: "Paperboard White Round Grease R | Package Form: 1/100", desc_es: "Paperboard White Round Grease R | Package Form: 1/100" , sdc_sku: "SDC-BK-006" },
-          { img: "img/bakery_007.jpg", name_en: "Cake Board 19x14 Corrugated", name_es: "Cake Board 19x14 Corrugated", desc_en: "Paperboard White Rect D/W | Package Form: 1/50", desc_es: "Paperboard White Rect D/W | Package Form: 1/50" , sdc_sku: "SDC-BK-007" }
-        ]
-      },
-      {
-        id: "cat-cleaning", code: "PC", iconClass: "cat-icon--teal",
-        name_en: "Protection & Cleaning", name_es: "Protección y Limpieza",
-        desc_en: "Gloves, hair nets, aprons, sanitizer, and cleaning supplies",
-        desc_es: "Guantes, redecillas, delantales, sanitizante y artículos de limpieza",
-        tags_en: ["Gloves", "Aprons", "Sanitizer"],
-        tags_es: ["Guantes", "Delantales", "Sanitizante"],
-        products: [
-          { img: "img/cleaning_001.jpg", name_en: "Victoria Bay Toiler Paper & Tissue Roll 3.3 IN 2 Ply White Embrossed Jumbo Jr", name_es: "Victoria Bay Toiler Paper & Tissue Roll 3.3 IN 2 Ply White Embrossed Jumbo Jr", desc_en: "Package Form: 1/12 Roll Case", desc_es: "Package Form: 1/12 Roll Case" , sdc_sku: "SDC-PC-001" },
-          { img: "img/cleaning_002.jpg", name_en: "Victoria Bay Toiler Paper Dispenser 9 x 5.37 In Plastic Black", name_es: "Victoria Bay Toiler Paper Dispenser 9 x 5.37 In Plastic Black", desc_en: "Package Form: 1 Case", desc_es: "Package Form: 1 Case" , sdc_sku: "SDC-PC-002" },
-          { img: "img/cleaning_003.jpg", name_en: "Disposable Gloves M Blue 4mil", name_es: "Disposable Gloves M Blue 4mil", desc_en: "Nitrile Powder-Free | Package Form: 10/100", desc_es: "Nitrile Powder-Free | Package Form: 10/100" , sdc_sku: "SDC-PC-003" },
-          { img: "img/cleaning_004.jpg", name_en: "Disposable Gloves L Blue 4mil", name_es: "Disposable Gloves L Blue 4mil", desc_en: "Nitrile Powder-Free | Package Form: 10/100", desc_es: "Nitrile Powder-Free | Package Form: 10/100" , sdc_sku: "SDC-PC-004" },
-          { img: "img/cleaning_005.jpg", name_en: "Disposable GlovesXL Blue 4mil", name_es: "Disposable GlovesXL Blue 4mil", desc_en: "Nitrile Powder-Free | Package Form: 10/100", desc_es: "Nitrile Powder-Free | Package Form: 10/100" , sdc_sku: "SDC-PC-005" },
-          { img: "img/cleaning_006.jpg", name_en: "Disposable Gloves S Black 3mil", name_es: "Disposable Gloves S Black 3mil", desc_en: "Nitrile Powder-Free | Package Form: 10/100", desc_es: "Nitrile Powder-Free | Package Form: 10/100" , sdc_sku: "SDC-PC-006" },
-          { img: "img/cleaning_007.jpg", name_en: "Disposable Gloves M Black 3mil", name_es: "Disposable Gloves M Black 3mil", desc_en: "Nitrile Powder-Free | Package Form: 10/100", desc_es: "Nitrile Powder-Free | Package Form: 10/100" , sdc_sku: "SDC-PC-007" },
-          { img: "img/cleaning_008.jpg", name_en: "Disposable Gloves L Black 3mil", name_es: "Disposable Gloves L Black 3mil", desc_en: "Nitrile Powder-Free | Package Form: 10/100", desc_es: "Nitrile Powder-Free | Package Form: 10/100" , sdc_sku: "SDC-PC-008" },
-          { img: "img/cleaning_009.jpg", name_en: "Disposable Gloves XL Black 3mil", name_es: "Disposable Gloves XL Black 3mil", desc_en: "Nitrile Powder-Free | Package Form: 10/100", desc_es: "Nitrile Powder-Free | Package Form: 10/100" , sdc_sku: "SDC-PC-009" },
-          { img: "img/cleaning_010.jpg", name_en: "Disposable Gloves S", name_es: "Disposable Gloves S", desc_en: "Latex Powder-Free | Package Form: 10/100", desc_es: "Latex Powder-Free | Package Form: 10/100" , sdc_sku: "SDC-PC-010" },
-          { img: "img/cleaning_011.jpg", name_en: "Disposable Gloves M", name_es: "Disposable Gloves M", desc_en: "Latex Powder-Free | Package Form: 10/100", desc_es: "Latex Powder-Free | Package Form: 10/100" , sdc_sku: "SDC-PC-011" },
-          { img: "img/cleaning_012.jpg", name_en: "Disposable Gloves L", name_es: "Disposable Gloves L", desc_en: "Latex Powder-Free | Package Form: 10/100", desc_es: "Latex Powder-Free | Package Form: 10/100" , sdc_sku: "SDC-PC-012" },
-          { img: "img/cleaning_013.jpg", name_en: "Disposable Gloves XL", name_es: "Disposable Gloves XL", desc_en: "Latex Powder-Free | Package Form: 10/100", desc_es: "Latex Powder-Free | Package Form: 10/100" , sdc_sku: "SDC-PC-013" },
-          { img: "img/cleaning_014.jpg", name_en: "Hairnet 26 in Black", name_es: "Hairnet 26 in Black", desc_en: "Nylon | Package Form: 1/144", desc_es: "Nylon | Package Form: 1/144" , sdc_sku: "SDC-PC-014" },
-          { img: "img/cleaning_015.jpg", name_en: "Victoria Bay Sparkle Green Dish Detergent", name_es: "Victoria Bay Sparkle Green Dish Detergent", desc_en: "Package Form: 5 Gal 1/Pail", desc_es: "Package Form: 5 Gal 1/Pail" , sdc_sku: "SDC-PC-015" },
-          { img: "img/cleaning_016.jpg", name_en: "Victoria Bay Rd", name_es: "Victoria Bay Rd", desc_en: "Oven & Grill Cleaner 1 Gal | Package Form: 4/Case", desc_es: "Oven & Grill Cleaner 1 Gal | Package Form: 4/Case" , sdc_sku: "SDC-PC-016" },
-          { img: "img/cleaning_017.jpg", name_en: "Gator Dusk  Premium Liquid Pot & Pan Detergent", name_es: "Gator Dusk  Premium Liquid Pot & Pan Detergent", desc_en: "Package Form: 4/Case", desc_es: "Package Form: 4/Case" , sdc_sku: "SDC-PC-017" },
-          { img: "img/cleaning_018.jpg", name_en: "Pure Bright Bleach 1 Gal Liquid Germicidal 6%", name_es: "Pure Bright Bleach 1 Gal Liquid Germicidal 6%", desc_en: "Package Form: 6/Case", desc_es: "Package Form: 6/Case" , sdc_sku: "SDC-PC-018" }
-        ]
-      }
-    ];
+<!-- ============================================================
+     CATEGORIES
+     ============================================================ -->
+<section class="section">
+  <div class="section-head">
+    <div>
+      <div class="section-kicker" data-i="cats_kicker">Eight categories · 1,200 SKUs</div>
+      <h2>
+        <span data-i="cats_h2">Everything a</span>
+        <em data-i="cats_em">back-of-house</em>
+        <span data-i="cats_h3">runs through.</span>
+      </h2>
+    </div>
+    <a href="catalog.html" class="link" data-i="cats_link">Browse full catalog →</a>
+  </div>
+  <div class="cat-grid">
+    <a href="catalog.html" class="cat" aria-label="Cups and lids">
+      <div class="cat-img" data-t="cups" aria-hidden="true"></div>
+      <div class="cat-body">
+        <div class="count">— 214 SKUS</div>
+        <h4 data-i="cat_cups">Cups &amp; Lids</h4>
+        <div class="arrow" data-i="cat_shop">Shop →</div>
+      </div>
+    </a>
+    <a href="catalog.html" class="cat" aria-label="Deli containers">
+      <div class="cat-img" data-t="containers" aria-hidden="true"></div>
+      <div class="cat-body">
+        <div class="count">— 186 SKUS</div>
+        <h4 data-i="cat_deli">Deli Containers</h4>
+        <div class="arrow" data-i="cat_shop">Shop →</div>
+      </div>
+    </a>
+    <a href="catalog.html" class="cat" aria-label="Utensils">
+      <div class="cat-img" data-t="utensils" aria-hidden="true"></div>
+      <div class="cat-body">
+        <div class="count">— 92 SKUS</div>
+        <h4 data-i="cat_utensils">Utensils</h4>
+        <div class="arrow" data-i="cat_shop">Shop →</div>
+      </div>
+    </a>
+    <a href="catalog.html" class="cat" aria-label="Bags and sacks">
+      <div class="cat-img" data-t="bags" aria-hidden="true"></div>
+      <div class="cat-body">
+        <div class="count">— 118 SKUS</div>
+        <h4 data-i="cat_bags">Bags &amp; Sacks</h4>
+        <div class="arrow" data-i="cat_shop">Shop →</div>
+      </div>
+    </a>
+    <a href="catalog.html" class="cat" aria-label="Paper goods">
+      <div class="cat-img" data-t="paper" aria-hidden="true"></div>
+      <div class="cat-body">
+        <div class="count">— 147 SKUS</div>
+        <h4 data-i="cat_paper">Paper Goods</h4>
+        <div class="arrow" data-i="cat_shop">Shop →</div>
+      </div>
+    </a>
+    <a href="catalog.html" class="cat" aria-label="Cleaning and chemicals">
+      <div class="cat-img" data-t="clean" aria-hidden="true"></div>
+      <div class="cat-body">
+        <div class="count">— 84 SKUS</div>
+        <h4 data-i="cat_clean">Cleaning &amp; Chem</h4>
+        <div class="arrow" data-i="cat_shop">Shop →</div>
+      </div>
+    </a>
+    <a href="catalog.html" class="cat" aria-label="Gloves and PPE">
+      <div class="cat-img" data-t="gloves" aria-hidden="true"></div>
+      <div class="cat-body">
+        <div class="count">— 38 SKUS</div>
+        <h4 data-i="cat_gloves">Gloves &amp; PPE</h4>
+        <div class="arrow" data-i="cat_shop">Shop →</div>
+      </div>
+    </a>
+    <a href="catalog.html" class="cat" aria-label="Trays and takeout">
+      <div class="cat-img" data-t="trays" aria-hidden="true"></div>
+      <div class="cat-body">
+        <div class="count">— 72 SKUS</div>
+        <h4 data-i="cat_trays">Trays &amp; Takeout</h4>
+        <div class="arrow" data-i="cat_shop">Shop →</div>
+      </div>
+    </a>
+  </div>
+</section>
 
-    // ── Flatten for lightbox indexing ──
-    let flatProducts = [];
-    categories.forEach(cat => {
-      cat.products.forEach(p => {
-        p._flatIdx = flatProducts.length;
-        flatProducts.push({ ...p, catName_en: cat.name_en, catName_es: cat.name_es });
-      });
-    });
+<!-- ============================================================
+     VALUE PROPS
+     ============================================================ -->
+<section class="section">
+  <div class="section-head">
+    <div>
+      <div class="section-kicker" data-i="values_kicker">Why SDC</div>
+      <h2 data-i="values_h2">Three things <em>nobody else</em> does.</h2>
+    </div>
+  </div>
+  <div class="values">
+    <div class="value">
+      <div class="num" data-i="val1_num">01 / Spoken here</div>
+      <h3 data-i="val1_h3">Pedidos en español — WhatsApp, call, text.</h3>
+      <p data-i="val1_p">Half our customers order in Spanish. Jose picks up. No phone trees, no English-only portals, no order slipping through because nobody wrote down "vasos de 16 oz."</p>
+    </div>
+    <div class="value">
+      <div class="num" data-i="val2_num">02 / No pallet minimums</div>
+      <h3 data-i="val2_h3">One case is fine. We'll bring it Wednesday.</h3>
+      <p data-i="val2_p">Most suppliers make you order full pallets. We'll drop a single case of deli lids on your next run if that's what you need. Food trucks love this.</p>
+    </div>
+    <div class="value">
+      <div class="num" data-i="val3_num">03 / We ran a kitchen</div>
+      <h3 data-i="val3_h3">We know what runs out on a Saturday.</h3>
+      <p data-i="val3_p">SDC is the supply arm of Sabores del Campo, a working restaurant. We know the SKUs that matter. We stock them deep. Your 3pm Saturday emergency is our Tuesday reorder.</p>
+    </div>
+  </div>
+</section>
 
-    // ── Language state ──
-    let lang = localStorage.getItem('sdc-lang') || 'en';
-    document.documentElement.lang = lang;
+<!-- ============================================================
+     DELIVERY MAP
+     ============================================================ -->
+<section class="section">
+  <div class="section-head">
+    <div>
+      <div class="section-kicker" data-i="map_kicker">Delivery zones</div>
+      <h2>
+        <span data-i="map_h2a">Do we deliver</span>
+        <em data-i="map_h2b">to you?</em>
+      </h2>
+    </div>
+    <a href="contact.html" class="link" data-i="map_link">Check your ZIP →</a>
+  </div>
+  <div class="map-section">
+    <div class="map-text">
+      <p data-i="map_p">Same-day or next-day delivery across Duval, Nassau, St. Johns, and Clay counties. Twice-weekly standing routes for every zone. No fuel surcharges, no minimums over $150.</p>
+      <ul class="map-zone-list">
+        <li><span data-i="zone_duval">Duval (Jacksonville, Atlantic Beach, Neptune Beach)</span><b data-i="zone_nd">NEXT DAY</b></li>
+        <li><span data-i="zone_stjohns">St. Johns (St. Augustine, Ponte Vedra)</span><b data-i="zone_nd">NEXT DAY</b></li>
+        <li><span data-i="zone_nassau">Nassau (Fernandina Beach, Yulee)</span><b data-i="zone_48">48 HR</b></li>
+        <li><span data-i="zone_clay">Clay (Orange Park, Middleburg)</span><b data-i="zone_48">48 HR</b></li>
+      </ul>
+    </div>
+    <div class="map-box">
+      <svg class="map-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Delivery zone map showing Duval, Nassau, St. Johns, and Clay counties">
+        <defs>
+          <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#d9cfbc" stroke-width=".5"/>
+          </pattern>
+        </defs>
+        <rect width="400" height="300" fill="#efe7d6"/>
+        <rect width="400" height="300" fill="url(#grid)"/>
+        <!-- Atlantic ocean shading -->
+        <rect x="280" y="0" width="120" height="300" fill="#d9cfbc" opacity=".5"/>
+        <text x="330" y="160" font-family="var(--mono)" font-size="10" fill="#7a7368" text-anchor="middle" letter-spacing="2">ATLANTIC</text>
+        <!-- County shapes -->
+        <g opacity=".85">
+          <!-- Nassau -->
+          <path d="M 100 40 Q 170 30 220 50 L 280 60 L 280 100 L 240 110 L 180 95 L 120 90 Z" fill="#c9b88f" stroke="#b84a1f" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <text x="180" y="78" font-family="Georgia,serif" font-size="14" fill="#1a1714">Nassau</text>
+          <!-- Duval -->
+          <path d="M 120 90 L 180 95 L 240 110 L 280 115 L 280 170 L 220 180 L 150 170 L 110 140 Z" fill="#b84a1f" stroke="#7a2c0f" stroke-width="1.5"/>
+          <text x="185" y="145" font-family="Georgia,serif" font-size="16" fill="#fff">Duval</text>
+          <circle cx="230" cy="135" r="4" fill="#fff"/>
+          <text x="240" y="139" font-family="monospace" font-size="9" fill="#fff">Jacksonville</text>
+          <!-- Clay -->
+          <path d="M 60 150 L 150 170 L 160 210 L 130 240 L 70 230 L 40 190 Z" fill="#c9b88f" stroke="#b84a1f" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <text x="95" y="200" font-family="Georgia,serif" font-size="14" fill="#1a1714">Clay</text>
+          <!-- St Johns -->
+          <path d="M 150 180 L 220 180 L 280 180 L 280 250 L 220 270 L 160 250 L 140 220 Z" fill="#e8a574" stroke="#b84a1f" stroke-width="1.5"/>
+          <text x="210" y="225" font-family="Georgia,serif" font-size="14" fill="#1a1714">St. Johns</text>
+        </g>
+        <!-- Warehouse pin -->
+        <g transform="translate(175,140)">
+          <circle r="8" fill="#1a1714"/>
+          <circle r="16" fill="#1a1714" opacity=".2"/>
+          <circle r="24" fill="#1a1714" opacity=".1"/>
+        </g>
+      </svg>
+      <div class="map-legend">
+        <div class="leg"><span class="sw" style="background:#b84a1f"></span>Warehouse</div>
+        <div class="leg"><span class="sw" style="background:#e8a574"></span>Next day</div>
+        <div class="leg"><span class="sw" style="background:#c9b88f"></span>48 hr</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    // ── Category nav rendering ──
-    function renderCatNav() {
-      const nav = document.getElementById('cat-nav');
-      const totalProducts = categories.reduce((sum, c) => sum + c.products.length, 0);
-      const browseLabel = lang === 'en' ? 'Browse Categories' : 'Ver Categor\u00edas';
-      const totalLabel = totalProducts + (lang === 'en' ? ' products' : ' productos');
-      nav.innerHTML =
-        '<div class="container">' +
-          '<button class="cat-mobile-toggle" onclick="document.getElementById(\'cat-nav\').classList.toggle(\'open\')">' +
-            '<span>' + browseLabel + '<span class="cat-mobile-count">\u2014 ' + totalLabel + '</span></span>' +
-            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>' +
-          '</button>' +
-          '<div class="cat-nav-inner">' +
-            categories.map(cat =>
-              `<a href="#${cat.id}" class="cat-pill" data-cat="${cat.id}" onclick="document.getElementById('cat-nav').classList.remove('open')">${lang === 'en' ? cat.name_en : cat.name_es} (${cat.products.length})</a>`
-            ).join('') +
-          '</div>' +
-        '</div>';
-    }
+<!-- ============================================================
+     TESTIMONIALS
+     ============================================================ -->
+<section class="section">
+  <div class="section-head">
+    <div>
+      <div class="section-kicker" data-i="test_kicker">— What customers say</div>
+      <h2>
+        <span data-i="test_h2a">Trusted by</span>
+        <em data-i="test_h2b">78 kitchens</em>
+        <span data-i="test_h2c">across the First Coast.</span>
+      </h2>
+    </div>
+  </div>
+  <div class="testimonials">
+    <div class="quote">
+      <div class="mark" aria-hidden="true">"</div>
+      <p>Jose brought me a single case of 8oz soup cups on a Wednesday morning because I was out. No other supplier I've worked with would do that.</p>
+      <div class="who">
+        <div class="av" aria-hidden="true">M</div>
+        <div class="meta">
+          <b>Maria Delgado</b>
+          <small>Owner · La Cocina de Maria, Jax Beach</small>
+        </div>
+      </div>
+    </div>
+    <div class="quote">
+      <div class="mark" aria-hidden="true">"</div>
+      <p>We switched 4 SKUs to their eco containers and cut our packaging spend ~18%. They handled the transition in one delivery cycle.</p>
+      <div class="who">
+        <div class="av" aria-hidden="true">D</div>
+        <div class="meta">
+          <b>David Chen</b>
+          <small>GM · Riverside Ramen House</small>
+        </div>
+      </div>
+    </div>
+    <div class="quote">
+      <div class="mark" aria-hidden="true">"</div>
+      <p>Pedidos por WhatsApp en español, entregas a tiempo, y precios justos. Para mi food truck, esto es oro.</p>
+      <div class="who">
+        <div class="av" aria-hidden="true">R</div>
+        <div class="meta">
+          <b>Ricardo Vega</b>
+          <small>Dueño · Tacos El Paisa (food truck)</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    // ── Product section rendering ──
-    function renderSections() {
-      const el = document.getElementById('cat-sections');
-      const query = (document.getElementById('product-search').value || '').toLowerCase().trim();
-      const countEl = document.getElementById('search-count');
-      el.innerHTML = '';
-      let totalShown = 0;
+<!-- ============================================================
+     CTA STRIP
+     ============================================================ -->
+<div class="cta-strip">
+  <h2>
+    <span data-i="cta_strip_h2a">Ready to stock</span>
+    <em data-i="cta_strip_h2b">your kitchen?</em>
+  </h2>
+  <div class="side">
+    <a href="contact.html" class="btn" data-i="cta_strip_b1">Request a quote →</a>
+    <a href="tel:+19046559190" class="btn ghost" data-i="cta_strip_b2">Call Jose · (904) 655-9190</a>
+    <a href="https://wa.me/19046559190" target="_blank" rel="noopener" class="btn wa" data-i="cta_strip_b3">WhatsApp Jose</a>
+  </div>
+</div>
 
-      categories.forEach(cat => {
-        const filtered = query
-          ? cat.products.filter(p => {
-              const name = (lang === 'en' ? p.name_en : p.name_es).toLowerCase();
-              const desc = (lang === 'en' ? p.desc_en : p.desc_es).toLowerCase();
-              const sku = (p.sdc_sku || '').toLowerCase();
-              return name.includes(query) || desc.includes(query) || sku.includes(query);
-            })
-          : cat.products;
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="foot">
+  <div class="foot-brand">
+    <div class="foot-logo">SDC <em>Solutions</em></div>
+    <p>Family-run foodservice packaging supplier serving Jacksonville and Northeast Florida since 2018.</p>
+  </div>
+  <div>
+    <h5 data-i="foot_cat_head">Catalog</h5>
+    <ul>
+      <li><a href="catalog.html">Cups &amp; Lids</a></li>
+      <li><a href="catalog.html">Deli Containers</a></li>
+      <li><a href="catalog.html">Utensils</a></li>
+      <li><a href="catalog.html">Paper Goods</a></li>
+      <li><a href="catalog.html">Bags &amp; Sacks</a></li>
+    </ul>
+  </div>
+  <div>
+    <h5 data-i="foot_co_head">Company</h5>
+    <ul>
+      <li><a href="index.html">About SDC</a></li>
+      <li><a href="index.html">Sabores del Campo</a></li>
+      <li><a href="case-studies.html">Case Studies</a></li>
+      <li><a href="index.html">Delivery Zones</a></li>
+      <li><a href="contact.html">En español</a></li>
+    </ul>
+  </div>
+  <div>
+    <h5 data-i="foot_ct_head">Contact</h5>
+    <ul>
+      <li><a href="tel:+19046559190">(904) 655-9190</a></li>
+      <li><a href="https://wa.me/19046559190" target="_blank" rel="noopener">WhatsApp</a></li>
+      <li>1001 Mayport Rd<br>Atlantic Beach, FL 32233</li>
+      <li>Mon–Sat · 7am–6pm</li>
+    </ul>
+  </div>
+</footer>
+<div class="foot-bottom">
+  <span data-i="foot_copyright">© 2026 SDC Solutions · Sabores del Campo LLC</span>
+  <span data-i="foot_locale">Atlantic Beach, FL · since 2018</span>
+</div>
 
-        if (filtered.length === 0) return;
-        totalShown += filtered.length;
-
-        const cards = filtered.map(p =>
-          `<div class="product-card" onclick="openLightbox(${p._flatIdx})">
-            <img src="${p.img}" alt="${lang === 'en' ? p.name_en : p.name_es}" loading="lazy">
-            <div class="product-card-body">
-              <div class="product-card-name">${lang === 'en' ? p.name_en : p.name_es}</div>
-              <div class="product-card-desc">${lang === 'en' ? p.desc_en : p.desc_es}</div>
-              <span class="product-card-sku">${p.sdc_sku}</span>
-              <a href="tel:+19046559190" class="product-card-quote" onclick="event.stopPropagation()">${lang === 'en' ? 'Call for Quote' : 'Cotizar'}</a>
-            </div>
-          </div>`
-        ).join('');
-
-        el.innerHTML += `
-          <section class="cat-section" id="${cat.id}">
-            <div class="container">
-              <h2 class="cat-section-title">${lang === 'en' ? cat.name_en : cat.name_es}</h2>
-              <p class="cat-section-desc">${lang === 'en' ? cat.desc_en : cat.desc_es}</p>
-              <div class="product-grid">${cards}</div>
-            </div>
-          </section>`;
-      });
-
-      if (query) {
-        countEl.textContent = totalShown + (lang === 'en' ? ' products found' : ' productos encontrados');
-        countEl.style.display = '';
-      } else {
-        countEl.style.display = 'none';
-      }
-    }
-
-    // ── Lightbox ──
-    let currentLightboxIdx = 0;
-
-    function openLightbox(idx) {
-      currentLightboxIdx = idx;
-      showLightboxProduct(idx);
-      document.getElementById('lightbox').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function showLightboxProduct(idx) {
-      const p = flatProducts[idx];
-      document.getElementById('lightbox-img').src = p.img;
-      document.getElementById('lightbox-img').alt = lang === 'en' ? p.name_en : p.name_es;
-      document.getElementById('lightbox-name').textContent = lang === 'en' ? p.name_en : p.name_es;
-      document.getElementById('lightbox-desc').textContent =
-        (lang === 'en' ? p.catName_en : p.catName_es) + ' \u2014 ' +
-        (lang === 'en' ? p.desc_en : p.desc_es);
-      document.getElementById('lightbox-sku').textContent = p.sdc_sku || '';
-    }
-
-    function navLightbox(dir) {
-      currentLightboxIdx = (currentLightboxIdx + dir + flatProducts.length) % flatProducts.length;
-      showLightboxProduct(currentLightboxIdx);
-    }
-
-    function closeLightbox(e) {
-      if (e.target.id === 'lightbox' || e.target.closest('.lightbox-close')) {
-        document.getElementById('lightbox').classList.remove('open');
-        document.body.style.overflow = '';
-      }
-    }
-
-    document.addEventListener('keydown', e => {
-      const lb = document.getElementById('lightbox');
-      if (!lb.classList.contains('open')) return;
-      if (e.key === 'Escape') { lb.classList.remove('open'); document.body.style.overflow = ''; }
-      if (e.key === 'ArrowLeft') navLightbox(-1);
-      if (e.key === 'ArrowRight') navLightbox(1);
-    });
-
-    // ── Bilingual translations ──
-    const T = {
-      en: {
-        nav_products: "Products", nav_faq: "FAQ", nav_contact: "Contact", nav_cta: "Call Jose",
-        brand_name: "SDC Solutions", brand_sub: "Sabores del Campo LLC",
-        hero_badge: "Jacksonville & Surrounding Areas",
-        hero_title: 'Your One-Stop <em>Supplier</em> for Foodservice Packaging',
-        hero_subtitle: "Premium quality packaging solutions for restaurants, bakeries, and food service providers. Fast, reliable, and local.",
-        hero_cta_catalog: "View Catalog \u2192", hero_cta_contact: "Contact Us",
-        hero_overlay_title: "Just In Time Delivery", hero_overlay_desc: "Never run out of stock again.",
-        hero_overlay_title2: "Free Delivery", hero_overlay_desc2: "Across Jacksonville & surrounding areas.",
-        contact_title: "Ready to stock your kitchen?",
-        contact_desc: "Call or email to start an account, request a catalog, or set up your Just In Time Delivery Program.",
-        contact_phone: "(904) 655-9190",
-        contact_address: "1001 Mayport Road, P.O. 330107, Atlantic Beach, FL 32233",
-        contact_cta: "Call Jose",
-        contact_whatsapp: "WhatsApp Jose",
-        footer_copy: "\u00a9 2026 Sabores del Campo LLC \u00b7 dba SDC Solutions \u00b7 All rights reserved",
-        search_placeholder: "Search products, SKU, or description...",
-      },
-      es: {
-        nav_products: "Productos", nav_faq: "Preguntas Frecuentes", nav_contact: "Contacto", nav_cta: "Llamar a Jose",
-        brand_name: "SDC Solutions", brand_sub: "Sabores del Campo LLC",
-        hero_badge: "Jacksonville y Alrededores",
-        hero_title: 'Su Proveedor Completo de <em>Empaques</em> para Restaurantes',
-        hero_subtitle: "Soluciones de empaque de alta calidad para restaurantes, panader\u00edas y proveedores de alimentos. R\u00e1pido, confiable y local.",
-        hero_cta_catalog: "Ver Cat\u00e1logo \u2192", hero_cta_contact: "Cont\u00e1ctenos",
-        hero_overlay_title: "Entrega Justo a Tiempo", hero_overlay_desc: "Nunca se quede sin inventario.",
-        hero_overlay_title2: "Entrega Gratis", hero_overlay_desc2: "En Jacksonville y alrededores.",
-        contact_title: "\u00bfListo para surtir su cocina?",
-        contact_desc: "Llame o escriba para abrir una cuenta, solicitar un cat\u00e1logo o configurar su Programa de Entrega Justo a Tiempo.",
-        contact_phone: "(904) 655-9190",
-        contact_address: "1001 Mayport Road, P.O. 330107, Atlantic Beach, FL 32233",
-        contact_cta: "Llamar a Jose",
-        contact_whatsapp: "WhatsApp a Jose",
-        footer_copy: "\u00a9 2026 Sabores del Campo LLC \u00b7 dba SDC Solutions \u00b7 Todos los derechos reservados",
-        search_placeholder: "Buscar productos, SKU o descripci\u00f3n...",
-      }
-    };
-
-    function applyLang() {
-      document.documentElement.lang = lang;
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.dataset.i18n;
-        if (T[lang][key] !== undefined) {
-          if (key === 'hero_title') {
-            el.innerHTML = T[lang][key];
-          } else {
-            el.textContent = T[lang][key];
-          }
-        }
-      });
-      // Update language picker
-      const flags = { en: '\u{1F1FA}\u{1F1F8}', es: '\u{1F1EA}\u{1F1F8}' };
-      const labels = { en: 'EN', es: 'ES' };
-      document.getElementById('lang-flag').textContent = flags[lang];
-      document.getElementById('lang-label').textContent = labels[lang];
-      document.querySelectorAll('.lang-option').forEach(opt => {
-        opt.classList.toggle('active', opt.dataset.lang === lang);
-      });
-      const searchInput = document.getElementById('product-search');
-      searchInput.placeholder = T[lang].search_placeholder;
-      // WhatsApp message by language
-      const waMsg = lang === 'en'
-        ? 'Hi Jose, I\'m interested in SDC Solutions products'
-        : 'Hola Jose, estoy interesado en los productos de SDC Solutions';
-      const waUrl = 'https://wa.me/19046559190?text=' + encodeURIComponent(waMsg);
-      document.getElementById('wa-nav').href = waUrl;
-      document.getElementById('wa-contact').href = waUrl;
-      renderCatNav();
-      renderSections();
-    }
-
-    function setLang(newLang) {
-      lang = newLang;
-      localStorage.setItem('sdc-lang', lang);
-      document.getElementById('lang-picker').classList.remove('open');
-      applyLang();
-    }
-
-    // Close dropdown when clicking outside
-    document.addEventListener('click', e => {
-      const picker = document.getElementById('lang-picker');
-      if (!picker.contains(e.target)) picker.classList.remove('open');
-    });
-
-    // ── Intersection Observer for active category tracking ──
-    function setupCategoryObserver() {
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
-            const pill = document.querySelector(`.cat-pill[data-cat="${entry.target.id}"]`);
-            if (pill) {
-              pill.classList.add('active');
-              pill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-              // Update mobile toggle label
-              const toggle = document.querySelector('.cat-mobile-toggle span');
-              if (toggle) {
-                const cat = categories.find(c => c.id === entry.target.id);
-                if (cat) {
-                  const catName = lang === 'en' ? cat.name_en : cat.name_es;
-                  toggle.innerHTML = catName + ' <span class="cat-mobile-count">\u2014 ' + cat.products.length + (lang === 'en' ? ' products' : ' productos') + '</span>';
-                }
-              }
-            }
-          }
-        });
-      }, { rootMargin: '-20% 0px -70% 0px' });
-
-      categories.forEach(cat => {
-        const section = document.getElementById(cat.id);
-        if (section) observer.observe(section);
-      });
-    }
-
-    // ── Initialize ──
-    applyLang();
-    setupCategoryObserver();
-
-    // ── Back to Top visibility ──
-    const btt = document.getElementById('back-to-top');
-    window.addEventListener('scroll', () => {
-      btt.classList.toggle('visible', window.scrollY > 600);
-    }, { passive: true });
-
-    // ── Product Search ──
-    document.getElementById('product-search').addEventListener('input', () => {
-      renderSections();
-    });
-
-  </script>
-
+<script src="i18n.js" defer></script>
 </body>
 </html>

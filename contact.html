@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title id="page-title" data-page="contact">Contact · SDC Solutions</title>
+  <meta name="description" content="Get a quote from SDC Solutions. Call Jose at (904) 655-9190, WhatsApp, or fill out the form. Bilingual service — Español o inglés. Foodservice packaging for Jacksonville and Northeast Florida.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<nav class="site-nav" aria-label="Site navigation">
+  <a href="index.html" class="site-brand" style="text-decoration:none;color:inherit">
+    <div class="site-logo" aria-hidden="true">s</div>
+    <div class="site-name">
+      <b>SDC Solutions</b>
+      <small>Sabores del Campo · Est. Jacksonville</small>
+    </div>
+  </a>
+  <div class="site-links">
+    <a href="index.html" class="site-link" data-i="nav_home">Home</a>
+    <a href="catalog.html" class="site-link" data-i="nav_catalog">Catalog</a>
+    <a href="case-studies.html" class="site-link" data-i="nav_case">Case Studies</a>
+    <a href="contact.html" class="site-link active" data-i="nav_contact">Contact</a>
+  </div>
+  <div class="site-nav-right">
+    <div class="lang-toggle" aria-label="Language toggle">
+      <button data-lang="en" class="active">EN</button>
+      <button data-lang="es">ES</button>
+    </div>
+    <a href="tel:+19046559190" class="cta-call">
+      <span class="dot" aria-hidden="true"></span>
+      <span data-i="nav_cta">Call Jose · (904) 655-9190</span>
+    </a>
+  </div>
+</nav>
+
+<!-- ============================================================
+     CONTACT SPLIT LAYOUT
+     ============================================================ -->
+<div class="contact-wrap">
+
+  <!-- LEFT: info -->
+  <div class="contact-l">
+    <div class="breadcrumbs">
+      <a href="index.html">Home</a> ·
+      <b data-i="nav_contact">Contact</b>
+    </div>
+    <div class="section-kicker" style="margin-top:20px" data-i="contact_kicker">— Get a quote</div>
+    <h1>
+      <span data-i="contact_h1a">Talk to</span>
+      <em data-i="contact_h1b">Jose.</em>
+    </h1>
+    <p data-i="contact_p">He answers the phone, the WhatsApp, and the quote form. Most quotes back within 2 business hours. Español o inglés — your choice.</p>
+
+    <div class="contact-info">
+      <div class="contact-row">
+        <span class="l" data-i="contact_l_phone">Call / text</span>
+        <span class="v"><a href="tel:+19046559190">(904) 655-9190</a></span>
+      </div>
+      <div class="contact-row">
+        <span class="l" data-i="contact_l_wa">WhatsApp</span>
+        <span class="v"><a href="https://wa.me/19046559190" target="_blank" rel="noopener">wa.me/19046559190</a></span>
+      </div>
+      <div class="contact-row">
+        <span class="l" data-i="contact_l_addr">Warehouse</span>
+        <span class="v">1001 Mayport Rd<br>Atlantic Beach, FL 32233</span>
+      </div>
+      <div class="contact-row">
+        <span class="l" data-i="contact_l_hours">Hours</span>
+        <span class="v">Mon–Sat · 7am–6pm</span>
+      </div>
+      <div class="contact-row">
+        <span class="l" data-i="contact_l_email">Email</span>
+        <span class="v"><a href="mailto:jose@sdcsolutionsusa.com">jose@sdcsolutionsusa.com</a></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: form -->
+  <div class="contact-r">
+    <h3 data-i="contact_form_h3">Request a quote</h3>
+
+    <div class="form-success" id="form-success" role="alert">
+      <span data-i="form_success">Thanks! Jose will call you back within one business day.</span>
+    </div>
+
+    <form id="quote-form" novalidate>
+      <div class="field-row">
+        <div class="field">
+          <label for="f-biz" data-i="field_biz">Business name</label>
+          <input id="f-biz" type="text" name="business" placeholder="La Cocina de Maria" required>
+        </div>
+        <div class="field">
+          <label for="f-name" data-i="field_name">Your name</label>
+          <input id="f-name" type="text" name="name" placeholder="Maria Delgado" required>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="f-phone" data-i="field_phone">Phone</label>
+          <input id="f-phone" type="tel" name="phone" placeholder="(904) 555-0100">
+        </div>
+        <div class="field">
+          <label for="f-email" data-i="field_email">Email</label>
+          <input id="f-email" type="email" name="email" placeholder="you@restaurant.com" required>
+        </div>
+      </div>
+      <div class="field">
+        <label for="f-type" data-i="field_type">Type of kitchen</label>
+        <select id="f-type" name="kitchen_type">
+          <option>Restaurant</option>
+          <option>Food truck</option>
+          <option>Grocery / retail foodservice</option>
+          <option>Commercial / institutional kitchen</option>
+          <option>Catering</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-vol" data-i="field_volume">Estimated weekly volume</label>
+        <select id="f-vol" name="volume">
+          <option>Under $250</option>
+          <option>$250–$1,000</option>
+          <option>$1,000–$3,000</option>
+          <option>$3,000+</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-msg" data-i="field_needs">What do you need?</label>
+        <textarea id="f-msg" name="message" placeholder="e.g. 'Mostly 16oz soup cups, 12oz deli containers, cutlery kits. ~2 cases/week of each.'" required></textarea>
+      </div>
+      <div class="field">
+        <label data-i="field_contact">Preferred contact</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px">
+          <button type="button" class="chip on" id="pref-wa" onclick="setPref(this)">WhatsApp</button>
+          <button type="button" class="chip" id="pref-call" onclick="setPref(this)">Call me</button>
+          <button type="button" class="chip" id="pref-email" onclick="setPref(this)">Email</button>
+        </div>
+      </div>
+      <button type="submit" class="btn accent" style="width:100%;justify-content:center;margin-top:8px">
+        <span data-i="form_submit">Send to Jose →</span>
+      </button>
+    </form>
+  </div>
+
+</div><!-- /.contact-wrap -->
+
+<!-- ============================================================
+     MAP BAND
+     ============================================================ -->
+<div class="contact-map-band">
+  <div class="section-head">
+    <div>
+      <div class="section-kicker" data-i="contact_map_kicker">Delivery zones</div>
+      <h2 data-i="contact_map_h2">We cover <em>Northeast Florida.</em></h2>
+    </div>
+    <a href="tel:+19046559190" class="link" data-i="nav_cta">Call Jose · (904) 655-9190</a>
+  </div>
+  <div class="map-section">
+    <div class="map-text">
+      <p data-i="map_p">Same-day or next-day delivery across Duval, Nassau, St. Johns, and Clay counties. Twice-weekly standing routes for every zone. No fuel surcharges, no minimums over $150.</p>
+      <ul class="map-zone-list">
+        <li><span data-i="zone_duval">Duval (Jacksonville, Atlantic Beach, Neptune Beach)</span><b data-i="zone_nd">NEXT DAY</b></li>
+        <li><span data-i="zone_stjohns">St. Johns (St. Augustine, Ponte Vedra)</span><b data-i="zone_nd">NEXT DAY</b></li>
+        <li><span data-i="zone_nassau">Nassau (Fernandina Beach, Yulee)</span><b data-i="zone_48">48 HR</b></li>
+        <li><span data-i="zone_clay">Clay (Orange Park, Middleburg)</span><b data-i="zone_48">48 HR</b></li>
+      </ul>
+    </div>
+    <div class="map-box">
+      <svg class="map-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Delivery zone map showing Duval, Nassau, St. Johns, and Clay counties">
+        <defs>
+          <pattern id="grid2" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#d9cfbc" stroke-width=".5"/>
+          </pattern>
+        </defs>
+        <rect width="400" height="300" fill="#efe7d6"/>
+        <rect width="400" height="300" fill="url(#grid2)"/>
+        <rect x="280" y="0" width="120" height="300" fill="#d9cfbc" opacity=".5"/>
+        <text x="330" y="160" font-family="var(--mono)" font-size="10" fill="#7a7368" text-anchor="middle" letter-spacing="2">ATLANTIC</text>
+        <g opacity=".85">
+          <path d="M 100 40 Q 170 30 220 50 L 280 60 L 280 100 L 240 110 L 180 95 L 120 90 Z" fill="#c9b88f" stroke="#b84a1f" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <text x="180" y="78" font-family="Georgia,serif" font-size="14" fill="#1a1714">Nassau</text>
+          <path d="M 120 90 L 180 95 L 240 110 L 280 115 L 280 170 L 220 180 L 150 170 L 110 140 Z" fill="#b84a1f" stroke="#7a2c0f" stroke-width="1.5"/>
+          <text x="185" y="145" font-family="Georgia,serif" font-size="16" fill="#fff">Duval</text>
+          <circle cx="230" cy="135" r="4" fill="#fff"/>
+          <text x="240" y="139" font-family="monospace" font-size="9" fill="#fff">Jacksonville</text>
+          <path d="M 60 150 L 150 170 L 160 210 L 130 240 L 70 230 L 40 190 Z" fill="#c9b88f" stroke="#b84a1f" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <text x="95" y="200" font-family="Georgia,serif" font-size="14" fill="#1a1714">Clay</text>
+          <path d="M 150 180 L 220 180 L 280 180 L 280 250 L 220 270 L 160 250 L 140 220 Z" fill="#e8a574" stroke="#b84a1f" stroke-width="1.5"/>
+          <text x="210" y="225" font-family="Georgia,serif" font-size="14" fill="#1a1714">St. Johns</text>
+        </g>
+        <g transform="translate(175,140)">
+          <circle r="8" fill="#1a1714"/>
+          <circle r="16" fill="#1a1714" opacity=".2"/>
+          <circle r="24" fill="#1a1714" opacity=".1"/>
+        </g>
+      </svg>
+      <div class="map-legend">
+        <div class="leg"><span class="sw" style="background:#b84a1f"></span>Warehouse</div>
+        <div class="leg"><span class="sw" style="background:#e8a574"></span>Next day</div>
+        <div class="leg"><span class="sw" style="background:#c9b88f"></span>48 hr</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="foot">
+  <div class="foot-brand">
+    <div class="foot-logo">SDC <em>Solutions</em></div>
+    <p>Family-run foodservice packaging supplier serving Jacksonville and Northeast Florida since 2018.</p>
+  </div>
+  <div>
+    <h5 data-i="foot_cat_head">Catalog</h5>
+    <ul>
+      <li><a href="catalog.html">Cups &amp; Lids</a></li>
+      <li><a href="catalog.html">Deli Containers</a></li>
+      <li><a href="catalog.html">Utensils</a></li>
+      <li><a href="catalog.html">Paper Goods</a></li>
+      <li><a href="catalog.html">Bags &amp; Sacks</a></li>
+    </ul>
+  </div>
+  <div>
+    <h5 data-i="foot_co_head">Company</h5>
+    <ul>
+      <li><a href="index.html">About SDC</a></li>
+      <li><a href="index.html">Sabores del Campo</a></li>
+      <li><a href="case-studies.html">Case Studies</a></li>
+      <li><a href="index.html">Delivery Zones</a></li>
+      <li><a href="contact.html">En español</a></li>
+    </ul>
+  </div>
+  <div>
+    <h5 data-i="foot_ct_head">Contact</h5>
+    <ul>
+      <li><a href="tel:+19046559190">(904) 655-9190</a></li>
+      <li><a href="https://wa.me/19046559190" target="_blank" rel="noopener">WhatsApp</a></li>
+      <li>1001 Mayport Rd<br>Atlantic Beach, FL 32233</li>
+      <li>Mon–Sat · 7am–6pm</li>
+    </ul>
+  </div>
+</footer>
+<div class="foot-bottom">
+  <span data-i="foot_copyright">© 2026 SDC Solutions · Sabores del Campo LLC</span>
+  <span data-i="foot_locale">Atlantic Beach, FL · since 2018</span>
+</div>
+
+<script src="i18n.js" defer></script>
+<script>
+  /* ---- Preferred contact toggle ---- */
+  function setPref(btn) {
+    document.querySelectorAll('#quote-form .chip').forEach(c => c.classList.remove('on'));
+    btn.classList.add('on');
+  }
+
+  /* ---- Form submission handler ---- */
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('quote-form');
+    const success = document.getElementById('form-success');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      /* Clear previous error states */
+      form.querySelectorAll('input, textarea, select').forEach(el => el.classList.remove('error'));
+
+      /* Validate required fields */
+      let valid = true;
+      form.querySelectorAll('[required]').forEach(el => {
+        if (!el.value.trim()) {
+          el.classList.add('error');
+          valid = false;
+        }
+      });
+
+      /* Email format check */
+      const emailEl = document.getElementById('f-email');
+      if (emailEl.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) {
+        emailEl.classList.add('error');
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      /* Show success message */
+      success.classList.add('visible');
+      form.reset();
+
+      /* Re-set preferred contact default */
+      document.querySelectorAll('#quote-form .chip').forEach(c => c.classList.remove('on'));
+      document.getElementById('pref-wa').classList.add('on');
+
+      /* Update success text with current language */
+      try {
+        const lang = localStorage.getItem('sdc_lang') || 'en';
+        const key = 'form_success';
+        if (typeof I18N !== 'undefined' && I18N[lang] && I18N[lang][key]) {
+          success.querySelector('[data-i="form_success"]').textContent = I18N[lang][key];
+        }
+      } catch(err) {}
+
+      /* Hide after 5 seconds */
+      setTimeout(function() {
+        success.classList.remove('visible');
+      }, 5000);
+    });
+  });
+</script>
+</body>
+</html>
